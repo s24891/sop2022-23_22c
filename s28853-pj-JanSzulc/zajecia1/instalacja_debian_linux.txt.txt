@@ -1,0 +1,251 @@
+1. Podczas instalacji debian musi mieć co najmniej 128mb ram 2gb pamięci w wersji bez desktopowej
+oraz 256 mb ram oraz 10 gb pamięci w wersji desktopowej desktopwa wersja jest bardziej podatna na 
+ataki 
+
+Ocje VirtualBox:
+
+2. Po wybraniu ilości RAMu wybieramy czy tworzworzyć wirtualny dysk twardy, użyć istniejącego 
+czy stworzyć nowy wirtualny dysk twardy. jeśli zdecydujemy się na utworzenie nowego dysku mamy
+do wyboru trzy formaty:
+VDI  jest wykorzystywane gdy nie trzeba zachować nnatywności ma największe wsparcie
+
+VHD - format microsoftowy umożliwia wyświetlenia w eksploratorze plików drzewa katalogó, w Hyper-v 
+się wykorzystuje do maszyn wirtualnych oraz wykorzystuje się w Azure do maszyn wirtualnych da
+
+VMDK -format dla rozwiązań wimware 
+
+3. Po wyborze dysku wybieramy w jaki sposób ma być alokowana pamięć:
+stały rozmiar - powstaje jeden duży plik zalokowany dysku jest szybszy od dynamicznego przydzielania
+
+Dynamicznie przydzielanie - umożliwia do rozrastania zasobów pamięci nadaje się dobrze do testów
+jest wolnijszy
+
+4. Później wybieramy ile gb na dysku zalecana minimalna ilość (w naszym przypadku bedzie to 10 GB)
+plus to do czego będziemy wykorzystywąć
+np. plus gb potrzebne serwerowi lub stronie internetowej.
+ 
+5. wybieramy w virtualbox w sytemie -> płyta główna -> kolejność botowanie jedną z opcji:
+Dyskietki - obecnie nie spotukane 
+Napęd optyczny - uruchamianie z płyty itp najpierw
+Dysk tawardy - uruchamianie z dysku twardego
+Sieć - uruchamianie z sieci np z internetu
+
+później można wybrać Chipset mamy do wyboru 2:
+PIX3 - domyślny zalecany
+ICH9 - zalecany na komputerach np z systemem operacynym mac os 
+
+W kolejnym kroku wybieramy urządzenie sterujące z pośród:
+tablet USB - daje na możliwość wykorzystania klawitaury i myszki to wybieramy
+mysz PS/2 - tylko daje możliwość korzystania z myszy
+wielodotykowy tablet USB - umożliwia prace na ekranie dotykowym
+
+Z pośród rozszerzonych właściwośi możemy wybrać:
+włącz i/o APIC - nienależy wyłanczać na windowsie
+włącz EFI - tylko dla systemów mac os program rozruchowy
+czas zegar w UTC - zalecane żeby pokazywał czas zgodny z rzeczywistym
+
+6.w sekcji System -> Procesor możemy wybrać:
+procesor - wybieramy jednostki wykonawcze
+włącz PAE/NX - jest to technologia zabezpieczeń procesora komputerowego
+włącz zagnieżdżone VT-x/AMD-V - umożliwia przeniesienie do maszyny wirtualnej elementów wirtualizacji
+
+7.System -> Akcelaracja umożliwia wirtualizacje. Opcja zagnieżdżone stronicowanie przydatna kiedy 
+system wirtualny wymaga dostępu do dużych ilości pamięci ale fizyczna pamięć na serwerze jest ograniczona.  
+
+8.W opcji Ekran -> Ekran mamy do wyboru opcje:
+pamięć video - przydatna np. jeśli chcemy pograć w gry.
+ilość monitorów
+współczynik skali - umożliwia nam skalowanie okna maszyny wirtualnej
+
+kontroler grafiki - gdzie mamy do wyboru adaptery:
+VMSVGA - należy stosować do systemó windows
+VBoxVGA - jest starszy stosuje się do niewymagających systemów serwerowych
+VBoSVGA - jest nowszy od powyższego zalecany kiedy nie można zastosować VMSVGA
+
+Akceleracja włącz grafike 3d - potrzebna kiedy chcemy zagrać w gre która wymaga zasobów karty graficznej
+
+9. Pamięć w tej opcji mamy możliwość użycia:
+Kontrolera: IDE - czyli płyte
+Kontroler: SATA -czyli dysk można też wybrać w tej opcji dysk SSD lub hot-plugable gdzie dysk zobaczy
+użądzenie podlączone na gorąco
+
+10.W opcji Dźwięk możemy wybarać:
+Sterownik dźwięku gospodarza - do wyboru jest brak jego lub WindowsDirect Sound
+
+Kontroler audio - do wyboru są:
+ICH AC97 - starszy kontroler dźwięku domyślny dla systemu windows
+SoundBlaster 16 - nowszy od powyższego zalecany oferuje lepsza jakość dzwięku ale jest mniej kompatybilny 
+Intel HD Audio - jest najnowższym kontrolerem dzwięku zalecany do najnowszych systemó operacyjnych takich jak
+Windows 10
+
+Rozszerzone właściwości - posiadają dwie opcje
+Włącz wyjście dźwięku - można odtwarzać dźwięk na komputerze hosta
+wyłącz wyjście dźwięku - oznacza że dźwięk słyszany wewnątrz maszyny wirtualnej i nie będzie słysznay na 
+komputerze hosta.
+
+11.W opcji sieć mamy do wyboru karty sieciowe:
+NAT - jest to pocja domyślna przydatna gdy wirtualna maszyna potrzebuje dostępu do Internetu
+ale nie musi być widoczna dla innych urządzeń w sieci.
+
+Mostkowana karta sieciowa (bridged) - pozwala na korzystanie z fizycznej karty sieciowej w systemie hosta
+ma unikalny adres ip. korzysta się kiedy karta musi być widoczna dla innych użądzeń w sieci
+
+Sieć wewnętrzna - tworzy prywatną sieć między wirtualnymi maszynami i systemem hosta. 
+
+Wirtualne maszyny są widoczne dla siebie ale nie są widoczne dla innych urządzeń w sieci. 
+jest to przydatna, gdy wirtualne maszyny muszą ze sobą komunikować się w ramach prywatnej sieci.
+
+Karta sieci izolowanej (host-only) - tworzy prywatną sieć między wirtualną maszyną a systemem hosta. 
+Wirtualna maszyna nie jest widoczna dla innych urządzeń w sieci natomiast może korzystać z innych zasobów systemu hosta
+przydatne gdy wirtualna maszyna musi korzystać z zasobów systemu hostaale nie musi być widoczna dla innych urządzeń w sieci.
+
+Rodzajowy sterownik - ta opcja pozwala wirtualnej maszynie na korzystanie z ogólnego sterownika sieciowego
+Ta opcja przydaje sie gdy sterownik sieciowy w systemie gościa nie jest dostępny lub nie działa poprawnie.
+
+Sieć NAT - ta opcja pozwala wirtualnej maszynie na korzystanie z prywatnej sieci wewnątrz systemu hosta jak i
+również udostępnia połączenie z Internetem. Ta opcja jest przydatna, gdy wirtualna maszyna musi mieć dostęp do Internetu,
+ale nie musi być widoczna dla innych urządzeń w sieci.
+
+Sieć chmurowa (experimental) - ta opcja pozwala na integrację z usługą chmury, taką jak Oracle Cloud Infrastructure. 
+przydtana kiedy maszyna wirtualna musi współpracować z chmurą
+
+W Type kart wybieramy karte i wybieramy adres MAC który nie można zmieniać po utworzeniu maszyny wirtualnej
+
+12. Porty szeregowe umożliwiają wybór porów raczej się nie koorzysta jeśli nie chcemy podłaczyć się do spycjalnych urządzeń
+sieciowych
+
+13.W opcji USB możemy wybrać np. kamerke która ma być dodatkowo podłączona do maszyny wirtualnej.
+
+14.Udostępniane foldery umożliwiają współdzielenie folderów przez maszyne wirtualną oraz hosta
+
+15. Mamy do wyboru pare opcji startu w sekcji Uruchom:
+bezgłowy start  - kiedy uruchamiamy nie ma okna maszyny wirtualnej. przydatne kiedy chcemy uruchomić jako tło bez interakcji
+z maszyną.
+zwykły start - zalecana kiedy chcesz mieć dostęp do okna i konsoli
+Odzielny start - umożliwia uruchomienie wirtualnej maszyny w tle jako oddzielnego procesu. przydatna gdy chcesz uruchomić maszynę
+wirtualną bez uruchamiania jej okna ale chcesz mieć dostęp do jej konsoli wirtualnej.
+
+Proces Instalacji na maszynie wirtualnej Debiana:
+
+16.Kiedy rozpoczniemy proces instalacji Debiana na maszynie wirtualnej mamy do wyboru:
+Graficzna instalacja - z interfejsem graficznym trochę wolnijszą
+Instalacja - szybsza bez okna graficznego przydatna na serwerach tą wybieramy
+
+opcje zawansowana - opcje instalacji zawiera więcej opcji: 
+Graphical expert mode - umożliwia zawansowa konfiguracje instalacji linuxa można skakać pomiedzy etapami
+Graphical rescue mode - mini system służący do do naprawy systemu
+Graphical automated install - jeżeli mamy plik można skorzystać
+Te same opcje są dostępne dla instalacji tekstowej
+speech-enabled advanced options - jeżli mamy problem z widzeniem syntezator będzie nam mówił
+
+accesible dark contrast installer menu - ustawienia kontrastu można skorzystacć jak ma się problem ze wzrokiem
+install with speech synthesis - instalacja z syntezatorem
+
+17. w dalszej części wykorzystamy instalacje bez graficznego interfejsa jest ona szybsza i nadaje się bardziej na środowiska serwerowe
+dla tego z niej korzystamy. po wyborze instalacji tekstowej pojawia się wybór języka wybieramy język angielski ze względu że jest 
+jezykiem informatyk wszystko jest orginalnie napisane po angielsku 
+
+W następnym kroku wybieramy kraj w którym mówią po angielsku. wybieramy anglie potem w opcji lokalizacja wybieramy usa i w opcji keymap 
+wybieramy american english. robimy to żeby nie mieć znaków polskich ze względu na przypadek kiedy będą problemy z dyskiem mogą być 
+problemy podczas odzyskiwania danych.
+
+W kolejnym kroku wybieramy nazwe hosta następnie wybybieramy nazwe domeny w domu nie ustawiamy gdyż większość z nas prawdopodbnie nie ma domeny
+
+następnie podajemy hasło Roota musi zostać ustawione. później podajemy nazwe użytkowmika oraz nazwe konta i hasło do konta użytkownika.
+
+18. Po ustawienu czsu i innych danych użytkownika przystępujemy do partycjonwania dysku gdzie mamy pare opcji:
+Guide use entire disc - mamy tu trzy opcje:
+All files on one partition - wszystkie pliki na jednej partycji przydatne kidy chcemy szybko zainstalowac system 
+Separate /home partition -katalog /home na osobnej partycji przydatne kidy chcemy mieć inny dysk na partycje użytkoników
+Separate /home ,/var and /tmp - wymienione katalogi na osobnych partycjach
+
+Guided use entire disk and set up LVM - stsoujemy kiedy chcemy stworzyć wiele dysków logicznych, kidy chcemy rozszerzać dyski
+Guided use entire disk and set up LVM encrypted LVm - to samo wykorzystanie tylko z enkrypcją
+Manual - ręczny wybór partycji wybierany przez nas
+
+19. W ustawienich manualnych mamy pare opcji do wyboru:
+Guaided partitioning - powrót do poprzedniego menu
+configure iSCSI volums - jest to mechanizm podłączanie dysków po przez sieć 
+
+Wybieramy nasz dysk wirtualny trzecia opcja od góry 
+
+20. Kiedy wybierzemy dysk wybieramy czy chcemy tworzyć partycje. Wyberam żę tak. Do wyboru mamy dwa główne typy partycji
+GPT - kiedy chcemy wystartować maszyne z UEFI/EFI
+MBR - wybieramy kiedy UEFI/EFI jest wyłączone
+
+21. Podczs konfigurowania partycji dysku oprócz opcji z powyższych podpunktów istnieje opcja:
+configure software RAID - ta opcja zwiększa wydajność po przez łączenie dystków w macierze wymiany. przydatne kiedy chcesz zwiększyć wydajność
+
+Jeśli mamy standardowy tablice partycje to można tworzyć cztery partycje podstawowe. Na czwartej można stworzyć partycje wymiany
+która umożliwia tworzenie partycji logicznych. zazwyczaj tworzy się partycje podtsawową do bootowania systemu.
+
+na partycje podstawową tworze 2 GB RAMu
+
+później tworzę partycje wymiany w opcji Use as.
+
+w obu przypakach mam do wyboru jeden z kilku systemów plików które są następujące:
+EXT4 - najnowszy podstawowy system plików na linuksie
+EXT3 - podstawyowy system plików EXT2 plus journaling dziki niemu dane są zapisane do loga i nie można ich utracić
+EXT2 - podstawowy stary system na linuksie plików
+btrfts, JFS - system plików z journalingiem
+XFS - system plików z journalingiem są wykorzystywany przez RedHaty
+FAT16, FAT32 - wykorzystywane przez systemy Microsoftowe 
+swap area - tworzy partycje wymiany
+Reserved BIOS Boot area, EFI system Partition -trzeba stsoswoać kidy jest włączone UEFI/EFI 
+także są dotępne physical volume RAID, LVM, encription
+
+w opcji mount point mamy do wyboru punkt montowania z pośród katalogów
+
+w opcji mount options możemy wybrać specjalne opcje czasem są potrzebne podczas mountowania
+
+w opcji label możemy dodać etykiete dysku
+
+w opcji Reserved blocks jeżeli potrzebujemy zarezerwowania przestrzeni dyskowej na dane podstawowe systemu
+
+w opcji typical usage przydatne kiedy chcemy wybrać opcje dla inodów do mamy tam opcje:
+Standard - Ta opcja zawiera obsługę plików do 2 GB i nazwy plików o długości do 255 znaków oraz pliki specjalne takie jak urządzenia blokowe i znakowe.
+News - Ta opcja jest przeznaczona dla serwerów i obejmuje obsługę plików do 2 GB oraz nazwy plików o długości do 255 znaków oraz pliki specjalne.
+Largefile - Ta opcja zawiera obsługę plików większych niż 2 GB i nazwy plików o długości do 255 znaków oraz pliki specjalne.
+Largefile4 - Ta opcja zawiera obsługę plików większych niż 2 GB oraz  nazwy plików o długości do 255 znaków oraz pliki specjalne 
+a także zwiększa ilość węzłów i poziomów katalogów.
+
+opcja bootable flag dzieki tej opcj bios jest w stanie ustawić flage z której jest w stanie uruchomić system.
+
+Podczas akceptowania wyświetla się SCSI3 (0,0,0) ta Notacja oznacza na pierwszy kontroler SCSI numer 0 drugie zero po przecinku oznacza 
+pierwsze urządzenie SCSI na tym kontrolerze (również numer 0) a trzecie zero pierwszą partycję na tym urządzeniu (znów numer 0).
+
+22. po wyświetleniu okienka Sofware selection mamy do wyboru:
+desktop enviroment - wybór środowiska graficznego 
+
+web server -serwer webowy
+Print server - służy do drukarek
+DNS server -kiedy chcemy żeby był serwerem DNS
+File server - serwer plików
+Sql serwer - kiedy chcemy by dodatkowo był serwerm SQl
+laptop - przydatne podczas instalacji na laptopach zawiera narzędzia do obsługi zasilania, touchpada. wybieramy tylko kiedy chcem instalować debiana na
+laptopie.
+manual package selection - umożliwia manualny wybór pakietów jakie chcemy zainstalować wraz z debianem. używamy kiedy chcemy pakiety i narzędzia które są niezbędne dla naszych
+potrzeb. Dzięki temu możemy zaoszczędzić miejsce na dysku i zwiększyć wydajność systemu.
+standard system utilities - opcja ta zawiera podstawowe narzędzia systemowe które umożliwią korzystanie z systemu oraz jego podstawową konfigurację.
+obejmuje ona między innymi programy do zarządzania siecią, narzędzia tekstowe, menedżer plików, narzędzia do zarządzania dyskiem
+
+Debian desktop enviroment - w tej opcji możemy wybrać środowisko graficzne z pośród:
+
+GNOME - Ładne pełne śodowisko graficzne wymagające zasobów od komputera.
+Xfce -jest lekkim środowiskiem graficznym działa na starszych komputerach wydajne.
+GNOME Flashback - znajduje zastosowanie na starszych lub mniej wydajnych komputerach. Interfejs wygląda podobnie do GNOME 2
+KDE PLasma - Ładne bardzo zawansowane środowisko graficzne. Wymaga zasów od komputera stosowane raaczej na nowszych komputrach.
+Cinnamon - Przypomina wyglądem Windowsa i oferuje łatwą nawigację. Jest stosunkowo lekkie i działa dobrze na nieco starszych komputerach. 
+Ma nieco większe wymagania niż Xfce.
+MATE - Jest to rozwinięcie GNOME 2. Oferujące podobny interfejs i wydajność. Jest stosunkowo lekkie i działa dobrze na starszych komputerach
+ale niestety ma mniej funkcji niż GNOME.
+LXDE - lekkie i minimalistyczne środowisko graficzne. Działa bardzo dobrze na starszych i mniej wydajnych komputerach.
+LXQT - jest to wydajne środowisko o minimalistycznym wyglądzie. jest to dobry wybór dla osób które cenią wydajność oraz  
+nie potrzebują zaawansowanych funkcjonalności dostępnych w bardziej rozbudowanych środowiskach graficznych.
+
+Nie wybieramy żadnych środowisk graficznych.
+
+23.Po zainstalowaniu pakietów następuje końcówka instalacji i możemy zcząć korzystać z debiana.
+ 
+
+

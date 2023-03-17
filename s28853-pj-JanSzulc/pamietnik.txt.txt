@@ -1,0 +1,5 @@
+17.03.2022
+Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+-jak instalowac debiana
+-co poszczególne rzeczy podczas instalacji znaczą
+-jak obsługiwać virtualbox
