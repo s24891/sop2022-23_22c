@@ -1,0 +1,103 @@
+1.Pobieramy debiana z strony www.debian.org
+
+2.Ustawiamy nazwę naszego systemu w virtulboxie, przypisujemy ile będzie zabierała ramu, dysku,
+ ile potrzebuję "procesorów", najlepiej to sprawdzić na tej stronie https://www.debian.org/releases/sarge/hppa/ch03s04.html.en
+
+3.Po dodaniu dysku iso w ustawieniach możemy odpalić instalację.
+
+4.Podczas pierwszych kroków widzimy dużo opcji:
+Graphical install-> instaluje środowisko graficzne(Dla użytku domowego, każdy szanujący administator używa wersji tekstowej :) )
+Install -> instaluje środowisko tekstowe
+Advanced options -> pozwala nam widzieć więcej opcji takich jak zaawansowane instalację(expert mode- pozwala skakać pomiędzy różnymi etapami instalacji,rescue mode - system w stylu live, możemy działac na systemie nie instalując go
+automated install- automatyczną instalację )
+Accessible dark contrast installer menu -> zmienia graficzny styl instalatora na czarno biały,wysoki kontrast s
+Help -> strona z pomocą
+Install with Speech Synthesis -> W tym oknie możesz skonfigurować syntezy mowy dla systemu, co pozwoli osobom niewidomym lub niedowidzącym na korzystanie z systemu.
+
+5.W pózniejszym etapie wybieramy lokalizację,języki,system znakowy
+
+6.Nazwa komputera ->nazwa domeny -> hasło do roota-> tworzenie użytkownika
+***Więcej na temat guided partitioning***
+Guided - use entire disk:Automatycznie dzieli dysk na partycje{
+All files in one partition ->Wszystko na jednej partycji
+Seperate /home partition -> wydzielona partycja na katalog odmowy użytkowników
+Seperate /home, /var, /temp -> dodatkowo zmienne oraz tymczasowe partycje
+}
+LVM -linux volume manager
+Guided - use entire disk and set up LVM: ta opcja automatycznie podzieli Twój dysk na partycje i utworzy grupę woluminów LVM. Ta opcja jest dobrym wyborem, jeśli planujesz mieć wiele dysków twardych(pozwala na połączenie partycji znajdujących się na różnych urządzeniach pamięci masowej w jeden dysk wirtualny.)
+
+Guided - use entire disk and set up encrypted LVM: ta opcja działa tak samo jak opcja 2, ale dodaje szyfrowanie partycji LVM. Jest to dobry wybór, jeśli potrzebujesz dodatkowego bezpieczeństwa dla swojego systemu.
+
+Guided - use entire disk and set up software RAID: ta opcja automatycznie podzieli Twój dysk na partycje i utworzy macierz RAID. Ta opcja jest dobrym wyborem, jeśli potrzebujesz dodatkowej odporności na awarie dysków.
+
+Manual-> manualnie
+iSCSI volumes ->  podłaczanie dysków,volumenów poprzez sieć np przez serwer NASowy
+
+Tworzenie nowej partycji:{
+Wybieramy czy partcja ma być na początku
+Można stworzyć tylko 4 partycje główne
+4 partycje możemy zrobić rozszerzoną 
+Partycje rozszerzone są użyteczne, gdy zaistnieje potrzeba utworzenia więcej niż czterech woluminów na podstawowym dysku
+partycja wymiany -> służy do tymczasowego przechowywania danych w sytuacji, gdy ich ilość przekracza zasoby wolnej pamięci RAM lub gdy z różnych powodów korzystniej jest przechowywać je (lub ich część) na dysku twardym.
+Opcje podczas tworzenia partycji:
+label - możemy dodać opis partycji
+reserved block- rezerwujemy miesjce na dysku, żeby się nie wysypało , albo jeżeli są tak zwane uszkodzone bloki "bady" podmienia z tych zarezerwowanych
+typical usage - wybieramy w jaki sposób będziemy korzystać z partycji np wiele małych plików, albo dużych
+bootable flag- włączamy dla partycji podstawowych, startuje z tej partycji system, szuka pierwszej partycji która ma tą flagę ustawioną
+journaling-log zapisany wraz z danymi, zapisuje co bedzie sie działo, zadziałać, i co się zadziało
+
+Format systemu plików:{
+ext- są systemami plików linuxa
+btrfs-betterfs system plików z journaling
+XFS - to 64-bitowy, wysokowydajny system plików z księgowaniem dla systemu Linux
+FAT16
+FAT32 wykorzystywane oba w dosie, 16 i 32 znaczą długość tablicy
+swap area - można stworzyć partycję na swapa, czyli partycje wymiany
+Reversed bios boot area - jeśli mamy włączone efi robimy tą partycje która jest potrzebna
+Efi system partition , ta jest również potrzebna do efi
+psychical volume for encryption -> szyfrowanie
+psychical volume for raid -> jeśli mamy wiele dysków , to możemy połączyć w jeden, w ten sposób chronimy dane poprzez zapisywanie danych na wiele dysków
+psychical volume for lvm -> format na lvm wytłumaczone powyżej
+}
+SCSI3 (0.0.0) sda  oznacza:
+Kontroler 0
+Dysk 0
+Partycja 0
+Jest to więc 1. kontroler dysku, 1. dysk i 1. partycja na tym dysku.
+ls -1d /sys/class/scsi_device/*/device/block/*
+wyświetli je wszystkie, a także pokaże używaną nazwę urządzenia. Przykład:
+$ ls -1d /sys/class/scsi_device/*/device/block/*
+/sys/class/scsi_device/2:0:0:0/device/block/sr0
+/sys/class/scsi_device/4:0:0:0/device/block/sda
+/sys/class/scsi_device/5:0:0:0/device/block/sdb
+
+*sofware selection:
+Wybieramy co chcemy domyslnie zainstalować na nasz serwer np. serwery pocztowe, dns, ssh, serwer wydruku itd
+Standard system utilities:
+W Debianie, pakiet  zawiera zestaw podstawowych narzędzi systemowych, które są niezbędne do zarządzania systemem operacyjnym. Niektóre z tych narzędzi to:
+bash (Bourne-Again SHell) - popularna powłoka systemowa (interpreter poleceń)
+coreutils - zestaw narzędzi służących do manipulowania plikami, takie jak cp, mv, rm itd.
+diffutils - narzędzia do porównywania plików, takie jak diff i cmp
+findutils - narzędzia do wyszukiwania plików i katalogów, takie jak find i locate
+grep - narzędzie do wyszukiwania wzorców w plikach tekstowych
+gzip - narzędzie do kompresji i dekompresji plików gzip
+sed - narzędzie do manipulowania tekstem
+tar - narzędzie do tworzenia i rozpakowywania archiwów tar
+util-linux - zestaw narzędzi systemowych, takie jak mount, umount i fdisk
+
+Systemy graficzne linux do wyboru w debianie podczas instalacji:
+LXDE:Jest najmniej wymagającym systemem
+
+LXQt - bardzo lekkie i szybkie środowisko graficzne, idealne dla starszych lub mniej wydajnych komputerów.
+
+GNOME - rozbudowane środowisko graficzne z nowoczesnym interfejsem użytkownika, popularne w dystrybucjach Linuksa, które kładą nacisk na łatwość obsługi.
+
+GNOME Flashback - odmiana GNOME z klasycznym interfejsem graficznym, przeznaczone dla użytkowników, którzy wolą starsze interfejsy.
+
+KDE SC - elastyczne i rozbudowane środowisko graficzne, oferujące wiele opcji konfiguracji i funkcji.
+
+LXDE - lekkie i szybkie środowisko graficzne, idealne dla starszych lub mniej wydajnych komputerów.
+
+MATE - odmiana GNOME z klasycznym interfejsem graficznym, popularna w dystrybucjach Linuksa, które są przeznaczone dla użytkowników, którzy wolą starsze interfejsy.
+
+Xfce - lekkie i szybkie środowisko graficzne, często stosowane na komputerach, gdzie szybkość jest priorytetem.

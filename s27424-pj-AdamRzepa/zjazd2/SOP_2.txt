@@ -1,0 +1,106 @@
+Ćw 1
+
+#!/bin/bash
+echo -e "Witamy w terminalu"
+---
+Zmienne powłoki 
+możemy przypisać wartość np:ZMIENNA=wartosc
+gdy wpiszemy echo $ZMIENNA //wyświetli się tekst wartosc
+
+Ćw 2
+
+X=tekst
+echo $X
+bash
+echo $X Prawdopodobnie zmienne ustawione w bieżącym shell'u nie będą dostępne wewnątrz nowego shell'a, chyba że zostaną przekazane jako zmienne środowiskowe. 
+---
+X=Tekst dłuższy
+echo $X Wyskakuję że nie widzi takiego polecenia jak dłuźszy i nie zapisze nowej zmiennej
+Gdy zapiszemy tekst w apostrofach albo cudzysłowach wyświetli tekst
+---
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y" W tym przykładzie widzimy że cudzysłowy rozpoznają zmienne z $ i zapisują tekst zapisany który jest w X, a apostrofy zapisują to jako tekst
+---
+Zmienne i różnice
+$* //w przypadku cudzysłowu pojedynczy napis w pętli for 
+$@ //w przypadku $@ możemy rozróźnić ile naprawdę jest zmiennych 
+
+Ćw 3 
+
+PATH 
+to zmienna środowiskowa systemu operacyjnego, która określa, w których katalogach system szuka plików wykonywalnych programów. 
+Dzięki temu, gdy wpiszemy nazwę programu w terminalu, system wie, gdzie szukać jego pliku wykonywalnego.
+
+RANDOM
+W każdym uruchomieniu tego polecenia zostanie wygenerowana inna losowa liczba całkowita z zakresu od 0 do 32767.
+
+PWD
+Przechowuję ściężkę w jakiej sie znajdujemy 
+
+PS1 
+definiuje tekst, który jest wyświetlany przed kursorami w wierszu poleceń. Można używać różnych sekwencji specjalnych, aby wstawiać w prompt różne elementy
+takie jak nazwa użytkownika, bieżący katalog, nazwa hosta, czas itp.
+
+USER
+służy do przechowywania nazwy użytkownika aktualnie zalogowanego do systemu.
+
+HOSTNAME
+przechowuje nazwę hosta (nazwę komputera).
+
+OSTYPE
+przechowuje nazwę systemu operacyjnego.
+
+Pod wartość zmiennej można przypisać standardowe wyjście jakiejś komendy.1 wersja bezpieczniejsza
+ZM=$(ls -la)
+ZM=`ls -la`
+
+Ćw 4 
+X=$(ls -l)
+echo $X  // wyświetli nam ls -l ale zapisuję to w jednej lini
+echo -e $X //pozwoli nam wyświetlić tak jak powinno wyglądać
+
+Operacja na ciągach znaków
+TEKST="asdafaa fg dsfgsfdga g m n bvmpioqjwp1321p31"
+echo ${#TEKST} //wyświetla nam liczbę znaków
+l=10
+echo ${TEKST:p:l} - zwraca podciąg rozpoczynający się od znaku o indeksie p w zmiennej TEKST o długości l czyli w tym przypadku 10 znaków
+"dafaa fg d"
+Ćw 5a
+A=Ala
+echo $A ma kota, a kot ma ${A/a/ę}
+Te zadanie nie jest możliwe w czystym bashu można użyć pętli if:
+#!/bin/bash
+name=$1
+if [[ $name == *[a] ]]; then  //sprawdzamy czy na końcu jest a jeśli nie to jest mężczyzna i dodajemy a
+  echo "$name ma kota, a kot ma ${name/a/ę}"
+else
+  echo "$name ma kota, a kot ma ${name}a"
+fi
+
+ćw 5b
+#!/bin/bash
+
+arg=$1
+
+
+echo "Pierwszy znak: ${arg:0:1}"
+
+echo "Ostatni znak: ${arg: -1:1}" //używamy spacji żeby program wiedział że chodzi o ostatnią
+
+# Zamiana SOP na formatowany tekst
+echo -e "${arg//SOP/\\e[32mSOP\\e[0m}"  // używamy arg//SOP by wielokrotnie wpisane SOP wyświetlało tą formułę
+
+Ćw6
+#!/bin/bash
+echo $1 | sed s/a$/ę/g | sed 's/\([^ę]\)$/\1a/g'  //Wyrażenie regularne \([^ę]\)$ oznacza dopasowanie ostatniego znaku. Opcja "g" oznacza, że zastępowanie ma być wykonywane globalnie dla każdej linii wejściowej.
+
+Zad Domowe
+nazwapliku=$1
+tekst=$(cat $nazwapliku)
+IMIE=Adam
+echo -e "${tekst//$IMIE/\\e[31m$IMIE\\e[0m}"
