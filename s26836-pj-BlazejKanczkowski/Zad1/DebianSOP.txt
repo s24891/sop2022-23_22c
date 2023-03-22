@@ -1,0 +1,433 @@
+Instalacja Debian
+
+*wybieramy nazwe - przy wpisaniu win automatycznie wlącza się Windows, 
+wybieramy deb automatycznie włącza się Debian itp.
+* typ Linux 
+* wersja 64-bit
+
+*RAM - sprawdzamy w internecie jakie są optymalne parametry, aby wszystko dobrze dizałało ale też nie było 
+marnotrawienia pamięci:
+    	-No desktop: 	128 megabytes 	512 megabytes 	2 gigabytes	
+	-With Desktop: 	256 megabytes 	1 gigabyte 	10 gigabytes
+
+     - wybór zależy od tego czego aktualnie potrzebujemy i do czego bedzie wykorzystywana VM.
+
+
+*HARD DISK:
+
+*VHD - VHD to plik działający jak wirtualny dysk twardy używany w programach do wirtualizacji. 
+Może być traktowany jak fizyczny dysk twardy i służy do przechowywania danych na maszynach wirtualnych. 
+VHD może być kopiowany, przenoszony między różnymi maszynami wirtualnymi i zabezpieczony hasłem.
+
+*VDI - VDI to format pliku używany przez program do wirtualizacji VirtualBox, 
+który służy jako wirtualny dysk twardy na maszynach wirtualnych. 
+VDI oferuje funkcje takie jak zmiana rozmiaru dysku, klonowanie dysku i tworzenie kopii zapasowych.
+
+VMDK - Jest to format pliku używany przez program do wirtualizacji VMware, 
+który służy jako wirtualny dysk twardy na maszynach wirtualnych. 
+VMDK umożliwia zmianę rozmiaru dysku, klonowanie dysku, tworzenie kopii zapasowych i wiele 
+innych funkcji. Dzięki temu można łatwo zarządzać dyskami twardymi na maszynach wirtualnych w programie VMware
+-------------------------------------------------------------------------------------------------------------------------
+* DYNAMICZNE PRZYDZIELANIE MIEJSCA NA DYSKU to technologia, która automatycznie 
+przydziela miejsce na wirtualnym dysku twardym, w miarę potrzeby, do maksymalnej 
+pojemności dysku. Pozwala to zaoszczędzić miejsce na dysku twardym (ponieważ uzywamy tyle ile akurat jest nam 
+potrzebne) i ograniczyć potrzeby ręcznego zarządzania przestrzenią dyskową. Jest to popularna funkcja
+ w programach do wirtualizacji takich jak VirtualBox i VMware.
+
+	Plusy:
+
+    - Oszczędność miejsca na dysku: wirtualna maszyna wykorzystuje tylko tyle miejsca, ile jest faktycznie potrzebne, 
+a nie całą pojemność dysku od samego początku.
+
+    -Elastyczność: przestrzeń dyskowa jest automatycznie przydzielana do wirtualnej maszyny, w miarę potrzeby 
+co zapewnia elastyczność w przypadku zmian wymagań systemowych lub aplikacyjnych.
+
+    -Łatwe zarządzanie: dynamiczne przydzielanie miejsca na dysku umożliwia łatwe zarządzanie przestrzenią dyskową 
+na wirtualnej maszynie.
+	
+	Minusy:
+
+    - Wpływ na wydajność: dynamiczne przydzielanie miejsca na dysku może wpłynąć na wydajność wirtualnej maszyny 
+w przypadku, gdy musi ona korzystać z dodatkowej przestrzeni dyskowej.
+
+    - Możliwość defragmentacji: dynamiczne przydzielanie miejsca na dysku może utrudnić proces defragmentacji dysku,
+ co może prowadzić do spadku wydajności.
+
+    - Zwiększony rozmiar pliku w przypadku stałej alokacji: jeśli wirtualny dysk twardy jest utworzony z opcją 
+stałej alokacji, to plik dysku może być większy niż faktyczna ilość danych na dysku, co może wpłynąć na wydajność.
+
+	Podsumowujac dynamiczne przydzielanie miejsca na dysku posiada wiele zalet jak oszczędność miejsca na dysku
+jednak może wypłynąć negatywnie na wydajność i utrudnić defragmentacje dysku.
+
+
+-------------------------------------------------------------------------------------------------------------------------
+*STAŁY ROZMIAR PRZESTRZENI DYSKOWEJ - metoda przydzielania stałej pojemności dysku wirtualnego dla maszyny 
+wirtualnej. W tym przypadku przestrzeń dyskowa jest w pełni zarezerwowana dla maszyny wirtualnej na stałe, 
+niezależnie od tego, ile rzeczywistej przestrzeni na dysku jest używanej przez maszynę wirtualną.
+
+	
+
+
+	Plusy:
+
+    -Zapewnia stabilny i przewidywalny rozmiar dysku wirtualnego dla maszyny wirtualnej.
+    -Minimalizuje ryzyko braku miejsca na dysku fizycznym, ponieważ przestrzeń dyskowa jest w pełni 
+zarezerwowana na stałe.
+    -Jest mniej podatny na fragmentację dysku wirtualnego niż dynamicznie przydzielany dysk.
+    -Może zapewnić nieco szybszą wydajność w porównaniu do dynamicznego przydzielania dysku, 
+ponieważ przestrzeń dyskowa jest już w pełni przydzielona i gotowa do użycia.
+
+
+	Minusy stałego rozmiaru przestrzeni dyskowej:
+
+    -Może być mniej elastyczny w zarządzaniu przestrzenią dyskową, ponieważ raz przydzielona przestrzeń dyskowa 
+nie może być łatwo zwiększona.
+
+    -Może prowadzić do marnowania miejsca na dysku fizycznym, jeśli przestrzeń dyskowa nie jest w pełni 
+wykorzystana przez maszynę wirtualną.
+
+    -Może spowodowac brak miejsca na dysku fizycznym, jeśli przestrzeń dyskowa jest niewystarczająca 
+dla potrzeb maszyny wirtualnej.
+
+
+	Podsumowujac zaletą tego rozwiązania jest to, że przestrzeń dyskowa jest zarezerwowana dla maszyny wirtualnej, 
+co zapewnia jej stały dostęp do określonej ilości miejsca. Z drugiej strony mniej elastyczne zarządzanie 
+przestrzenią dyskową, marnowanie miejsca na dysku fizycznym i ryzyko braku wystarczającej przestrzeni dyskowej.
+-------------------------------------------------------------------------------------------------------------------------
+GENERAL
+*wspołdzielony schowek - funkcja, która umożliwia kopiowanie danych między systemem operacyjnym hosta i gościa 
+w maszynie wirtualnej. Dodatkowo, aby korzystać z funkcji schowka hosta, konieczne jest zainstalowanie dodatków 
+w systemie operacyjnym.
+
+*przeciąganie i upuszczanie przydatne w środowisku graficznym do przrzucania np folderow za pomocą 
+przeciągnięcia i upuszczenia.
+
+*szyfrowanie dysku - nie wykorzystałem ponieważ odbija się na wydajności i nie jest mi potrzebne do użytku domowego.
+Jednak gdyby było wymagane np. w firmie należy to właczyc, ustawić algorytm szyfrowania oraz hasło które trzeba 
+będzie wpisywać gdy chcemy skorzystac z maszyny.
+--------------------------------------------------------------------------------------------------------------------------
+
+SYSTEM:
+
+* Boot Order - odznaczenie floppy ponieważ nie korzystam z dyskietek.
+
+* Optical - odznaczenie napędu optycznego aby przypadkowo unikąć próby ponownej instalowacji.
+
+* Hard Disk - zaznaczony w przypadku braku zainstalowania proces zostanie wymuszony na pobranie danych z płyty,
+natomiast gdy system bedzie zainstalowany to się włączy. 
+
+*chipset - PIIX3 (domyślne ustawienie)
+
+Pointing Device - USB Tablet, domyślne ustawienie/ Mysz PS/2 również by wystarczyło.
+
+*Clock UTC Time - Ustawienia dotyczące strefy czasowej i właściwego ustawienia zegara.
+
+*EFI to interfejs firmware, który zastępuje BIOS w nowszych komputerach. 
+
+	Główne różnice między BIOS a EFI:
+
+-Rozmiar i funkcjonalność: EFI ma więcej funkcji niż BIOS i jest bardziej rozbudowany. BIOS ma ograniczoną 
+funkcjonalność i pojemność, co powoduje problemy z uruchamianiem niektórych nowszych systemów operacyjnych.
+
+-Bezpieczeństwo: EFI wprowadza kilka dodatkowych funkcji zabezpieczeń, takich jak Secure Boot, które mogą chronić 
+system przed szkodliwym oprogramowaniem na poziomie firmware.
+
+-Kompatybilność z innymi systemami operacyjnym.
+
+-Obsługa dysków twardych: EFI obsługuje dyski twardy o pojemności większej niż 2 TB, co jest problemem 
+dla starszych systemów BIOS.
+
+* I/O APIC - Opcja "Enable I/O APIC" w ustawieniach wirtualnej maszyny oznacza, że maszyna wirtualna będzie używać 
+kontrolera I/O APIC do zarządzania przerwaniami. Jest to szczególnie ważne, gdy w maszynie wirtualnej działa 
+wiele urządzeń zewnętrznych lub aplikacji wymagających szybkiej i niezawodnej obsługi przerwań.
+
+- Zaznaczone domyślnie przez instalator, nalezy pamiętać ze na systemach Win nie należy tej opcji wyłączać
+po zainstalowaniu.
+
+*Processor
+
+- wybrany 1, mozna wiecej jednak nie aktualnie potrzebny dlatego wybrałem 1.
+
+* PAE/NX - domyślnie odznaczone, tak zostawiłem.
+-PAE to technologia umożliwiająca systemom operacyjnym obsługę pamięci RAM o pojemności większej niż 4 GB.
+-NX zapobiega wykonywaniu kodu z obszarów pamięci przeznaczonych wyłącznie do przechowywania danych.
+
+Współpraca obu technologii jest ważna dla wykorzystania większej ilości pamięci RAM oraz zapewnienia 
+bezpieczeństwa systemu.
+
+*Hardware virtualization (domyślnie zaznaczone) - technologia, która umożliwia uruchomienie wirtualnych maszyn 
+na jednym fizycznym komputerze. Procesor wyposażony w wsparcie dla wirtualizacji wykonuje operacje na poziomie sprzętowym, 
+co umożliwia wirtualnym maszynom dostęp do fizycznych zasobów sprzętowych takich jak procesor, pamięć RAM, karty 
+sieciowe itd. Dzięki temu wirtualne maszyny mogą działać z pełną wydajnością i wykorzystywać pełny potencjał sprzętu.
+--------------------------------------------------------------------------------------------------------------------------
+DISPLAY
+
+* Vide Memory - ustawione na 16MB ponieważ w zupełności bedzie to wystarczające.
+
+* Monitor - 1, można ustawic wiecej jeżeli jest taka potrzeba.
+
+* Graphic Controller - użyty VMSVGA jako iz był wybrany domyślnie
+
+* 3D Acceleration (odznaczony, ponieważ nie będę potrzebować tej funkcji) - dzięki tej opcji wirtualna maszyna może 
+korzystać z funkcjonalności graficznych karty graficznej w komputerze, co pozwala na lepsze wykorzystanie zasobów 
+sprzętowych i szybsze renderowanie grafiki 3D.
+--------------------------------------------------------------------------------------------------------------------------
+STORAGE
+
+- W opcjach Attributes wybieramy nasz plik dysku jeżeli mamy go sciągnięte.
+--------------------------------------------------------------------------------------------------------------------------
+AUDIO
+
+-Wyłączony, nie bedziemy z niego korzystać.
+--------------------------------------------------------------------------------------------------------------------------
+NETWORK
+	
+* NAT to technologia umożliwiająca tłumaczenie adresów IP.
+
+* Bridget adapter - interfejs sieciowy wirtualnej maszyny, który pozwala jej na bezpośredni dostęp do sieci fizycznej,
+umożliwiając korzystanie z zasobów sieciowych bezpośrednio z wirtualnej maszyny.
+
+* Internal Network - rodzaj wirtualnej sieci, która umożliwia połączenie między wirtualnymi maszynami, ale nie daje 
+dostępu do zewnętrznej sieci fizycznej ani do hosta.
+
+* Host-only adapter to interfejs sieciowy wirtualnej maszyny, który umożliwia komunikację tylko między hostem, 
+na którym działa wirtualna maszyna, a tą właśnie wirtualną maszyną, a wszystkie inne połączenia są zablokowane.
+
+* Generic drive to ogólna nazwa dla wirtualnego urządzenia pamięci masowej, które nie odpowiada konkretnemu 
+fizycznemu nośnikowi, ale może być używane do tworzenia obrazów systemów plików lub przenośnych nośników.
+
+*Sieć NAT to sieć z zastosowaniem technoligii NAT. Sieć NAT jest zwykle stosowana w przypadku sieci domowych i małych firm, 
+które korzystają z jednego łącza internetowego.
+--------------------------------------------------------------------------------------------------------------------------
+SERIAL PORTS
+-bez zmien, raczej juz sie tego nie używa. A nowsze komputery zazwyczaj juz ich nie posiadają.
+--------------------------------------------------------------------------------------------------------------------------
+USB
+
+- Zaznaczone aby nie mieć problem z klawiaturą.
+--------------------------------------------------------------------------------------------------------------------------
+SHARED FOLDERS
+
+- funkcjonalność umożliwiająca dostęp do plików i folderów znajdujących się na systemie hosta (komputerze, na którym uruchomiona jest VM).
+
+W praktyce oznacza to, że można utworzyć folder na systemie hosta i udostępnić go jako współdzielony folder dla 
+wirtualnej maszyny.
+--------------------------------------------------------------------------------------------------------------------------
+USER INTERFACE
+
+- Pozwala na dostosowanie zachowania i wyglądu wirtualnej maszyny do potrzeb użytkownika. 
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+3 TYPY STARTOW
+
+*Normal Start - uruchomienie VM w trybie normalnym, czyli w oknie lub pełnym ekranie z interfejsem graficznym.
+
+*Headless Start - uruchomienie VM w trybie "bezgłowym", czyli bez interfejsu graficznego. W tym trybie VM działa w 
+tle i można z niej korzystać tylko poprzez wiersz poleceń lub zdalnie.
+Można użyc jeżeli chcielibyśmy postestować tworzenie własnych mini serwerów wirtualizacyjnych.
+
+*Detachable Start - uruchomienie VM w trybie "odłączalnym", czyli w oknie z interfejsem graficznym, które można 
+odłączyć i uruchomić jako proces w tle, pozostawiając VM uruchomioną. Rożni się jedynie tym od Headless Start 
+że na start mamy interfejs graficzny który można odłaczyć.
+
+
+
+
+
+PROCES INSTALACJI
+
+
+-Wybrany język: angielski jako jest jest to jezyk którym posługuje sie w IT.
+-Region: Europa/Polska
+-Kraj domyślnych ustawien: US, jako że nie bedziemy używać znakow polskich. Łatwiejsze odzyskiwanie danych/
+zmiejszanie ryzyka potencjalnych błędów.
+-Mapowanie klawiszy: angielski amerykański
+
+
+
+*Host name: 'dowolna nazwa'
+*Domain name: puste
+*Nastepnie wybieramy hasło. Bedzie potrzebne do polecen sudo które daje możliwosc uruchomienia polecenia 
+z uprawnieniami/prawami lub jednoczesnie z prawami i uprawnieniami administratora.
+
+(Przy próbie braku stworzenia użytkownika wyrzycało mi błąd 'invalid username' i nie mogłem przejść dalej w 
+procesie instalacji.
+--------------------------------------------------------------------------------------------------------------------------
+
+PATRITON DISK
+
+*Guided - use entire disk  -- Opcja "guided - use entire disk" podczas instalacji systemu Debian umożliwia 
+użytkownikowi automatyczne partycjonowanie dysku bez konieczności ręcznego konfigurowania partycji. 
+Po wybraniu tej opcji, instalator stworzy partycję główną (root) i opcjonalnie partycję wymiany (swap), jeśli 
+jest to wymagane. Ta opcja jest 'idiot-proof'.
+-Wybieramy dysk nastepnie mamy trzy opcje podziału partycji: 
+	-Wszystko na jednej.
+	-Wydzielone /home
+	-Wydzielone /home, /var i /tmp
+
+*Guided - use entire disk and set up LVM - podczas instalacji systemu Debian umożliwia użytkownikowi automatyczne 
+partycjonowanie dysku i tworzenie grupy woluminów logicznych (LVM) bez konieczności ręcznego konfigurowania partycji.
+LVM umożliwia elastyczne zarządzanie partycjami i woluminami, umożliwiając np. powiększanie(np.pendrive) lub zmniejszanie partycji 
+bez konieczności zatrzymywania działania systemu.
+
+-Po wybraniu tej opcji, instalator stworzy grupę woluminów logicznych, a następnie utworzy na niej partycje.
+Można wybrać, czy partycje powinny być sformatowane jako system plików ext4 lub inny wybrany przez
+użytkownika system plików. 
+-Jest to przydatke gdy ktoś potrzebuje bardziej zaawansowanego partycjonowania jednak
+nie chce tracić czasu na ręczną konfigurację LVM.
+
+
+*Guided - use entire disk and set up encrypted LVM - to samo co wyżej tylko z dodatkowya enkrypcja.
+
+*Manual - pozwala użytkownikowi na ręczne dostosowanie partycji, na których będzie zainstalowany system, użytkownik 
+musi samodzielnie utworzyć partycje na dysku twardym i przypisać im odpowiednie punkty montowania.
+Umożliwia to pełną kontrolę nad partycjonowaniem i dostosowanie go do indywidualnych potrzeb.
+
+*Configurate iSCSI volumes - pozwala na podłączenie woluminów iSCSI do systemu. iSCIto protokół służący do 
+przesyłania danych blokowych pomiędzy urządzeniami w sieci. Dzięki temu, użytkownik może podłączyć zdalny dysk,
+który działa na serwerze iSCSI, do swojego systemu Debian i korzystać z niego, jakby był to lokalny dysk twardy.
+
+-My wybieramy zwykły dysk. Wybieramy 'yes' aby stworzyc nową tablice partycji.
+-Jeżeli chcemy utworzyc partycje wybieramy opcje z 'FREE SPACE' nastepnie wpisujemy wielkość jaką ma ona mieć
+i gdzie ma się znajdowac ('BEGINNING'/'END'). W tym miejscu możemy również wybrac opcje automatycznego partycjonowania
+wolnej przestrzeni.
+
+*Partycja głowna:
+-W systemach Windows, na jednym dysku twardym można utworzyć maksymalnie 4 partycje podstawowe.
+-W przypadku systemów opartych na Linuksie, można utworzyć do 3 partycji podstawowych.
+*Partycja logiczna:
+-To dodatkowa partycja na dysku twardym, która jest utworzona wewnątrz jednej z partycji podstawowych.
+
+	-Główna różnica między partycją "primary" a "logical" polega na tym, że partycja "primary" może być
+uruchomiona i może zawierać system plików, podczas gdy partycja "logical" nie może być uruchomiona bezpośrednio
+i musi być zainstalowana na jednej z partycji podstawowych. Z tego powodu partycje "primary" są zwykle używane 
+do instalacji systemów operacyjnych i przechowywania danych, natomiast partycje "logical" są wykorzystywane 
+do organizacji danych i przechowywania dodatkowych plików.
+
+*Ext2 - Został zaprojektowany jako zastępca pierwotnego systemu EXT i wprowadził kilka usprawnień, takich jak
+obsługa większych rozmiarów plików, szybszy dostęp do dysku i lepsze alokowanie plików.
+
+*Ext3 - Jest ulepszoną wersją EXT2. Wprowadził on funkcje takie jak journaling, które zapewniają dodatkową 
+ochronę przed utratą danych w przypadku awarii systemu.
+
+Ext4 - Jest najnowszą wersją systemu EXT. Wprowadził on kilka ważnych ulepszeń, takich jak obsługa większych
+partycji, szybszy dostęp do danych i lepszą wydajność.
+
+*Btrfs journaling - nowoczesny system plików typu copy-on-write. Jorunaling jest domyślnie włączony
+i jest używany do śledzenia wszystkich zmian w systemie plików. Dzięki temu, w przypadku awarii,
+Btrfs jest w stanie przywrócić spójność danych i uniknąć utraty ważnych informacji. W porównaniu do innych
+systemów plików, takich jak EXT4, Btrfs oferuje wyższą niezawodność i większą skalowalność.
+
+*JFS jornualing - Podobnie jak w przypadku Btrfs, JFS wykorzystuje journaling do zapewnienia niezawodności 
+i spójności danych w przypadku awarii systemu lub utraty zasilania. Dzięki temu, w przypadku awarii systemu,
+JFS jest w stanie przywrócić spójność danych i uniknąć utraty ważnych informacji. Jednakże, w porównaniu do
+niektórych innych systemów plików, takich jak EXT4, JFS może nie oferować tak wysokiej wydajności w 
+przypadku wielu małych plików.
+
+*XFS - oferuje wiele funkcji, w tym obsługę dużych plików i partycji, szybki dostęp do danych, a także
+ wydajne zarządzanie pamięcią podręczną i optymalizację wydajności. Ponadto, XFS oferuje wiele zaawansowanych
+funkcji, takich jak współdzielenie plików w klastrach oraz dynamiczne rozszerzanie i zmniejszanie partycji bez 
+potrzeby restartowania systemu. XFS jest często stosowany w środowiskach wymagających wysokiej wydajności
+i obsługi dużych plików, takich jak serwery plików i bazy danych.
+
+*FAT16 -FAT16 to system plików, który organizuje dane na dysku w postaci klastrów, czyli logicznych grup 
+sektorów. Każdy klaster ma określoną wielkość, która jest ustalana podczas tworzenia partycji. Był używany 
+w starszych wersjach systemów operacyjnych Microsoft Windows, takich jak Windows 95 czy Windows 98. 
+System ten został zastąpiony przez nowsze wersje, takie jak FAT32 i NTFS.
+
+
+*FAT32 - to jedna z najczęściej używanych struktur systemu plików na nośnikach danych, takich jak dyski twarde,
+karty pamięci i pendrive'y. FAT32 korzysta z tablicy alokacji plików, która zawiera informacje o tym, gdzie
+na dysku znajdują się poszczególne pliki i foldery. Każdy plik lub folder ma swój wpis w tablicy FAT, który
+wskazuje na kolejne bloki danych, w których znajduje się jego zawartość. Jednym z największych ograniczeń jest 
+maksymalny rozmiar pliku - maks 4GB. Mimo tych ograniczeń FAT32 jest w dalszym ciągu szeroko stosowany, 
+szczególnie na nośnikach o niewielkiej pojemności.
+
+
+* swap area - jest używany jako rozszerzenie pamięci RAM. Kiedy system operacyjny potrzebuje więcej pamięci
+RAM, niż jest dostępne, używa swapu jako tymczasowego magazynu dla niepotrzebnych lub rzadko używanych danych w pamięci RAM.
+Swap area jest szczególnie przydatna w systemach z ograniczoną ilością pamięci RAM, jak również w przypadku 
+uruchamiania aplikacji wymagających dużej ilości pamięci, takich jak programy do edycji wideo czy grafiki 3D.
+
+
+physical volume for encryption(PVE) - to narzędzie służące do szyfrowania dysków w systemach Linux. 
+PVE umożliwia szyfrowanie całych dysków lub pojedynczych partycji na dysku, zapewniając ochronę przed
+nieautoryzowanym dostępem do danych. Umożliwia szyfrowanie zarówno dysków twardych, jak i dysków SSD, 
+a także innych urządzeń, takich jak pamięci USB i karty SD.
+
+
+*physical volume for RAID(PVR) - Umożliwia łączenie kilku dysków twardych w jeden logiczny dysk, co zapewnia
+większą niezawodność i wydajność w porównaniu z pojedynczym dyskiem twardym. W przypadku awarii jednego dysku,
+PVR może umożliwić odzyskanie utraconych danych poprzez wykorzystanie danych z pozostałych dysków w grupie RAID.
+
+
+*physical volume for LVM (PVL) - Umożliwia dodawanie, usuwanie i konfigurowanie fizycznych dysków twardych 
+lub innych urządzeń do grupy dysków LVM.
+
+*Reserved blocks 5% oznacza, że ​​na partycji zarezerwowano 5% miejsca na potrzeby systemu operacyjnego.
+Zazwyczaj jest to standardowa wartość dla większości partycji systemowych, które zawierają katalogi systemowe
+i pliki konfiguracyjne.
+
+
+*"Bootable flag" to flaga ustawiana na partycji, która informuje BIOS lub UEFI, że na tej partycji znajduje
+się system operacyjny, który można uruchomić. Ta flaga jest ustawiana na partycji, na której znajduje się 
+bootloader (program rozruchowy), który jest odpowiedzialny za ładowanie systemu operacyjnego.
+
+
+*SCSI3 (0,0,0) -to adres urządzenia na kontrolerze SCSI. Adres ten określa unikalne położenie urządzenia 
+w łańcuchu SCSI i składa się z trzech liczb oddzielonych przecinkami.
+-Pierwsza liczba oznacza numer kontrolera SCSI w systemie.
+-Druga liczba określa numer kanału SCSI.
+-Trzecia liczba to numer urządzenia na kanale SCSI.
+
+*partiotion #1 of SCSI3 (0,0,0) -oznacza pierwszą partycję na dysku lub urządzeniu podłączonym do kontrolera
+SCSI o adresie "SCSI3 (0,0,0)"
+--------------------------------------------------------------------------------------------------------------------------
+
+ŚRODOWISKA GRAFICZNE:
+
+
+*GNOME - jest domyślnym środowiskiem graficznym w Debianie i oferuje wiele narzędzi i aplikacji, takich jak menedżer
+plików Nautilus, przeglądarka internetowa Firefox, czy odtwarzacz multimedialny Totem. GNOME charakteryzuje się 
+intuicyjnym interfejsem i dużą ilością funkcji.
+
+*KDE to kolejne popularne środowisko graficzne w Debianie, charakteryzujące się bogactwem funkcji i narzędzi. Jest
+bardziej konfigurowalne niż GNOME, co oznacza, że użytkownicy mogą dostosować interfejs użytkownika do swoich potrzeb.
+
+
+*Xfce to lżejsze środowisko graficzne niż GNOME i KDE, co oznacza, że działa szybciej i wymaga mniejszej ilości 
+zasobów systemowych. Jest to dobre wyjście dla użytkowników starszych komputerów lub tych, którzy preferują bardziej 
+minimalistyczny interfejs użytkownika.
+
+
+*LXDE to jeszcze lżejsze środowisko graficzne niż Xfce, oferujące podstawowe funkcje i minimalny interfejs użytkownika.
+Jest to dobre wyjście dla użytkowników, którzy chcą używać systemu operacyjnego w trybie tekstowym, bez interfejsu graficznego.
+
+*Cinnamon to nowsze środowisko graficzne oparte na GNOME, ale z dodatkowymi funkcjami i zmianami w interfejsie użytkownika. 
+Oferuje podobną funkcjonalność co GNOME, ale z mniejszymi wymaganiami sprzętowymi i z innym układem elementów
+interfejsu użytkownika.
+
+*MATE charakteryzuje się prostym, ale przyjaznym dla użytkownika interfejsem użytkownika, który przypomina starsze 
+wersje systemów operacyjnych. MATE oferuje również wiele funkcji i narzędzi, takich jak menedżer plików Caja, 
+edytor tekstu Pluma i odtwarzacz multimedialny VLC.
+
+
+*LXQt - charakteryzuje się minimalistycznym interfejsem użytkownika i niskim zużyciem zasobów systemowych, co oznacza,
+że działa szybko i sprawnie nawet na starszych komputerach.LXQt jest dobrym wyborem dla użytkowników, którzy 
+preferują minimalizm i praktyczność, a nie potrzebują zaawansowanych funkcji i efektów wizualnych.
+
+*KDE Plasma - Charakteryzuje się ono rozbudowanym, intuicyjnym i konfigurowalnym interfejsem użytkownika oraz
+wsparciem dla najnowszych technologii. KDE Plasma oferuje wiele funkcji i narzędzi, takich jak menedżer plików 
+Dolphin, przeglądarka internetowa Falkon, klient poczty KMail oraz odtwarzacz multimedialny Elisa. Oprócz tego, KDE Plasma
+umożliwia personalizację interfejsu użytkownika poprzez dodatkowe wtyczki i motywy graficzne. Jednak z uwagi na
+rozbudowany interfejs i wysokie wymagania systemowe, może działać wolniej na starszych komputerach.
+
+*GNOME Flashback to środowisko graficzne, które jest dostępne jako alternatywna opcja w GNOME Shell. Oferuje klasyczny 
+pasek zadań i menu startowe, które ułatwiają nawigację po systemie operacyjnym.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
