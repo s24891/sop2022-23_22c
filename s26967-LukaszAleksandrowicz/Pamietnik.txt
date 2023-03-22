@@ -1,0 +1,11 @@
+2023-03-04
+1.Moj kochany pamietniczku na dzisiejszych(1) zajeciach nauczylem/lam sie:
+Instalacji debiana na maszynie wirtualnej a dokladniej na Virtualbox odsyłam do mojego w moeje ocenie kompletnego opisu!!
+Zajecia ciekawe bardzo wiele informacji nagranie z wykładu oglądałem 2 razy.Wiec zajecia na + bardziej boje sie następnych bo wiem ze czeka mnie pisanie skryptów ;(.
+2023-03-18
+2.1.Moj kochany pamietniczku na dzisiejszych(1) zajeciach nauczylem/lam sie:
+Jak rozwiązać złożony problem który kolega miał z gitem. 
+Pisania prostych skryptów w bash oraz wielu ciekawych informacji z opisu.
+Jestem w połowie zadań reszte bede musiał dokończyć w domu.
+Był szybki pokaz jak używać zmiennych.
+Oraz dowiedziałem się co to wyrażenia regularne.

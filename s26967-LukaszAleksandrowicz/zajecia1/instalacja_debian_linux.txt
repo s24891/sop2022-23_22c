@@ -1,0 +1,168 @@
+1.Pobranie obrazu i początkowe ustawienia
+
+1.A) Zaczynamy od pobrania obrazu systemu ISO ze strony debiana, następnie pobieramy Virtualboxa rozpoczynamy instalacje wirtualki i lecimy z tematem. 
+
+1.B) Na górnym pasku visrtualboxa mamy niebieska opcje "nowa" klikamy i tworzymy nową maszynę virtualna ,ale najpierw możemy zmienić w ustawieniach 
+(tam tez można doinstalować rozszerzenia),wybieramy domyślny folder maszyny następnie wracamy do instalacji.
+
+2.Ustawienia Na virtualbox początek instalacji
+
+2.A) Pojawia się okienko, gdzie podajemy nazwę, folder maszyny, typ maszyny my wybieramy linux a następnie wersje debiana 64 bitowa idziemy dalej.
+Następnie przechodzimy do parametrów i wybieramy ile ramu nadamy maszynie, po krótkim research najlepiej nadać około 1gb ramu będzie optymalnie najlepiej na sam proces instalacji dać więcej zasobów
+
+2.B) Po instalacji możemy to zmniejszyć i ważne jest aby ustawiać wielokrotności liczby 2. Oraz najlepiej użyć 10 gb pamięci jeśli oczywiście będzie to ze środowiskiem graficznym .
+
+2.C) Mamy 3 typy dysku twardego:
+Pierwszy to wirtualboxa jest natywne ma dodatkowe wsparcie najmniej się psuje bo to Virtualbox.
+Z drugiego można korzystać z jak normalnego dysku i jak doinstalujemy Hyper-V to z kompa robimy serwer do zarzadzania podłączam dysk do systemu. Tez ten format 
+jest używany w Azure z dysku vhd da się uruchomić kompa.
+Trzeci vmdk dla rozwiązań projektowanych przez VMware oni to domyśle wykorzystują.
+
+2.D) Dynamicznie wybierany czy stały rozmiar jak stały jeden plik zalokowany i tyle ten dysk się nie rozszerza i jak jest stały rozmiar głowica dysku nie musi skakać zostaje w jednym pliku.
+Stały plik zostaje automatycznie zrobiony i wypełniony zerami dynamicznie jest ciekawy bo przydzielamy 1t plik ma 2 mega ale może urosnąć do jednego tera. 
+Najlepiej jak chcemy robić testy bo on urośnie a potem, można się go pozbyć ale wymaga stałej alokacji miejsca a to zajmuje czas za każdym razem kiedy się rozszerza system musi znaleźć na naszym dysku miejsce.
+
+2.E) Potem wybieramy pamięć, mało około 1gb. Następnie mamy w ustawieniach schowek pomiędzy maszynami i możliwość przeciągnięcia i upuszczenia w ustawieniach. 
+System wybieramy wielkość ramu, mamy do wyboru jeszcze procesor możemy tam sobie ustawić na 2 procesory i akceleracja do gierek jest dobrze ją włączyć.
+
+!!!Wybieramy ekran i można ustawić jakieś pierdoły dla karty graficznej i jednak tu włączamy akceleracje dla grafy 3d i tu zmieniamy liczbę monitorów ważne !!!
+
+2.F) Następnie mamy pamięć i kontrolery IDE dyski do wyboru płyty itd. Następnie dźwięk można wyłączyć (nie potrzebny).
+Potem karty sieciowe można wybrać parę oraz mamy parę typów karty my wybieramy Nat działa to tak ze nasz komputer jest routerem i wszystko przechodzi przez kompa.
+Każda karta musi mieć unikatowy adres mac i nie zmieniamy go potem bo beda kłopoty z komunikacja sieciowa. 
+
+2.G) Pod spodem mamy przekierowanie portów jak byśmy chcieli postawić serwer SSH. Porty szeregowe my nie będziemy używać ale czasami są potrzebne, chodź jest to przestarzale. Kontrolery usb możemy dodać żeby np. było cos domyślnie podłączone i nie wyłączamy usb udostępnione foldery służą do zapisywania plików na hoście bądź przesyłaniu plików pomiędzy maszyna a kompem. Interface użytkownika kwestia własna żeby umieści. 
+
+2.H) Następnie startujemy maszynę mamy 3 opcje zwykły start normalne uruchomienie (w widoku możemy zmieniać opcje wyświetlania).
+Start bezgłowy mamy dodatkowa opcje aby odłączyć interface graficzny dzięki temu możemy zrobić "ubogi" serwer możemy mieć ileś maszyn włączonych i nie zagracają nam ekranu. Oddzieleniu start robi to samo co wyżej tylko pokazuje od razu interface graficzny  .
+
+2.I) Najlepiej używać oddzielnego startu. Pojawia się okienko w wyborem instalacji Graficzna instalacja jak chcemy używać myszy i klikać (wolniejsze)i wymaga więcej zasobów.
+Instalacja terminalem używamy samego terminala i tylko klawiatury (szybciej).
+Inne opcje instalacja ekspertcka dla ekspertow dodatkowe opcje. 
+Sesuce instalacja w razie jak cos się zepsuje. 
+Na samym dole speech dla niewidomych esc.
+
+2.J) Przechodzimy do poprzedniego kroku dużo jest tych opcji ojoj
+My wybieramy oczywiście instalacji tekstowej.
+Jeden wybór języka i z racji ze jesteśmy w Polsce wybieramy język angielski bo i tak logi i funkcje są w języku angielskim. 
+Potem do wyboru lokalizacja ale my wybieramy other i wybieramy Europę tam mamy Polskę która wybieramy po to żeby mieć polskie znaki diakrytyczne i nazwy plików nie w języku polskim w razie czego łatwiej odzyskać i zmniejszamy liczbę potencjalnych błędów. 
+Mapowanie klawiszy język angielski.  
+
+2.K) Teraz idzie instalacja z płytki.
+Następnie mamy do wyboru konfiguracje sieci i tu albo mamy wybór enterem albo tabulatorem żeby się poruszac. 
+Następnie nazwa domeny jest do wyboru możemy nic nie wybierać.
+Następnie podajemy hasło roota, potwierdzamy hasło i wybieramy nowego użytkownika podajemy user login i hasło.
+
+???Pytanie czy możemy nie tworzyć usera? 
+Nie jest zalecane instalowanie systemu Debian bez utworzenia użytkownika. Podczas instalacji systemu, musisz utworzyć co najmniej jednego użytkownika, który będzie miał uprawnienia administratora (root) oraz dostęp do systemu.
+
+
+3.	Przechodzimy „prawdziwej Instalacji”
+
+3.A) Guided- instalator przygotuje mapowanie dysku wybieramy dysk, mamy zaproponowane robienie partycji dla poszczególnych opcji .
+Korzystamy jak szybko chcemy zainstalować wszystko na jednej partycji i dalej albo swój dysk na oddzielnie partycji albo mamy reinstalke instalujemy sam system a partycja z katalogami zostaje.
+
+3.B) Druga opcja Guidet- pozwala użyć wielu różnych dysków w wielu rozmiarach aby zrobić sporo rożnych dysków logicznych, będzie jeden na wielu dyskach ssd hdd itd np. podałem usb i tak rozciągam ten dysk podczas działania systemu operacyjnego. Dynamiczne rozszerzanie pod spodem to samo I manual mamy wybieramy configure iscsi (i nie chodzi o słownik indyjski). 
+Podłączanie dysków poprzez siec nas udostępnia nam usadzenie blokowe gdzie mamy dostęp z innej maszyny, (na YouTube dużo poradników).
+
+3.C) Wybieramy nasz dysk wirtualny i są 2 typy partycjonowania:
+GPT- kiedy maszyna ma włączone efi.
+MDR-kiedy jest wyłączone klikamy na wole miejsce i tworzymy nowa tablice partycji wybieramy begining, można zrobić tylko 4 partycje podstawowe na dysku i jest koniec . Jako 4 można zrobić rozszerzona na której są partycje logiczne najczęściej się tak robi.
+Partycja podstawowa służy do odpalenia kompa odejmujemy ram razy 1,5 i dopiero wtedy możemy zrobić nasza partycje bo trzeba zostawić miejsce na partycje wymiany.
+
+3.D) Win złe wyświetla jednostki w podziale dziesiętnym natomiast ilość w systemie si. Podajemy w gib i musimy odjąć 1,5gb które będzie jako partycja wymiany nadajemy nazwę. 
+Mamy dużo systemów plików do wyboru wszystkie Ext, które mamy to podstawowe systemy na linux btrfs czyli lepszy fs tez można z tego korzystać. 
+System z jurnalingiem dzięki temu nie będziemy tracić plików XFS najczęściej występuje na red hat-ach. 
+Potem mamy fat 16 oraz 32 chodzi o długość tablicy danych w systemch fat one były w systemach dosowych swap. 
+Araea- robienie partycji na swapa reserved BIOS boot. 
+Area - jeśli mamy włączone efi to partycje tez trzeba robić. 
+Następnie mamy phisical volume- gdzie mamy RAID które jest potrzebne kiedy mamy wiele dysków można połączyć w jeden co jest bezpieczne ostatnia opcja żeby nie używać partycji.
+
+3.E) Następnie wybieramy format partycji systemu pliku. 
+Wybieramy Ext4 potem miejsce gdzie to zamontować opcje montowania domyślne ,label jest potem mamy reserved blocks ponieważ czasami jest potrzeba zarezerwowania przestrzeni dyskowej.
+
+3.F) Typical usage tu chodzi jak przydzielić inody jak mamy duży dysk i wiele małych plików to może być problem bo nie będzie inodow  deskryptory pliku gdzie wybieramy gdzie zapisać wybieramy standard.
+
+3.G) Następnie mamy bootbale flag gdzie bios wyszukuje partycje i uruchamia system z której mamy ustawiona a tylko jedna z 4 może mieć mamy tam tez miejsce aby usunąć partycje, ale my zapisujemy.
+Robimy kolejna partycje z pozostałego miejsca i ustawiamy swap area który nie może mieć flagi bootujacej to nie ma sensu, ale jest opcja żeby to zmienić przechodzimy dalej i tu tez możemy włączyć RAID ,LVM.  
+
+3.H) Można skonfigurować enkrypcje, przechodzimy dalej teraz mamy instalacje. 
+Występuje tasksel tu wybieramy co  ma się domyślnie zainstalować oprócz naszego sytemu dodatkowo ssh i jakie inne ciekawostki.
+Desktop environment gdzie mamy (tu mały opis z różnych źródeł ): 
+GNOME - to jedno z najbardziej popularnych i powszechnie używanych środowisk graficznych. Charakteryzuje się intuicyjnym interfejsem użytkownika, dużą ilością funkcjonalności i konfigurowalnością. 
+KDE Plasma - to kolejne popularne środowisko graficzne, które wyróżnia się podobnie jak GNOME, dużą ilością funkcjonalności i konfigurowalnością. Interfejs użytkownika jest bardziej tradycyjny i może przypominać użytkownikom Windowsa.
+Xfce - to środowisko graficzne o mniejszych wymaganiach sprzętowych, a więc idealne dla starszych komputerów. Interfejs użytkownika jest prosty i intuicyjny, a DE cechuje się dużą stabilnością i szybkością. 
+LXDE - to jeszcze lżejsze środowisko graficzne, które również charakteryzuje się wysoką wydajnością. Interfejs użytkownika jest minimalistyczny, ale intuicyjny. Cinnamon - to stosunkowo nowe środowisko graficzne, oparte na bibliotece GTK.
+Interfejs użytkownika jest podobny do GNOME, ale DE oferuje dodatkowe funkcjonalności i możliwości konfiguracji.
+Podczas instalacji Debiana, użytkownik może wybrać jedno z tych środowisk graficznych lub też zainstalować jedynie podstawowy system bez jakiegokolwiek DE. Dopiero później doinstalować wybrane środowisko graficzne z poziomu konsoli. 
+
+3.I) Następnie do wyboru mamy web serwer potem print serwer, DNs serwer file serwer który nie jest kompatybilny z udostępnianiem plików w Windows do tego jest samba która używa smb,następnie mail server 
+
+3.J) Potem mamy laptop która oznacza -(Opcja "laptop" w instalatorze systemu Debian odnosi się do specjalnej konfiguracji systemu, która może być szczególnie korzystna dla użytkowników laptopów i innych urządzeń mobilnych). 
+Wybierając tę opcję, instalator systemu Debian skonfiguruje system pod kątem urządzeń mobilnych, takich jak laptop, w sposób, który zapewni optymalną wydajność i oszczędność energii. 
+Zwykle oznacza to m.in. dostosowanie ustawień zarządzania energią, takich jak tryb uśpienia czy automatyczne wygaszanie ekranu, do specyfiki pracy na laptopie, aby wydłużyć czas działania na baterii. 
+Oprócz tego, instalator systemu Debian może także automatycznie wykrywać i instalować odpowiednie sterowniki dla urządzeń mobilnych, co może być szczególnie pomocne w przypadku niektórych laptopów, które wymagają specjalnych sterowników, aby działać poprawnie.
+
+3.K) Następnie mamy opcje "Standard system utilities":
+instalatorze systemu Debian zawiera zestaw podstawowych narzędzi systemowych, które są niezbędne do poprawnego działania systemu. 
+Zwykle wchodzi w skład tych narzędzi:
+Konsola tekstowa - terminal, który umożliwia użytkownikowi wykonywanie poleceń z poziomu konsoli, bez interfejsu graficznego. 
+Menadżer pakietów - narzędzie umożliwiające zarządzanie pakietami, czyli programami, bibliotekami i innymi plikami, które są potrzebne do działania systemu lub aplikacji. 
+Narzędzia sieciowe - programy umożliwiające konfigurację i zarządzanie siecią, takie jak np. interfejs sieciowy, przeglądarka sieciowa czy klient FTP.
+Narzędzia dyskowe - programy służące do zarządzania dyskiem twardym, takie jak np. GParted (do zarządzania partycjami), smartmontools (do diagnozowania stanu dysku), czy programy do klonowania dysku. 
+Edytory tekstowe - narzędzia do edycji plików tekstowych, takie jak nano, vim czy emacs. 
+Narzędzia systemowe - programy służące do zarządzania systemem, takie jak np.   (do harmonogramowania zadań), logrotate (do rotacji logów systemowych) czy sysstat (do zbierania statystyk systemowych).
+Oczywiście, lista ta nie jest kompletna i może się różnić w zależności od wersji systemu Debian.
+
+3.L) Jeśli nie wybierzemy środowiska graficznego będziemy widzieć tylko tekstowo a jak wybierzemy pare środowisk graficznych.
+Bedą mogli wybrać podczas logowania które chce wybrać.
+I KONIECZNIE MUSIMY WYŁĄCZYC EFI żeby nie mieć problemów i żeby było łatwiej na dysku będą 4 partycje 1,2,3 i 5 bo 5 jest 1 partycja rozszerzoną.
+3.M) Nie skanujemy dodatkowych mediów i wybieramy mirror taski gda.pl bo jest najbliżej na politechnice dzięki czemu szybko się będzie ściągało potem tamy task sel restart pakietów .
+
+4 Zostaje nam tylko restart systemu !!!!
+
+
+
+
+
+W końcu koniec!!!!!!!
+
+
+
+
+TAKA CIEKAWOSTA tak to opisał Chat GPT
+
+Debian w środowisku VirtualBox:
+
+Pobieranie obrazu ISO Debiana
+Pobieranie obrazu ISO Debiana jest pierwszym krokiem w procesie instalacji.
+Można go pobrać z oficjalnej strony internetowej Debiana (https://www.debian.org/distrib/netinst)
+Należy wybrać wersję dla wirtualnych maszyn (VirtualBox).
+Tworzenie nowej maszyny wirtualnej
+Należy uruchomić VirtualBox i kliknąć przycisk "Nowa".
+Podajemy nazwę i typ systemu operacyjnego, w tym przypadku Debian (64-bit).
+Ustawiamy ilość pamięci RAM oraz wielkość dysku, a następnie klikamy przycisk "Utwórz".
+Konfiguracja ustawień maszyny wirtualnej
+W menu głównym wybieramy utworzoną maszynę wirtualną i klikamy przycisk "Ustawienia".
+Możemy skonfigurować ustawienia pamięci, procesora, sieci, dysków i innych podzespołów według naszych potrzeb.
+Włożenie obrazu ISO do napędu wirtualnego
+W menu głównym wybieramy utworzoną maszynę wirtualną i klikamy przycisk "Uruchom".
+Wybieramy pobrany wcześniej obraz ISO Debiana i klikamy przycisk "Start".
+Wybór opcji instalacji systemu
+Po uruchomieniu maszyny wirtualnej pojawi się ekran instalatora Debiana.
+Wybieramy język instalatora, a następnie klikamy przycisk "Instaluj".
+Wybieramy kraj i strefę czasową, a następnie klikamy przycisk "Dalej".
+Konfiguracja sieci
+Wybieramy sposób konfiguracji sieci, np. DHCP lub ręcznie.
+Wprowadzamy adres IP, maskę podsieci, bramę domyślną i DNS, jeśli konfigurujemy sieć ręcznie.
+Partycjonowanie dysku
+Wybieramy sposób partycjonowania dysku, np. automatycznie lub ręcznie.
+W przypadku ręcznego partycjonowania definiujemy partycje, ich wielkość i typ, np. ext4.
+Konfiguracja użytkowników i hasła
+Wprowadzamy nazwę użytkownika i hasło.
+Opcjonalnie tworzymy dodatkowe konta użytkowników.
+Wybór oprogramowania do zainstalowania
+Wybieramy grupy oprogramowania do zainstalowania, np. system podstawowy, narzędzia programistyczne, serwery.
+Możemy również zainstalować pojedyncze pakiety.
+Podsumowanie konfiguracji i rozpoczęcie instalacji
+Sprawdzamy podsumowanie konfiguracji i klikamy przycisk "Zainstaluj".
