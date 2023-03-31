@@ -1,0 +1,25 @@
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy może się 
+wg Ciebie przydać:
+
+PATH - Zmienna zawierająca ścieżki do katalogów, w których system operacyjny szuka wykonywalnych plików 
+programów. Jest to przydatne, ponieważ umożliwia uruchamianie programów z dowolnego miejsca w systemie bez 
+konieczności podawania pełnej ścieżki do pliku.
+
+RANDOM - Zmienna zawierająca losową liczbę całkowitą. Może być przydatna w różnych programach, w których 
+potrzebna jest losowa liczba, na przykład w grach.
+
+PWD - Zmienna przechowująca bieżącą ścieżkę katalogu roboczego. Może się przydać podczas pracy w terminalu, 
+gdy chcemy wiedzieć, w jakim katalogu się znajdujemy.
+
+PS1 - Zmienna przechowująca prompt, czyli tekst zachęty do wpisywania poleceń w terminalu. Możemy modyfikować 
+wartość tej zmiennej, aby zmienić wygląd prompta.
+
+USER - Zmienna przechowująca nazwę użytkownika, który aktualnie jest zalogowany. Może być przydatna np. w 
+skryptach, które mają wykonywać jakieś czynności z uwzględnieniem nazwy użytkownika.
+
+HOSTNAME - Zmienna przechowująca nazwę hosta, czyli nazwę komputera w sieci. Może się przydać, gdy pracujemy w 
+sieci i potrzebujemy wiedzieć, z którego komputera pochodzi jakiś plik lub kiedy chcemy zalogować się na zdalny 
+komputer.
+
+OSTYPE - Zmienna przechowująca nazwę typu systemu operacyjnego. Może być przydatna, gdy piszemy skrypty, które mają 
+działać na różnych systemach operacyjnych i trzeba uwzględnić różnice między nimi.

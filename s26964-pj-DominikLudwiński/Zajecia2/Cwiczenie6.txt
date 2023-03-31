@@ -1,0 +1,5 @@
+#!/bin/bash
+imie1="$1"
+imie2=$imie1
+imie2=$(echo "$imie2" | sed 's/a$/ę/g' | sed 's/\([^ę]\)$/\1a/g')
+echo "${imie1} ma kota, a kot ma ${imie2}"
