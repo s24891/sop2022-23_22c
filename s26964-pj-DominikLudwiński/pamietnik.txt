@@ -11,4 +11,5 @@ Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem/lam sie:
 - Podstawowej obsługi sed'a
 - Jak na to że pierwszy raz piszę skrypty to uważam że całkiem dobrze mi to idzie i przyjemnie mi się tego uczy
 - Było trochę trudności ale wiekszość moich problemów mogłem rozwiązać dobrze analizując notatki ze strony Pana Tomka.
-
+- Miałem dużo na głowie i nie starczyło mi czasu na dokończenia opisu instalacji debiana przez co tego nie zrobiłem, 
+	ale postanowiłem że na następne zajęcia to dokończę w 100%.
