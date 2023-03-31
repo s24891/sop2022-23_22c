@@ -1,0 +1,13 @@
+#!/bin/bash
+
+zdanie="$*"
+
+echo "Pierwszy znak: ${zdanie:0:1}"
+
+echo "Ostatni znak: ${zdanie: -1}"
+
+nowe_zdanie=${zdanie//SOP/\e[32mSOP\e[0m}
+
+echo -e "Nowe zdanie: $nowe_zdanie"
+
+#NWm nie umiem tego zrobic to moje pytanie na zajecia jak to wypisac 

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+X=$(ls -l)
+
+
+echo "$X"
+# trzeba dodac "" do x zeby nam wypisao w oddzielnych linijkach 

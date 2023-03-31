@@ -1,0 +1,9 @@
+
+#!/bin/bash
+
+if [ $# -eq 0 ] || [ ! -f "$1" ]; then
+  echo "Nie ma takiego pliku."
+  exit 1
+fi
+
+grep --color=always -E 'Lukasz|$' "$1"

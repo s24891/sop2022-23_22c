@@ -1,0 +1,18 @@
+#!/bin/bash
+#X=tekst
+#echo $X
+#bash
+#echo $X
+#ciezko mi wyjasnic co sie stalo porownal bym to dopisania do zmiennej i potem wywolania jej ( jednak nie ciezko o przeczytaniu notatek tak to dziala )
+  #2 przykad
+ #X='Tekst dłuższy'
+#echo $X
+#dodanie cudzyslowia pomoglo poniewaz mamy 2 wyrazy i wtedy trzeba je dodac albo apostrowy to tez pomaga 
+#X="Tekst 1"
+#Y="tekst:$X"
+#echo "$Y"
+#Y='tekst:$X'
+#echo "$Y"
+#Y=tekst:$X
+#echo "$Y"
+#Jaka jest różnica między " a ' Roznica polega na tym ze jest to samo tylko przy apostrofach mozna przkazac dowolny ciąg znaków nie zawierający apostrofów

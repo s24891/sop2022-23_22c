@@ -1,0 +1,6 @@
+#!/bin/bash
+
+zmienna="Ala ma kota"
+zmienna_zmieniona=$(echo "$zmienna" | sed 's/kota/psa/')
+echo "$zmienna_zmieniona"
+#mam nadziej ze o to chodzi bo nie jestem pewny 

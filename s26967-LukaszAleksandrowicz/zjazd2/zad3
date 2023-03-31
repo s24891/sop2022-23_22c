@@ -1,0 +1,7 @@
+PATH - przechowuje ścieżki katalogów, w których system będzie szukał wykonywalnych plików, gdy podamy nazwę polecenia w konsoli
+RANDOM - zwraca nam (pseudo) losowa wartosc 
+PWD - spowoduje ze wklei sie tam wartosc zmiennej czyli aktualnego katalogu	
+PS1 - mozemy zmienic "znak zachety" to co sie wyswietla nam automatycznie w konsoli 
+USER - przechowuje nazwę użytkownika, na którego konto jest obecnie zalogowany użytkownik w sesji terminala
+HOSTNAME - przechowuje nazwę hosta (komputera), na którym jest uruchomiona bieżąca sesja terminala.
+OSTYPE - przechowuje nazwę systemu operacyjnego, na którym jest uruchomiona bieżąca sesja terminala
