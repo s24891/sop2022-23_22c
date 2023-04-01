@@ -1,0 +1,6 @@
+Napisz skrypt wyswietlajacy na terminalu tekst "Witamy w terminalu".
+
+#!/bin/bash
+
+echo -e "Witamy w terminalu"
+

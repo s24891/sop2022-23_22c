@@ -1,0 +1,37 @@
+Zadanie 5a
+
+Przerob je tak, aby tekst wypisywal sie poprawnie.
+
+A=Ala
+echo $A ma kota, a kot ma ${A}e
+
+Przerobione:
+A=Ala
+echo $A ma kota, a kot ma ${A:0:2}e
+
+#!/bin/bash
+
+read imie 
+
+if [[$imie == *a ]]; then
+	echo "$imie ma kota a kot ma ${imie::-1}e"
+else
+	echo "$imie ma kota a kot ma ${imie}a"
+fi
+
+Czy jest to mozliwe w czystm bash-u?
+
+Tak, jest mozliwe poniewaz w skrypcie zawarlem podstawowe polecenia i konstrukcje z jezyka Bash
+ktore sa wbudowane w interpreter.
+
+Zadanie 5b
+
+read text
+
+echo "Pierwszy znak: ${text:0:1}"
+
+echo "Ostatni znak: ${text: -1}"
+
+echo "${text//SOP/\e[32mSOP\e[0m}"
+
+

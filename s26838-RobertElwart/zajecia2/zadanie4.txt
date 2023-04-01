@@ -1,0 +1,12 @@
+Zadanie 4
+
+ZM=$(ls -l)
+echo $ZM
+
+Wypisal mi wszystko w jednej linii
+
+echo -e "$ZM"
+
+Wypisal mi kazdy wiersz jeden po drugim
+
+

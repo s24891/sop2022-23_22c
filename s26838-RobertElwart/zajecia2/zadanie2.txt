@@ -1,0 +1,32 @@
+Zadanie 2
+
+Co sie stalo? Czy potrafisz wyjasnic?
+X=tekst
+echo $X
+bash
+echo $X
+
+przypisuje tekst do zmienej X
+wywoluje echo zmienna $X
+wypisuje mi na ekranie tekst
+
+X=Tekst dluzszy
+echo $X
+wyskakuje blad
+
+X="Tekst 1"
+
+Y="tekst:$X"  --> w miejsce $X wstawia mi wartosc przypisana do tej zmiennej
+echo "$Y"     --> Wypisuje mi wszystko pomiedzy " "
+
+Y='tekst:$X'
+echo "$Y"     --> Wypisuje doslownie to co znajduje sie w ' '  
+
+Y=tekst:$X
+echo "$Y"     --> dziala tak samo jak z " "
+
+Jaka jest roznica miedzy " a ' ?
+
+" " w nich moge laczyc lancuchy znakow ze zmiennych
+' ' a w tych wypisuje doslownie to co jest pomiedzy nimi
+

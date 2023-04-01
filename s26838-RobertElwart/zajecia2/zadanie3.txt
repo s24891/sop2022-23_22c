@@ -1,0 +1,30 @@
+Zadanie 3
+
+Zobacz co przechowuja zmienne i opisz jak rozumiesz uzyskany wynik.
+
+PATH
+echo $PATH <-- wypisuje mi sciezke
+
+RANDOM
+echo $RANDOM <-- wypisuje mi losowe liczby
+
+dla testu sprawdzilem 5 razy
+1. 5753
+2. 15521
+3. 12313
+4. 79
+5. 140
+wydaje mi sie ze losuje liczby w zakresie od 0 do 5 cyfrowej liczby
+
+PWD
+echo $PWD <-- wyswietla pelna sciezke biezacego katalogu, w ktorym znajduje sie moj skrypt.
+
+USER
+echo $USER <-- wysietla aktualnie zalogowanego uzytkownika
+
+HOSTNAME
+echo $HOSTNAME <-- wyswietla nazwe hosta np. szuflandia22
+
+OSTYPE
+echo $OSTYPE <-- wyswietla wersje Systemu Operacyjnego
+

@@ -1,0 +1,10 @@
+Zadanie 6.
+
+#!/bin/bash
+
+plik="$1"
+tekst=$(cat "$plik")
+
+imie=Robert
+echo -e "${tekst//$imie/\\e[31m$imie\\e[0m}"
+
