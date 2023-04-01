@@ -1,0 +1,46 @@
+A:
+Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić? 
+
+W pierwszej lini poleceń, zmienna X zostaje ustawiona na "tekst", a następnie jej wartość jest 
+wyświetlana za pomocą polecenia echo. Następnie zostaje otwarta nowa powłoka bash i ponownie 
+próbujemy wyświetlić wartość zmiennej X, ale w nowej powłoce, gdzie zmienna X nie została zdefiniowana, 
+więc wyświetli się pusta linia.
+
+B:
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+W tym przypadku zmienna X zostaje ustawiona na "Tekst" i polecenie echo wyświetla ją poprawnie. 
+Jednak gdy dodajemy "dłuższy" bez użycia cudzysłowów lub apostrofów, bash traktuje "dłuższy" jako nową 
+zmienną, a więc wartość X to tylko "Tekst". Można to naprawić, używając cudzysłowów lub apostrofów, aby 
+zdefiniować całą wartość zmiennej, np. X="Tekst dłuższy".
+
+C:
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+
+W tym przypadku używamy różnych kombinacji cudzysłowów i apostrofów. Gdy używamy podwójnych cudzysłowów 
+("), zmienne są rozwijane i wartości są zamieniane na tekst, więc w zmiennej Y pojawi się "tekst:Tekst 1". 
+Gdy używamy pojedynczych cudzysłowów ('), zmienne nie są rozwijane i w zmiennej Y pojawia się dokładnie 
+'tekst:$X'. W przypadku trzeciego polecenia, gdy używamy prostych cudzysłowów bezpośrednio w tekście, wartość 
+zmiennej X jest rozwijana, więc w zmiennej Y pojawia się "tekst:Tekst 1".

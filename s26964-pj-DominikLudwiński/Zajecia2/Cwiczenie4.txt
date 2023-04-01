@@ -1,0 +1,22 @@
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+
+Można wykonać polecenie ls -l w podpowłoce i przypisać wynik do zmiennej X za pomocą składni: X=$(ls -l)
+
+Wyświetl zawartość tej zmiennej.
+
+echo "$X"
+
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+
+ls -l
+
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+
+echo $X
+
+Zastanów się dlaczego.
+
+Nie zawsze echo $X będzie działać poprawnie, ponieważ jeśli nazwy plików zwrócone przez ls -l 
+zawierają spacje lub inne znaki specjalne, to polecenie echo $X nie zachowa oryginalnej struktury 
+wyniku i nie wyświetli poprawnie tych nazw plików. Dlatego ważne jest użycie cudzysłowów wokół zmiennej 
+$X w poleceniu echo (echo "$X").
