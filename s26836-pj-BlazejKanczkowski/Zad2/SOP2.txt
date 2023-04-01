@@ -1,0 +1,176 @@
+Cwiczenie 1:
+
+#!bin/bash
+echo -e "witamy w terminalu"
+
+dodajemy mozliwosc odczytu chmod +x 'nazwa pliku'
+wywolujemy komenda ./'nazwa pliku'.sh
+
+
+Cwicznie 2:
+
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Po komendzie 'bash' weszlismy do nowej powloki, ktora ma swoje wlasne srodowisko z w tym zmienne. Czyli po wywolaniu
+'bash' srodowisko to ma wlasna zmienna srodowiskowa 'X' do ktorej nie jest przypisana wartosc. Aby bylo ja widac w innej 
+powloce wystarczy wpisac:
+
+-export zmienna 
+
+Mozemy takze dodaj jej nowa warotsc: 
+
+-export zmienna=wartosc np. export x=test2
+
+Jezeli chcemy wprowadzic dluzszy teskt nalezy dodac ""wtedy może być to kilka słów i znaków, natomiast znaki 
+specjalne są interpretowane, a zmienne tłumaczone na wartości lub '' wtedy możemy wpisac dowolny ciąg znaków nie zawierajacy ''.
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Różnica polega na tym, że '' wczytuje ciag znaków czyli po wpisaniu Y='tekst:$X' i wywołaniu echo "$Y" wyswietli nam 
+się tekst:$X natomiast po przypisaniu wartosci za pomoca ""(X="Tekst 1") i wywołaniu tej wartosci w przykladowej komendzie 
+Y="tekst:$X" wywola nam sie teskst:Teskt 1.
+
+
+$* to zmienna, która zawiera wszystkie argumenty jako pojedynczy ciąg znaków, oddzielonych pierwszym znakiem separatora
+czyli przy napisaniu skryptu i wywolaniu skryptu ./myscript.sh x y "z q" zostanie wyswietlone:
+x y z q
+
+Natomiast $@ to zmienna, która przechowuje wszystkie argumenty jako oddzielne ciągi znaków. czyli zostanie wyswietlone:
+x
+y
+z
+q
+Należy pamietać, że wynik w $* bedzie inny z użyciem cytatów jak i bez cytatów!
+
+*PATH -  zmienna środowiskowa używana w systemach operacyjnych do określania zestawu katalogów, 
+gdzie zlokalizowane są programy komputerowe w celu ich uruchomienia. Aby wyswietlic zawartosc PATH należy użyć komendy
+$ echo $PATH. 
+PATH można ustawić np tak aby podczas uruchomienia komendy przeszukiwał najpierw katalog /tmp. Następnie umieści on w katalogu /tmp program o nazwie su, 
+który prosi użytkownika o hasło użytkownika root, tak jak komenda su. Następnie program /tmp/su wysyła pocztą hasło użytkownika 
+root do danego użytkownika, a potem wywołuje prawdziwą komendę su przed zakończeniem pracy. 
+
+Nieautoryzowane zmiany zmiennej środowiskowej PATH mogą umożliwić użytkownikowi podszycie się pod innych 
+użytkowników w tym nawet uzytkowników root.W scenariuszu podanym wyżej dowolny użytkownik root używający komendy 
+su ujawni hasło użytkownika root i nie będzie nawet tego świadomy.
+
+*RANDOM zmienna środowiskowa w systemie Linux to zmienna, która generuje losową liczbę całkowitą pomiędzy 0 a 32767 
+za każdym razem, gdy jest wywoływana.
+
+Może być używana np do przeprowadzania testów obciążeniowych lub wydajnościowych.
+
+
+
+*PWD wyświetla pełną ścieżkę bieżącego katalogu. Może być użyte w skryptach powłoki do przechowywania ścieżek 
+do plików lub katalogów.
+
+
+*PS1 umożliwia użytkownikowi dostosowanie wyglądu promptu, co może pomóc w łatwiejszym i szybszym rozpoznawaniu,
+w jakim trybie użytkownik aktualnie pracuje. Pomaga dostosować pod siebie środowisko pracy.
+
+*USER służy do przechowywania nazwy użytkownika aktualnie zalogowanego do systemu.
+
+*HOSTNAME to nazwa nadawana komputerowi, którą można ustawić podczas instalacji systemu lub później, 
+gdy system już działa.
+
+
+*OSTYPE określa typ systemu operacyjnego. Może być wykorzystywana przez skrypty instalacyjne oprogramowania, 
+które muszą działać na różnych systemach operacyjnych, aby określić, które polecenia i funkcje systemowe są 
+dostępne na danym systemie.
+
+
+
+Ćwiczenie 4
+
+x=$(ls -l)
+
+echo $x - wyswietli nam dane w jednej linii aby wyswietlic dane tak jak chcemy musimy użyć komendy:
+
+echo -e "$x
+
+Ćwiczenie 5a
+
+A=Ala
+
+echo $A ma kota, a kot ma ${A}ę
+
+poprawiona wiersja:
+
+echo $A ma kota, a kot ma ${A/a/ę}
+
+Skrypt do reszty imion:
+
+#!/bin/bash
+
+imie=$1
+
+last_char=${imie: -1}
+
+if [[ $lasr_char == "a" ]]; then 
+	echo "$imie ma kot a kot ma ${imie/a/e}"
+else
+	echo "$imie ma kota a kot ma ${imie}a"
+fi
+
+Czy jest to możliwe w czystym bash-u?
+nie
+
+
+Ćwiczenie 5b
+
+#!/bin/bash
+
+text=$1
+
+# wypisz pierwszy znak z argumentu
+echo "Pierwszy znak: ${text:0:1}"
+
+# wypisz ostatni znak z argumentu
+echo "Ostatni znak: ${text:${#text}-1}"
+
+# zamień "SOP" na kolorowy tekst
+echo -e "${text//SOP/\\e[32mSOP\\e[0m}"
+
+
+Ćwiczenie 6
+
+#!/bin/bash
+echo $1 | sed s/a$/ę/g | sed 's/\([^ę]\)$/\1a/g'  Reguła\([^ę]\)$ oznacza dopasowanie ostatniego znaku. 
+Opcja "g" oznacza, że zastępowanie ma być wykonywane globalnie dla każdej linii wejściowej.
+
+
+Zad dom
+
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Sposób użycia: $0 <nazwa_pliku>"
+  exit 1
+fi
+
+nazwapliku=$1
+tekst=$(cat "$nazwapliku")
+IMIE=Blazej
+
+echo -e "${tekst//$IMIE/\\e[31m$IMIE\\e[0m}"
+
+
+
+
+
+
+
+
+
+
+
+
