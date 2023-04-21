@@ -1,0 +1,9 @@
+#!/bin/bash
+
+kod_pocztowy="11-042"
+
+if [[ $kod_pocztowy =~ ^[0-9][0-9\-]*[0-9]$ ]]; then
+  echo "Kod pocztowy jest poprawny"
+else
+  echo "Kod pocztowy jest niepoprawny"
+fi

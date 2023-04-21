@@ -1,0 +1,9 @@
+#!/bin/bash
+
+email="s26967@pjwstk.edu.pl"
+
+if [[ $email =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+  echo "Adres email jest poprawny"
+else
+  echo "Adres email jest niepoprawny"
+fi

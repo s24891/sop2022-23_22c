@@ -1,0 +1,11 @@
+#!/bin/bash
+
+argument=$1
+
+if [[ $argument =~ ^[A-ZŁŚĆŻŹ][a-ząćęłńóśźż]*$ ]]; then
+  echo "To jest imię"
+elif [[ $argument =~ ^[0-9]{2}-[0-9]{3}$ ]]; then
+  echo "To jest kod pocztowy"
+elif [[ $argument =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+  echo "To jest adres email"
+fi

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function wypisz_kolorowy() {
+    local kolor="$1"
+    local tekst="$2"
+    case "$kolor" in
+        "czarny") tput setaf 0;;
+        "czerwony") tput setaf 1;;
+        "zielony") tput setaf 2;;
+        "żółty") tput setaf 3;;
+        "niebieski") tput setaf 4;;
+        "magenta") tput setaf 5;;
+        "cyjan") tput setaf 6;;
+        "biały") tput setaf 7;;
+        *) tput sgr0;;
+    esac
+    echo "$tekst"
+    tput sgr0
+}
+

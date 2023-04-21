@@ -1,0 +1,5 @@
+#!/bin/bash
+for arument in "$@"
+do
+echo "\"$argument\""
+done

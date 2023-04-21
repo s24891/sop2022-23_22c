@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for plik in *.c; do
+    nazwa=$(basename "$plik" .c)
+    cc "$plik" -o "$nazwa"
+done

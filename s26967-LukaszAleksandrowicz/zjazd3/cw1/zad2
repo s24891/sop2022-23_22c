@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ -f "config.cfg"]; then
+echo "Plik istenieje w tym katalogu"
+bash config.cfg
+elif [ "$#" -eq  1 ]&&[ -f "$1" ]; then
+echo " wykonaj plik $1"
+bash "$1"
+else 
+echo "Wystapil blad plik nie istnieje w tym katalogu, ani nie podano odpowiedzniego argumentu"
+fi 
+

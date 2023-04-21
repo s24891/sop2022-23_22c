@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -gt 1 ]; then
+echo " Pierwszy podany argunet: $1"
+elif [ $# -eq 1 ]; then
+echo "Jest podany tylko jeden argument"
+else
+echo "Nie podano parametru"
+fi 
+ 

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pliki=("$@")
+
+for plik in "${pliki[@]}"
+do
+    echo "Zawartość pliku $plik od początku do końca:"
+    cat "$plik"
+    
+    echo "Zawartość pliku $plik od końca do początku:"
+    tac "$plik"
+done
+//nw m czy to tak mialo wygladac 

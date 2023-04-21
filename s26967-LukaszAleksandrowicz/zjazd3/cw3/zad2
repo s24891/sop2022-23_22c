@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function fibonacci {
+  if [ $1 -le 1 ]; then
+    return $1
+  fi
+
+  local a=0
+  local b=1
+
+  fibonacci $(($1-1))
+  local c=$?
+  fibonacci $(($1-2))
+  local d=$?
+
+  return $((c+d))
+}
+# przykładowe użycie funkcji fibonacci
+fibonacci 7
+wynik=$?
+printf "7-ty element ciągu Fibonacciego to: %d\n" $wynik
+

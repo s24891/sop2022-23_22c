@@ -1,0 +1,9 @@
+#!/bin/bash
+
+imie="Lukasz"
+
+if [[ $imie =~ ^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+$ ]]; then
+  echo "Imię jest poprawne"
+else
+  echo "Imię jest niepoprawne"
+fi

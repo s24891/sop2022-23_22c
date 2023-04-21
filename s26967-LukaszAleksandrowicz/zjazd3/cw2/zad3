@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Patrzcie Panstwo, oto lista plikow:"
+for plik in *; do
+  echo "Patrzcie Panstwo, oto plik: $plik"
+done
