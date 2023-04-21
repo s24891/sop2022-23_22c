@@ -1,0 +1,65 @@
+1 - 
+#!/bin/bash
+
+for (( i=10; i>=1; i-=2 ))
+do
+  echo $i
+done
+
+2 -
+#!/bin/bash
+
+echo "Argumenty skryptu w cudzysłowach:"
+
+for arg in "$@"; do
+    echo "\"$arg\""
+done
+
+3 - 
+#!/bin/bash
+
+for file in *
+do
+  echo "Patrzcie Państwo, oto plik: $file"
+done
+
+4 - 
+#!/bin/bash
+
+for file in *.c
+do
+  filename=$(basename "$file")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+  cc "$file" -o "$filename"
+done
+
+5 -
+#!/bin/bash
+
+# Wczytanie listy plików z wiersza poleceń
+files=("$@")
+
+# Wypisanie zawartości plików od początku do końca
+for file in "${files[@]}"
+do
+  echo "Zawartość pliku $file:"
+  while read -n 1 char
+  do
+    printf "%s" "$char"
+  done < "$file"
+  echo ""
+done
+
+# Wypisanie zawartości plików od końca do początku
+for file in "${files[@]}"
+do
+  echo "Zawartość pliku $file (od końca):"
+  length=$(wc -c < "$file")
+  for ((i = length - 1; i >= 0; i--))
+  do
+    printf "%s" "$(tail -c +"$i" "$file" | head -c 1)"
+  done
+  echo ""
+done
+ 

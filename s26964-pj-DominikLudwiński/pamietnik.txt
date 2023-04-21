@@ -13,3 +13,10 @@ Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem/lam sie:
 - Było trochę trudności ale wiekszość moich problemów mogłem rozwiązać dobrze analizując notatki ze strony Pana Tomka.
 - Miałem dużo na głowie i nie starczyło mi czasu na dokończenia opisu instalacji debiana przez co tego nie zrobiłem, 
 	ale postanowiłem że na następne zajęcia to dokończę w 100%.
+
+
+2023-04-01
+
+- Pętli i if'ów
+- Zadania były skoplikowane przez co potrzebowałem trochę czasu aby je rozgryźć
+- Nie zdążyłem zrobić Zadan domowych ze strony ponieważ w ten weekend mam dwa kolokwia z matematyki i zabrakło mi czasu
