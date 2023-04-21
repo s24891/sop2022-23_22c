@@ -1,0 +1,27 @@
+2023-03-04
+Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+-Podstaw instalacji debiana oraz konfiguracji virtualboxa
+-Podstaw partycjonowania dysków 
+-informacji na temat opcji dostępnych w instalatorze Debiana 
+
+2023-03-18
+Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+-przypomniałem sobie jak zalogować się do szuflandii 
+-podstaw skryptów bash:
+	-w systemie Linux skrypty mogą zawierać informację o tym 
+	jakim programem interpretować skrypt.Robi się to w taki sposób:
+		#!/bin/bash
+	-Zmienne powłoki
+		- Wartość podana po prostu - musi to być jedno słowo
+		-wartość w " -kilka słów i znaków, natomiast znaki specjalne 
+		są interpretowane.
+		, a zmienne tłumaczone na wartości
+		-wartość w ' -dowolny ciąg znaków nie zawierający apostrofów
+		
+		-zakres widoczności zmiennych (export)
+		
+		-predefiniowane zmienne środowiskowe oraz zmienne związane z 
+		uruchomieniem skryptu.
+		
+-Operacje na ciągach znaków
+-Podstawy wyrażeń regularnych

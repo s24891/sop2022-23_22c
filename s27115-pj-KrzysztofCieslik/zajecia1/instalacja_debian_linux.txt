@@ -1,0 +1,1087 @@
+﻿Konfiguracja Wirtualnej Maszyny.
+!!!!!!!!!!
+Możliwe problemy które znalazłem
+*
+W przypadku maszyny wirtualnej np.VirtualBox należy pamiętać aby podczas
+tworzenia nowej maszyny zaznaczyć opcję "Skip Unattended Installation" 
+aby mieć możliwość manualnej instalacji inaczej virtualbox zrobi 
+to za nas.
+
+*
+W przypadku gdy hostem wirtualnej maszyny jest linux z zainstalowanym 
+Kvantum Manager należy zwrócić uwagę na to aby w wyłączyć opcję
+przezroczystości lub dodać VirtualBox do listy wyjątków ponieważ opcja 
+ta powoduje problemy z VirtualBoxem tj. półprzezroczystość maszyny 
+wirtualnej co znacząco utrudnia pracę.
+Problem występuje np. na manjaro z DE XFCE.
+
+0.Sprawdzamy minimalne wymagania sprzętowe systemu.
+	Dane takie przydadzą się do określenia czy mamy wystarczające zasoby
+	aby dany system zainstalować lub/i przydzielenia odpowiednich 
+	zasobów wirtualnej maszyny. 
+	
+	Takie dane najlepiej wyszukać w języku 
+	angielskim (hardware requirements) na stronie producenta/wydawcy 
+	systemu.
+
+	W przypadku systemu który będziemy instalować czyli Debian Stable
+	No desktop wymagania są następujące 
+	
+	Ram minimum: 128MB|Zalecane:512MB
+	Pamięć dyskowa: 2GB
+	
+	Warto doczytać również notatki przy tabelach z dokumentacją 
+	wymagań sprzętowych ponieważ można się z nich dowiedzieć np. 
+	jakie DE wybrać lub innych przydatnych informacji. 
+	
+
+1.Pobieramy obraz systemu który chcemy zainstalować
+	-należy wybrać wersję na właściwą architekturę w przypadku 
+	wirtualnej maszyny najlepiej wybrać taką samą architekturę jak 
+	nasza fizyczna maszyna.
+	W przypadku większości współczesnych maszyn klasy PC będzie to 
+	architektura amd64 (dla starszych maszyn (era starszych C2D)
+    PC bez wsparcia amd64 będzie to i386)
+	
+	W przypadku debiana dostępne są architektury:
+		-amd64
+			
+			-większość współczesnych PC
+			-Architektura typu CISC (Complex Instruction Set Computing) 
+			-Architektura AMD64, znana również jako x86-64
+			, jest architekturą procesora opartą na rozszerzeniu
+			64-bitowym architektury x86. Została wprowadzona przez 
+			firmę AMD w 2003 roku i jest obecnie 
+			procesorach AMD i Intel. 
+			Architektura AMD 64 pozwala na obsługę większej 
+			ilości pamięci operacyjnej i zwiększa wydajność w 
+			porównaniu z wcześniejszymi architekturami 32-bitowymi. 
+			Jest wstecznie kompatybilna z x86.
+		-arm64
+			-MAC M1 i M2 oraz telefony/tablety jak i np.Nintendo Switch 
+			-Architektura typu RISC (Reduced Instruction Set Computing)
+			-Architektura ARM64, znana również jako AArch64, 
+			jest architekturą procesora opracowaną przez firmę 
+			ARM Holdings. 
+			Jest to architektura 64-bitowa, która zastąpiła poprzednią 
+			architekturę ARMv7, która była 32-bitowa. 
+			Architektura ARM64 jest wykorzystywana w wielu urządzeniach 
+			mobilnych, takich jak smartfony, tablety oraz w 
+			innych urządzeniach IoT i systemach wbudowanych.
+		-armel
+			-Architektura ARMEL to architektura procesora opracowana 
+			przez firmę ARM Holdings. Jest to architektura 32-bitowa, 
+			która jest wykorzystywana głównie w urządzeniach wbudowanych 
+		-armhf
+			-Architektura ARMHF to architektura procesora oparta na 
+			32-bitowej architekturze ARMv7,jest ona wykorzystywana
+			 głównie w systemach operacyjnych opartych na jądrze Linux
+			 , i jest często stosowana w urządzeniach wbudowanych
+			 , w tym w routerach, kamerach przemysłowych 
+			 i urządzeniach IoT.
+			Architektura ARMHF wprowadza wiele usprawnień 
+			w porównaniu z poprzednimi architekturą ARM. 
+			W szczególności, wprowadza ona zestaw instrukcji VFPv3, 
+			które umożliwiają przetwarzanie liczb zmiennoprzecinkowych 
+			w sposób efektywny. 
+			 
+		-i386
+			-Architektura i386, znana również jako x86, to 32-bitowa 
+			architektura procesora stosowana w komputerach osobistych. 
+			Architektura ta została opracowana przez firmę Intel w 
+			latach 80.
+			Architektura ta potrafi obsługiwać maksymalnie 4GB ramu.
+			(co na czasy jej wydania było ilością zawrotną)
+			Dziś stosowana np. w urządzeniach wbudowanych 
+			i systemach czasu rzeczywistego. 
+			
+		-mips64el
+			-Architektura MIPS64el to architektura procesora oparta na 
+			64-bitowej architekturze MIPS, która jest stosowana głównie 
+			w systemach wbudowanych i serwerach.
+			Dodatkowo, architektura MIPS64el wprowadza wiele 
+			funkcjonalności, takich jak zestawy instrukcji do 
+			przetwarzania liczb zmiennoprzecinkowych
+		, co jest przydatne w zastosowaniach naukowych i inżynieryjnych.
+			MIPS64el jest również kompatybilna z wieloma 
+			systemami operacyjnymi, w tym z Linux, NetBSD i FreeBSD. 
+		-mipsel
+			-Architektura MIPSEL to architektura procesora oparta na 
+			32-bitowej architekturze MIPS (co ciekawe o tą architekturę 
+			oparty był procesor konsoli PS1),która jest stosowana 
+			głównie w systemach wbudowanych, takich jak routery, modemy 
+			czy też dekodery telewizyjne oraz proste konsolki do gier.
+			Architektura ta oferuje również stabilność i 
+			bezpieczeństwo, co jest szczególnie ważne w 
+			systemach wbudowanych, które często działają 
+			bez przerwy przez długi czas.
+		-ppc64el
+			-Architektura PPC64el to architektura procesora oparta na 
+			64-bitowej architekturze PowerPC, która jest stosowana
+			 głównie w serwerach i superkomputerach.
+			 Dodatkowo, architektura PPC64el wprowadza wiele 
+			 funkcjonalności, takich jak zestawy instrukcji do 
+			 przetwarzania liczb zmiennoprzecinkowych, co jest
+			 przydatne w zastosowaniach naukowych i inżynieryjnych.
+			Architektura ta oferuje wysoką skalowalność 
+			i stabilność, co jest szczególnie ważne w systemach 
+			serwerowych i superkomputerach, które często obsługują 
+			duże obciążenia i wymagają nieprzerwanej pracy.
+		-s390x
+			-Architektura s390x to 64-bitowa architektura procesora 
+			stosowana głównie w systemach mainframe, które są stosowane 
+			w dużych przedsiębiorstwach do obsługi krytycznych 
+			procesów biznesowych.
+			Architektura ta charakteryzuje się dużą wydajnością, 
+			niezawodnością i skalowalnością, co umożliwia obsługę 
+			dużych obciążeń i zapewnia ciągłą pracę systemu.
+			S390x jest kompatybilna z/OS i z/VM. 
+			Architektura ta oferuje wiele zaawansowanych 
+			funkcjonalności, takich jak zaawansowane techniki 
+			wirtualizacji, co jest przydatne w 
+			zastosowaniach korporacyjnych i usługowych.
+
+
+	-należy zwrócić uwagę na obraz jaki pobieramy ponieważ są różne 
+	to jakie opcje są do wyboru zależne jest od systemu oraz jego 
+	dystrybucji i wydania które pobieramy (w przypadku systemów które 
+	zawierają DE (Desktop Environments) zintegrowane w instalator może 
+	być to również zależne od tego czy wybierzemy np. gnome czy xfce.)
+	dostępne mogą być np.
+	
+	netinst - minimalny instalator pozwalający zainstalować system 
+	pobierając w trakcie instalacji potrzebne pakiety z internetu.
+	
+	CD - instalator przeznaczony do zmieszczenia się na 
+	płycie CD (700MB)
+	
+	DVD - instalator przeznaczony do zmieszczenia się na 
+	płycie DVD(4,7GB)
+	
+	minimal - minimalny instalator zazwyczaj instalując system tylko 
+	z wymaganymi do działania podstawowymi pakietami. 
+	
+	full- pełny instalator instalujący z systemem od razu wiele 
+	prawdopodobnie potrzebnych pakietów.
+
+	My wybieramy Debian Stable w przypadku którego najlepszym wyborem 
+	będzie pobrać mały plik ISO z instalatorem typu netinst.
+	
+2.Pobieramy i Instalujemy program do wirtualizacji
+
+Należy pamiętać że aby używać maszyn wirtualnych nasz sprzęt musi 
+wspierać i mieć włączoną wirtualizację. (opcja ta może być wyłączna 
+w bios/uefi).
+
+W naszym przypadku jest to virtualBox 7.0 (https://www.virtualbox.org/)
+Instalacja będzie się różnić w zależności od platformy na której 
+pracujemy,
+W przypadku wielu linuksów bez problemu można virtualboxa pobrać przez 
+menadżer pakietów.
+Wspierane platformy.
+	Windows hosts
+	macOS / Intel hosts
+	Developer preview for macOS / Arm64 (M1/M2) hosts*
+	Linux distributions
+	Solaris hosts
+	Solaris 11 IPS hosts 
+
+*Jeśli chodzi o macOS ARM M1/M2 to to Developer preview 
+można powiedzieć że póki co to faktycznie tylko jest poglądowe.
+
+3.Uruchamiamy virtualbox i tworzymy wirtualną maszynę
+
+Uruchamiamy virtualboxa w pierwszym wyświetlonym oknie na górej belce
+nawigacyjnej wybieramy opcję "nowa".
+
+W tym momencie wyświetli się nam okno konfiguracji nowej maszyny.
+
+Nazwa: wyświetlana w virtualboxie nazwa naszej maszyny 
+
+Folder:destynacja w której bedą zapisywać się pliki (np.dyski)
+naszej maszyny.
+
+
+ISO Image: tu podajemy ścieżkę do obrazu naszego systemu.
+(w przypadku gdy to nie zadziała należy dodać go jako napęd cd/dvd)
+
+Edition:
+	-pole "Edition" pozwala na wybór wersji virtualBoxa:
+	 podstawowej wersji lub wersji z rozszerzeniem funkcji.
+
+
+
+Typ: typ maszyny pod wybrany system do wyboru:
+			-Microsoft Windows
+			-Linux
+			-Solaris
+			-BDS
+			-IBS/OS2
+			-MAC OS X
+			-inne 
+
+Wersja:tu podajemy wersję systemu
+
+Wiele z tych pól zostanie automatycznie uzupełnione po wybraniu obrazu 
+systemu.
+
+Ważne 
+*
+W przypadku maszyny wirtualnej np.VirtualBox należy pamiętać aby podczas
+tworzenia nowej maszyny zaznaczyć opcję "Skip Unattended Installation"
+aby mieć możliwość manualnej instalacji inaczej virtualbox zrobi
+to za nas.
+
+Instalacja systemu Linux Debian 
+Ekran 0.
+=================
+Debian GNU/Linux installer menu (BIOS mode)
+
+- Graphical install -instalacja systemu w trybie graficznym
+- Instalacja -instalacja systemu
+- Advenced options 
+	-Back...
+	-Graphical expert install 
+		zaawansowany tryb Graficzny instalacji, który oferuje więcej 
+		opcji i zaawansowanych ustawień podczas instalacji systemu np:
+			-Zaawansowane ustawienia sieciowe
+			-Możliwość wyboru konkretnej wersji jądra systemu
+			-Możliwość wyboru innych niż domyślne narzędzi do 
+			zarządzania pakietami
+			-Możliwość zdefiniowania własnej konfiguracji bootloadera
+			Opcje te pozwalają użytkownikom na dostosowanie instalacji
+			 Debiana do ich własnych potrzeb i wymagań. Expert install 
+			 może być przydatny do zainstalowania debiana 
+			 na bardziej skomplikowanej konfiguracji sprzętowej, 
+			 np. w środowiskach serwerowych lub sieciowych.
+
+	-Graphical rescue mode
+		 graficzny tryb ratunkowy to tryb, który można uruchomić w 
+		 celu naprawy lub diagnostyki problemów z systemem.
+		Rescue mode pozwala użytkownikowi dostęp do podstawowych
+		 narzędzi  narzędzia do zarządzania partycjami
+		 , konsoli systemowej itp.
+		 W trybie ratunkowym użytkownik może przeprowadzić wiele 
+		 operacji, takich jak naprawa systemu plików
+		 , resetowanie hasła administratora,naprawa bootloadera.
+		Warto jednak pamiętać, że tryb ratunkowy jest trybem awaryjnym 
+		i należy używać go ostrożnie. Niektóre operacje wykonywane 
+		w trybie ratunkowym mogą spowodować trwałe uszkodzenie systemu 
+		lub utratę danych. Dlatego zawsze warto zachować ostrożność.
+	-Graphical automated install
+	 Graficzna instalacja przy pomocy przygotowanego wcześniej pliku 
+	 konfiguracyjnego co pozwala zautomatyzować proces instalacji co 
+	 jest przydatne np. wtedy gdy musimy zainstalować ten sam system na 
+	 wielu takich samych platformach.
+	-Expert install 
+		to samo co Graphical expert install tylko nie graficznie 
+	-Rescue mode
+		to samo co Graphical rescue mode tylko nie graficznie
+	-Automated install
+		to samo co Graphical automated install tylko nie graficznie
+	-Speech-enabled advanced options 
+		(opcje pozwalające korzystać z syntezy mowy w celu nawigacji)
+		-Expert speech install
+			instalacja w trybie expert z syntezą mowy 
+		-Rescue speech mode
+			tryb ratunkowy z syntezą mowy 
+		-Automated speech install
+			tryb automatyczny z syntezą mowy 
+	-Accessible dark contrast installer menu 
+	funkcja, która umożliwia osobom z niepełnosprawnościami wizualnymi 
+	łatwiejsze korzystanie z menu instalacyjnego systemu operacyjnego. 
+	Jest to menu o ciemnym tle, z dużymi, kontrastowymi przyciskami 
+	i tekstem, który jest łatwy do odczytania dla osób z różnymi 
+	rodzajami niepełnosprawności wizualnych.
+		
+	-Help
+			!!!!!!!WAŻNE!!!!!!!!
+			Aby wyjść z tej opcji należy użyć komendy "menu".
+			
+		-Uruchamia pomoc w trybie tekstowym z nawigacją przy pomocy 
+		klawiszy F1-F10
+			-F1 This page, the help index.
+				pierwsza strona z spisem pomocy.
+			-F2 Prerequisites for installing Debian.
+				bardzo ciekawa opcja w której możemy uzyskać 
+				informacje na temat wymagań sprzętowych systemu.
+				
+				W przypadku mojej wersji debiana podawane jest
+					-więcej niż 285MB ramu 
+					-do podstawowej instalacji systemu (bez dodatkowych
+					paczek) potrzebne jest co najmniej 920 MB.
+				
+			-F3 Boot methods for special ways of using this CD-ROM
+				dostępne metody bootowania 
+					-isntallgui - instalator w trybie graficznym
+					-install - instalator 
+					-expertgui - graficzny tryb expert
+					-expert - tryb expert
+					
+			-F4 Additional boot methods; rescue mode.
+					-rescuegui -ratunkowy tryb graficzny 
+					-rescue -tryb ratunkowy
+			-F5 Special boot parameters, overview.
+				-opis tego co to są specjalne parametry uruchamiania.
+			-F6 Special boot parameters for special machines.
+				-opcje bootowania dla specyficznych sprzętowo maszyn 
+				lub pozwalające rozwiązać niektóre problemy.
+			-F7 Special boot parameters for selected disk controllers.
+				-opcje bootowania dla specyficznych kontrolerów dysków
+			-F8 Special boot parameters for the install system.
+				-opcje pozwalające wyłączyć lub włączyć opcje,urządzenia 
+					niektóre magistralę lub np wybrać DE.
+			-F9 How to get help.
+				-opis tego gdzie jeszcze możemy uzyskać pomoc.
+			-F10 Copyrights and warranties.
+				-opis licencji systemu oraz gwarancji.
+			
+	-Install with speech synthesis
+		instalator z syntezą mowy.
+
+
+My wybieramy opcję Install 
+
+=================
+Ekran 1.
+*przy korzystaniu z menu można użyć nawigacji przy pomocy pierwszych 
+liter wyrazów tj. klikamy "p" i opcja przeskakuje nam na pierwszą opcję 
+zaczynającą się od "p" np. gdy szukamy kraju możemy wcisnąć "p" i 
+wyskoczy nam od razu Poland bez potrzeby przewijania opcji po kolei.
+
+Wybór języka systemowego
+Wpływa zarówno na proces instalacji oraz jest również ustawiany 
+jako domyślny języka instalowanego systemu.
+==================
+Ekran 2.
+Wybór lokalizacji 
+Zostanie użyta do ustawienia strefy czasowej i wyboru serwerów 
+lustrzanych. 
+==================
+Ekran 3.
+Konfiguracja lokalizacji 
+Wybór wpływa na sposób formatowania dat, czasów, liczb, jednostek itd.
+Ustawienie to jest ważne dla wielu programów.
+===================
+Ekran 4.
+Konfiguracja układu klawiatury.
+Wpływa na pracę klawiatury w systemie np na układ klawiszy
+Zamiast np usa-qwerty możemy mieć azerty lub qwertz. 
+===================
+Konfiguracja ustawień sieci 
+
+Ekran 5.0
+*Wybór nazwy hosta systemu 
+określa on nazwę systemu w sieci 
+Jest to wazne poniewaz wpływa na:
+   *Identyfikację urządzenia w sieci 
+   *hostname jest używany do konfiguracji usług sieciowych takich jak 
+	-FTP,WWW,SSH,SAMBA,itp.
+   *hostname używane i wyświetlane w takich programach jak np.anydesk.
+DLATEGO WAŻNE JEST ABY USTAWIĆ TO WŁAŚCIWIE
+------------------------------------------
+Ekran 5.1
+Ustawienie nazwy domeny 
+tak jak hostname wpływa na dostęp i prace usług sieciowych jak i na 
+identyfikację ich w sieci 
+Wraz z nazwa hosta tworzy adres DNS systemu
+======================
+Ekran 6.0
+Ustawienie hasła użytkownika root 
+Nalezy ustawic tu silne hasło poniewaz znając je uzyskujemy pełną władzę 
+nad systemem,ale jeszcze ważniejszym jest to aby zapamiętać to hasło.
+----------------------------------------- 
+Ekran 6.1 
+ponowne wpisanie hasła root w celu potwierdzenia.
+=======================
+Tworzenie nowego użytkownika 
+Ekran 7.0
+tu jestesmy proszeni o podanie pelnego imienia i nazwiska uzytkownika 
+jest to uzywane do identyfikacji uzytkowanika jest zapisywana w plikach 
+systemowych czy np używana do określenia właściciela pliku i nie jest 
+wymagana do zalogowania się do systemu
+Wypełnienie tego pola nie jest konieczne i możemy je pozostawić puste
+Ekran 7.1
+Tu musimy podać name czyli główna nazwę użytkownika która będzie używana 
+w systemie np. do zalogowania się.
+warto ja zapamietac zeby nie miec problemow z logowaniem się gdyby DE 
+przestało działać poprawnie.
+Ekran 7.2.0 
+Podajemy hasło dla tego użytkownika 
+Co ciekawe pole to mozemy zostawic puste jednak po kolejnym ekranie 
+zostanie wyświetlona informacja że puste hasło nie jest dozwolone i 
+zostaniemy przekierowani ponownie do ustawienia go.
+Ekran 7.2.1
+Potwierdzamy hasło przez ponowne wpisanie go
+=======================
+Ekran 8.0
+	Wybór trybu partycjonowania dysków 
+ 
+*Guided -use entire disk
+                -przewodnik który automatycznie partycjonuje cały
+                 wybrany dysk.
+*Guided -use entire disk and set up LVM
+                -automatycznie partycjonuje cały wybrany nośnik i
+                  dodatkowo konfiguruje Logical Volume Manager czyli
+                  narzędzie do zarządzania partycjami które pozwala
+                  na ich tworzenie,usuwanie i zmianę rozmiaru.
+                  LVM działa na poziomie logicznym operując na 
+                  abstrakcyjnych wirtualnych partycjach niezależnych
+                  od fizycznych dysków i partycji co pozwala na
+                  dynamiczne zarządzanie tymi partycjami np.łączenie ich
+                  Jest to szczególnie przydatne w środowiskach w których 
+                  wymagane jest elastyczne zarządzanie przestrzenią
+                  np. serwery.
+ *Guided -use entire disk and set up encrypted LVM 
+                -to samo co opcja poprzednia ale z szyfrowaniem danych 
+
+  *Manual 
+                 -ręczne partycjonowanie dysku.
+Ekran 8.1
+        manualne partycjonowanie 
+-Guided partitioning 
+        pozwala wybrać partycjonowanie z przewodnikiem.
+-Configure software RAID
+        pozwala skonfigurować programowy RAID 
+-Configure the Logical Volume Manager 
+        pozwala skonfigurować LVM
+-Configure encrypted volumes
+        umożliwia użytkownikowi tworzenie zaszyfrowanego
+        woluminu lub partycji.
+        użytkownik jest kierowany przez kreator do wyboru partycji, 
+        która ma zostać zaszyfrowana.
+        Następnie użytkownik jest proszony o podanie hasła,
+        które będzie używane do odszyfrowania partycji 
+        podczas jej montowania.
+        Po podaniu hasła, partycja zostanie sformatowana i zaszyfrowana.
+-Configure iSCSI volumes 
+	 umożliwia dodanie woluminów iSCSI
+	 (Internet Small Computer System Interface) do systemu.
+	 Protokół iSCSI pozwala na udostępnianie i zarządzanie pamięcią
+	 masową poprzez sieć.
+	 Dzięki temu można uzyskać dostęp do zdalnych dysków twardych,
+	 tak jakby były one bezpośrednio podłączone do naszego komputera.
+	 Wybierając opcję "Configure iSCSI volumes", przechodzimy przez
+	 kreator,który umożliwia wprowadzenie informacji o serwerze iSCSI 
+	 oraz woluminach, które chcemy dodać do systemu.
+	 Po podaniu tych informacji, woluminy iSCSI zostaną automatycznie
+	 dodane do systemu i będą dostępne dla użytkownika do montażu.        
+-Dyski (wybierając bezpośrednio dysk rozpoczniemy proces tworzenia nowej
+	tablicy partycji na tym urzadzeniu co usunie starą tablice oraz 
+	wszystkie dane.
+	
+	-pod każdym z dysków widać wolne miejsce oraz partycje.
+	wybierając partycje możemy przejść do jej modyfikacji 
+	wybierając wolna przestrzeń przechodzimy do tworzenia partycji 
+
+-Undo changes to partitions 
+	cofa nasza konfiguracje do stanu początkowego
+ 
+-Finish partitioning and write changes to disk 
+	kończy proces partycjonowania i zapisuje dane na dysk.		 
+=========================Partycjonowanie Dysku==========================
+Partycjonowanie dysku to w zasadzie najważniejsza czynność jaką musimy 
+wykonać podczas instalacji debiana.
+Poprawne partycjonowanie jest wymagane do działania systemu ,a co 
+więcej należy dobrać wiele różnych czynników konfiguracji 
+partycjonowania biorąc pod uwagę na czym instalujemy ten system (
+ np. czy maszyna wspiera bootowanie uefi czy tylko legacy bios)
+  i do czego będzie służyć (każdy system plików ma swoje zalety i wady
+  ,ważne również jest to jakich partycji potrzebujemy np. 
+  czy nie potrzebna nam osobna partycja na jakieś ważne pliki
+   albo czy potrzebujemy swapu (pamięci wymiany) ,a jeśli tak to z 
+   opcją hibernacji czy też nie).
+ Niepoprawnie wykonane partycjonowanie może również wpłynąć na 
+ niewykorzystanie całej pojemności dysku czy też wpłynąć na wydajność 
+ systemu.
+ 
+ Pierwszym zagadnieniem partycjonowania są standardy partycjonowania 
+ dysków
+ 
+ MBR (Master Boot Record) to tradycyjny standard partycjonowania dysku
+ , który został opracowany w latach 80-tych. 
+ MBR może obsługiwać maksymalnie 4 podstawowe partycje
+ , z których jedna musi być partycją rozruchową (bootowalną). 
+ MBR wykorzystuje 32-bitowe numery sektorów, co ogranicza 
+ maksymalną pojemność dysku do 2TB.
+ 
+ GPT (GUID Partition Table) to nowszy standard partycjonowania
+ , który został opracowany w celu zastąpienia MBR. 
+ GPT może obsługiwać do 128 partycji i wykorzystuje unikalne 
+ identyfikatory GUID zamiast numerów sektorów, co pozwala na 
+ obsługę dysków o pojemności ponad 2 TB (na ten moment obsługiwana 
+ pojemność dysku przez standard GPT może sięgnąć aż do 9,4 ZT
+ czyli 8549250196,67TB.)  
+ GPT oferuje także większą niezawodność i odporność na błędy
+ , dzięki temu, że kopie tablicy partycji są przechowywane na 
+ końcach dysku.
+ 
+ Do używania partycjonowania GPT maszyna musi obsługiwać UEFI oraz 
+ system musi wspierać GPT ,co ciekawe istnieje również opcja GPT + MBR.
+ 
+ Debian domyślnie używa partycjonowania GPT.
+ 
+ Przechodzimy do ekranu partycjonowania dysku.
+ 
+ Guided partitioning - opcja wyzwolenia partycjonowania automatycznego
+ przy pomocy przewodnika.
+ 
+ Configure iSCSI volumes - opcja dodania dysków iSCSI
+ 
+ Zamontowane dyski w moim przypadku 
+	SCSI3 (0,0,0) (sda) - 10,7 GB ATA VBOX HARDDISK
+	
+Warto tutaj zauważyć że instalator podaje precyzyjne dane na temat dysku
+(0,0,0) to dane na temat geometrii dysku twardego w notacji CHS 
+(Cylinder-Head-Sector)
+
+Oznacza to, że dysk twardy ma pierwszy cylinder, drugą głowicę i 
+pierwszy sektor. W notacji CHS, dysk twardy jest podzielony na wiele 
+cylindrów, a każdy z nich składa się z określonej liczby 
+głowic i sektorów.
+W nowszych systemach operacyjnych, takich jak Windows 10 lub 
+współczesne dystrybucje Linuxa, geometria dysku jest wyrażana w 
+formacie LBA (Logical Block Addressing), który jest bardziej 
+dokładny. LBA określa adres sektora dysku twardego za 
+pomocą jednego numeru, a nie trzech oddzielnych jak w przypadku CHS.
+
+W przypadku instalatora systemu Debian, wartości CHS są wyświetlane 
+dla zgodności z starszymi systemami operacyjnymi
+, ale rzeczywista geometria dysku jest obliczana za pomocą LBA.
+
+	
+	Undo changes to partitions - cofnięcie zmian 
+	Finish partitioning and write changes to disk - zapisanie wybranej 
+	konfiguracji na dysk i przejście do następnego kroku.
+ 
+ Aby rozpocząć partycjonowanie należy wybrać dysk na którym chcemy 
+ utworzyć partycję.
+ 
+ Po wykonaniu tego jesteśmy pytani czy chcemy to zrobić ponieważ
+ spowoduje to zniszczenie wcześniej znajdujących się tam danych.
+ 
+ Po przejściu tego kroku tworzona jest tablica partycji i pojawia się 
+ nam pod tym dyskiem free space które będziemy partycjonować.
+ 
+ Przechodzimy do sedna sprawy i rozpoczynamy partycjonowanie.
+ Klikamy free space.
+ Instalator zapyta nas 
+ How to use free space 
+	-Create new partition -stworzenie partycji ręcznie 
+	-Automatically partition the free space -automatyczne rozdzielenie 
+		tego miejsca 
+	-Show Cylinder/Head/Sector information 
+		pokazanie precyzyjnych danych o dysku 
+		ilości cylindrów,głowic,sektorów.
+		W przypadku mojego dysku wirtualnego informacja którą tu możemy 
+		uzyskać to 
+		"The free space stars from (0,1,0) and ends at (41120,159,1).
+		Jest to informacja o tym w którym sektorze zaczyna i kończy się
+		wolne miejsce.
+		Informacja ta jest również w notacji CHS.
+		Informacje te są szczególnie przydatne w przypadku dysków HDD
+		gdzie ważne jest fizyczne położenie partycji i zoptymalizowanie
+		partycjonowania pod kątem czasu dostępu do danych.
+		(głowica musi się fizycznie przemieścić)
+		
+		
+My wybieramy 
+		Create a new partition 
+		
+Pokazuje nam się okno w którym wybieramy wielkość tej partycji 
+ Ja zdecydowałem się na partycjonowanie z jedną partycją primary oraz 
+ partycjami logicznymi.
+ Na sam początek tworzę 2,4GB partycję podstawową z systemem plików
+ ext4.
+ Wybieram pojemność 2,4GB w następnym kroku wybieramy primary oraz 
+ zapisuje partycję na samym początku wolnego miejsca (tak jak każdą 
+ następną).
+ 
+ Ekran konfiguracji partycji 
+ 
+Use as:Wybieramy tu format partycji lub jej przeznaczenie.
+	Dostępne opcje:
+		-Ext4 journaling file system 
+			Ext4 to rozszerzona wersja systemu plików Ext3.
+			Jest to system plików journalingowy, co oznacza
+			, że chroni dane w przypadku awarii systemu poprzez 
+			utrzymywanie dziennika transakcji.
+			Dziennik transakcji przechowuje informacje o operacjach
+			 systemu plików, takie jak tworzenie, usuwanie 
+			 lub zmiana plików. 
+			W przypadku awarii systemu plików, dziennik transakcji 
+			pozwala na szybkie przywrócenie spójności systemu plików, 
+			minimalizując ryzyko utraty danych.
+			Ext4 oferuje wiele ulepszeń w stosunku do Ext3
+			, takich jak wsparcie dla większych rozmiarów plików i 
+			partycji, szybsze tworzenie i usuwanie plików 
+			oraz wydajniejszą alokację bloków. 
+		-Ext3 journaling file system
+			Ext3 to system plików journalingowy używany w systemach 
+			operacyjnych opartych na jądrze Linux. 
+			W porównaniu z systemem plików Ext2, który nie ma mechanizmu 
+			dziennika transakcji, Ext3 jest bardziej niezawodny 
+			i zapewnia wyższą ochronę danych.
+		-Ext2 file system 
+			Ext2 to system plików stosowany w systemach operacyjnych 
+			opartych na jądrze Linux. Był to pierwotny system plików 
+			używany w dystrybucjach Linux, wprowadzony w 1993 roku. 
+			Ext2 nie jest już powszechnie używany, ale wciąż jest 
+			dostępny w niektórych starszych lub przystosowanych pod 
+			starsze/słabsze platformy dystrybucjach.
+		-btrfs journaling file system
+			Btrfs (b-tree file system) to system plików oparty na 
+			jądrze Linux, który zapewnia mechanizmy journalingu i
+			 kopiowania w tle (ang. copy-on-write)
+			 , dzięki którym gwarantuje spójność danych i minimalizuje 
+			 ryzyko utraty danych w przypadku awarii systemu. 
+			 Btrfs został opracowany z myślą o zastąpieniu tradycyjnych 
+			 systemów plików używanych w Linuxie
+			 , takich jak Ext4 czy XFS.
+			
+			Btrfs oferuje wiele zaawansowanych funkcji, w tym:
+			
+			-Wykrywanie uszkodzonych danych (ang. check summing) - Btrfs 
+			przechowuje sumy kontrolne dla każdego bloku danych
+			, co pozwala na wykrycie uszkodzeń danych i 
+			automatyczne naprawianie błędów w tle.
+			-Kopiowanie przy zapisie,
+			-Możliwość zmiany rozmiaru partycji online,
+			-Dodawanie/usuwanie urządzeń blokowych w locie,
+			-Możliwość balansowania obciążenia pomiędzy urządzeniami,
+			-Podwoluminy – jeden lub więcej oddzielnie montowanych 
+			systemów plików wewnątrz każdej partycji fizycznej,
+			-Migawki – możliwość powrotu do poprzedniej wersji plików,
+			-Kompresja w locie (za pomocą bibliotek zlib, lzo oraz zstd)
+			-Defragmentacja online,
+			-Możliwość zaadresowania 16 eksabajtów (16 384 petabajty).
+		
+		-JFS journaling file system
+			JFS (Journaled File System) to system plików stosowany w 
+			systemach operacyjnych, takich jak Linux, AIX (IBM) oraz 
+			OS/2 (IBM). Jest to system plików z dziennikiem
+			 transakcji, który zapewnia spójność danych i minimalizuje 
+			 ryzyko utraty danych w przypadku awarii systemu.
+			
+			JFS oferuje wiele zaawansowanych funkcji, w tym:
+			JFS został zaprojektowany z myślą o osiągnięciu wysokiej 
+			wydajności.
+			JFS obsługuje "długie" nazwy plików (do 255 znaków) oraz 
+			wiele rodzajów kodowania znaków, co pozwala na użycie 
+			praktycznie dowolnych znaków w nazwach plików.
+			JFS jest dostępny na wielu platformach, w tym na systemach 
+			Linux, AIX oraz OS/2, co zapewnia interoperacyjność 
+			między różnymi systemami operacyjnymi.
+			JFS jest stosunkowo złożonym systemem plików
+			
+			Mimo że JFS jest stosunkowo starym systemem plików
+			, to wciąż jest stosowany.
+			
+			System plików JFS jest stosowany przede wszystkim w systemie
+			 operacyjnym IBM AIX. JFS był domyślnym systemem plików w 
+			 AIX do wersji 6.1, a następnie został zastąpiony przez 
+			 system plików JFS2. Jednakże wciąż jest obsługiwany i 
+			 może być stosowany w AIX. 
+			 
+			 **AIX (Advanced Interactive eXecutive) to system operacyjny 
+			 stworzony przez firmę IBM, zaprojektowany z myślą o 
+			 serwerach i stacjach roboczych. AIX to system operacyjny 
+			 typu UNIX, który po raz pierwszy został wydany w 1986 roku 
+			 i od tego czasu jest rozwijany przez firmę IBM. 
+			 System AIX jego celem jest zapewnienie 
+			 niezawodnej, skalowalnej i bezpiecznej platformy do 
+			 uruchamiania aplikacji biznesowych i zadań wymagających 
+			 dużej mocy obliczeniowej.
+			
+			
+		-XFS journaling file system
+			to system plików journalingowy, stworzony przez firmę 
+			Silicon Graphics (SGI) w latach 90. XFS jest pierwotnie 
+			zaprojektowany dla systemów UNIX.
+			XFS obsługuje duże woluminy danych i jest w stanie skalować 
+			się w górę na potrzeby dużych aplikacji biznesowych.
+			Jest często stosowany w środowiskach biznesowych
+			, w których wymagana jest duża odporność na awarie. 
+			XFS jest również powszechnie stosowany w rozwiązaniach 
+			przetwarzania danych i w chmurach obliczeniowych.
+		
+		-FAT16
+		FAT16 to jeden z najstarszych i najprostszych systemów plików 
+			FAT16 (File Allocation Table 16-bit) był	
+			pierwszym systemem plików stosowanym w systemach 
+			operacyjnych Microsoft MS-DOS i Windows. 
+			Został opracowany w latach 80. XX.
+			System plików FAT16 umożliwia formatowanie partycji o 
+			pojemności tylko do 2 GB
+			i obsługuje maksymalną liczbę plików na partycji do 65,535. 
+			Nazwa FAT16 pochodzi od sposobu organizacji plików w 
+			systemie plików, opartej na tabeli alokacji plików 
+			(File Allocation Table) zapisywane w pamięci dysku.
+			Każdy plik jest przechowywany w jednym lub kilku 
+			sektorach na dysku, a informacje o lokalizacji tych sektorów
+			 są przechowywane w tabeli alokacji plików.
+
+		FAT16 nie oferuje zaawansowanych funkcji, takich jak rozszerzone 
+		atrybuty plików, kontrole dostępu, journaling czy szyfrowanie. 
+		Z tego powodu nie jest już powszechnie stosowany w systemach 
+		operacyjnych, ale wciąż można spotkać go np.zastosowaniach 
+		przemysłowych gdzie nadal stosowane jest bardzo 
+		archaiczne oprogramowanie działające tylko i wyłącznie na fat16.
+		Można spotkać również stare urządzenia które obsługują nośniki 
+		wymienne sformatowane tylko w sposób fat16.
+
+		-FAT32
+		FAT32 to system plików, który jest rozwinięciem starszego FAT16 
+		i został wprowadzony w 1996 roku. 
+		FAT32 jest stosowany w systemach operacyjnych Microsoft powyżej 
+		Windows 95.
+		System plików FAT32 umożliwia formatowanie partycji o pojemności
+		 do 2 terabajtów (TB) i obsługuje maksymalną liczbę plików na 
+		 partycji do około 268 milionów. 
+		 FAT32 zapewnia również lepszą wydajność niż FAT16
+		 , ponieważ używa większych bloków
+		 , co zmniejsza ilość zajmowanej przestrzeni przez 
+		 tabele alokacji plików.
+		FAT32 oferuje też pewne ulepszenia w stosunku do FAT16
+		, takie jak obsługa długich nazw plików, większe nagłówki plików
+		, rozszerzone atrybuty plików i kontroli dostępu. 
+		Niemniej jednak, FAT32 również nie oferuje
+		funkcji, takich jak journaling czy szyfrowanie danych.
+		
+		-swap area 
+			
+		Swap area to specjalny obszar na dysku twardym, który jest 
+		używany przez system operacyjny jako dodatkowa przestrzeń 
+		pamięci wirtualnej w celu ułatwienia zarządzania 
+		pamięcią fizyczną. 
+		Jest to część dysku twardego, która jest zarezerwowana dla 
+		systemu operacyjnego w celu użycia jako pamięć podręczna.
+
+		W przypadku instalatora Debian, podczas instalacji można wybrać 
+		rozmiar i umiejscowienie partycji Swap. 
+		W zależności od ilości pamięci RAM zainstalowanej w systemie
+		, rekomendowany rozmiar partycji Swap może się różnić.
+		
+		Swap area jest szczególnie przydatna w przypadku, gdy ilość 
+		dostępnej pamięci RAM jest ograniczona, co może prowadzić do 
+		problemów z wydajnością i stabilnością systemu. 
+		Poprzez użycie swap area, system operacyjny jest w stanie 
+		przenieść część rzadko używanych danych z pamięci RAM na dysk 
+		twardy, aby zwolnić miejsce dla bardziej potrzebnych danych.
+		
+		Warto wziąć pod uwagę fakt że swap ma wpływ na działanie dysków
+		W przypadku dysków SSD używanie swapu obniża żywotność dysku 
+		ponieważ bardzo często wykonywane są operacje zapisu co wpływa 
+		na wykorzystanie TBW w szczególności dotyczy to dysków DRAM-less
+		Problem również będzie się nasilał gdy swap będzie często 
+		używany z racji małej ilości ram w maszynie.
+		
+		W przypadku dysków HDD ten problem jest marginalny jednak 
+		agresywne używanie swapu z pewnością wpływa na czas dostępu do 
+		danych i opóźnia wykonanie innych operacji z racji mechanicznej 
+		natury takiego dysku.
+		
+		Problem ten jest najbardziej nasilony w przypadku gdy korzystamy
+		z nośnika z niskim TBW np. z kart micro sd które dodatkowo w 
+		większości przypadków źle znoszą ciągłe obciążenie.
+		W takim przypadku lepiej nie używać swapu i zaopatrzyć się w 
+		większą ilość pamięci ram.
+		
+		W nowszych dystrybucjach dostępna jest również opcja używania 
+		pliku wymiany zamiast partycji wymiany tak jak to jest zrobione 
+		w systemach windows.
+		
+		-physical volume for encryption
+		physical volume for encryption: ta opcja umożliwia utworzenie 
+		fizycznej partycji, która będzie używana jako obszar 
+		szyfrowania danych. 
+		W tym celu należy wybrać tę opcję i określić rozmiar partycji. 
+		Po zakończeniu instalacji systemu operacyjnego, użytkownik 
+		będzie musiał wprowadzić hasło, aby uzyskać dostęp do danych na 
+		tej partycji.
+		
+		-physical volume for RAID
+		physical volume for RAID: 
+		ta opcja umożliwia utworzenie fizycznej partycji
+		, która będzie używana jako element macierzy RAID. 
+		W tym celu należy wybrać tę opcję i określić typ macierzy 
+		RAID oraz poziom RAID, na którym partycja ma działać.
+		
+		-physical volume for LVM
+			physical volume for LVM: ta opcja umożliwia utworzenie 
+			fizycznej partycji, która będzie używana jako 
+			element grupy woluminów logicznych (LVM). 
+		
+		-do not use the partition
+		do not use the partition: ta opcja umożliwia pominięcie partycji
+		 podczas partycjonowania dysku. Jest to przydatne w przypadku
+		 , gdy nie chcemy przypisywać danej partycji do żadnego 
+		 konkretnego systemu plików lub nie chcemy jej używać w ogóle.
+		Możemy np. wykorzystać ją w innym systemie operacyjnym 
+		znajdującym się na tej samej fizycznej maszynie.
+		
+		
+Po krótkiej dygresji wracamy do partycjonowania.
+	Ja zdecydowałem się najpierw utworzyć partycję podstawową w 
+	systemie plików ext4 o pojemności 2,4GB) z punktem montowania /.
+	
+	Następna bardzo ważną dla systemu partycją którą utworzę badzię 
+	osobna partycja na katalog /var.
+	(katalog var jest to katalog przechowujący pliki zmieniające się 
+	w czasie pracy systemu ,takie jak np. logi systemowe.
+	
+	Będzie to partycja logiczna o pojemności 1.1GB ext4 z punktem 
+	montowania /var.
+	
+	Następnie tworzę partycję na katalog /tmp jest to katalog w którym 
+	przetrzymywane są pliki tymczasowe.
+	
+	W przypadku większości dystrybucji Linuxa jest on automatycznie 
+	czyszczony oraz jest dostępny dla wszystkich użytkowników.
+	Zdecydowałem że będzie miał 280MB ext4 ponieważ pliki w /tmp są
+	 zazwyczaj małe oraz katalog ten posiada mechanizmy broniące system 
+	 przed jego przepełnieniem.
+	
+	
+	Co ciekawe istnieje również drugi katalog tmp jest to /var/tmp 
+	różnica polega na tym że ten drugi nie jest automatycznie czyszczony
+	podczas ponownych uruchomień systemu.
+	
+	Ostatnia partycję jaką utworzę będzie partycja /home 
+	na pliki użytkowników zdecydowałem się przydzielić jej 7GB ext4
+	z punktem montowania w /home.
+	 
+
+	Zdecydowałem się nie tworzyć partycji swapu ponieważ dysponuje w 
+	mojej fizycznej maszynie bardzo dużą ilościa ramu i swap nigdy nawet
+	w fizycznej maszynie nie jest wykorzystywany.
+
+Finalizujemy partycjonowanie i przechodzimy dalej.
+W moim przypadku wyświetla się komunikat o tym że nie stworzyłem swapu
+jednak postanawiam niecnie i z pełną premedytacją ją pominąć. 
+Tu chyle czoło jeśli ktoś nadal to sprawdza naprawdę szacun.
+
+
+
+Konfiguracja menedżera paczek.
+
+W przypadku mojego instalatora w pierwszej kolejności zostałem zapytany
+o nośnik z extra pakietami  (pierwszy raz mi się to zdarzyło).
+Nie posiadam tego nośnika więc przechodzę dalej bez skanowania.
+
+Następne ekrany pozwalą nam podłaczyć się do najbliżyszych nam serwerów
+lustrzanych pakiet menedżera.
+
+Wybieramy kraj.
+	Poland 
+
+W następnym oknie zostaną nam zaproponowane znajdujące się w Polsce 
+serwery lustrzane.
+Ja zdecydowałem się na wybór task'u gda ponieważ znajduje się najbliżej 
+fizycznie mojej fizycznej maszyny więc prawdopodobnie mam do niego też 
+"najbliżej" sieciowo.
+
+
+W następnym oknie jesteśmy pytani o serwer proxy ja łącze się bez użycia 
+serwera proxy więc pozostawiam puste pole i przechodzę dalej. 
+
+Następnym krokiem jest zapytanie czy chcemy wziąć udział w 
+popularity-contest  jest to badanie na temat tego jakie paczki są 
+najczęściej pobierane przez użytkowników ,dzięki temu deweloperzy
+wiedzą jakie paczki należałoby dodać do podstawowego instalatora.
+
+Na potrzeby maszyny wirtualnej do celów eksperymentalno edukacyjnych 
+zaznaczam że nie chcę brać udziału.
+
+Badanie to jest anonimowe.
+
+!!!!!!!!!!!!BARDZO BARDZO WAŻNE!!!!!!!!!!!!!!1
+nawigujemy oczywiście strzałkami i tabem 
+menu zatwierdzamy enterem
+spacją odznaczamy lub zaznaczyć obecnie aktywną opcję.
+
+Dlaczego to teraz przypominam?
+Dlatego że teraz będzie ważne aby przypadkowo nie zatwierdzić 
+nieskonfigurowanego etapu który jest ważny i można na tym stracić sporo 
+czasu szczególnie podczas instalacji na słabym sprzęcie (niestety sam
+się kiedyś o tym przekonałem).
+
+Następnym etapem jest taskel czyli narzędzie które pozwala w tym 
+przypadku na wybór i instalacje wybranych przez nas pakietów z listy.
+
+w moim przypadku mam do wyboru 
+
+	-Debian desktop environment 
+		paczki narzędzi związanych z DE
+		
+	-Gnome 
+		Zaawansowane i rozwinięte środowisko graficzne oferujące 
+		wiele narzędzi.
+		Opiera się o tzw. szufladę aplikacji podobnie jak niektóre 
+		nakładki na androida.
+		Posiada system rozszerzeń 
+		Minusem jest to że jest to środowisko z wysokim zużyciem zasobów
+		Mimo posiadania systemu rozszerzeń w porównaniu do innych 
+		środowisk jest dość słabo konfigurowalne.
+		
+	-Xfce
+		Rozbudowane bardzo mocno konfigurowalne i przy okazji bardzo 
+		lekkie i stabilne środowisko graficzne.
+		
+		Minusem może być minimalistyczny wygląd który jednak możemy 
+		dostosować pod swoje potrzeby.
+		
+		Środowisko to jest windowso podobnym tworem.
+	
+	-Gnome Flashback
+		 środowisko gnome ale z wyglądem z starszych wersji 
+		 Stabilniejsze i lżejsze.
+	-KDE Plasma
+		Bardzo rozbudowane środowisko graficzne oferują potężną
+		paletę wbudowanych funkcjonalności np. jak sejf z hasłami.
+		Oferuje również potężną paletę wodotrysków graficznych 
+		Wspiera również nowe wersje OpenGL i vulcana przez co zapewnia 
+		lepszą jakość grafiki i animacji.
+		Jest za to dość ciężkie i stosunkowo niestabilne.
+	
+	-Cinnamon
+		Kolejne środowisko graficzne windows podobne z wieloma opcjami 
+		personalizacji.
+		Jest przy tym bardzo szybkie, zużywa mało zasobów. 
+		Minusem mogą być mało zaawansowane efekty wizualne i mniejsza 
+		konfigurowalność niż xfce.
+	-Mate
+		znowu lekkie windows podobne środowisko które można 
+		personalizować
+		Bardzo podobne do Cinnamona ale nieco lżejsze.
+	-LXDE
+		Jedno z najlżejszych środowisk graficznych.
+		Prosty i minimalistyczny ,ale nadal dość ergonomiczny interfejs.
+		
+	-LXQt
+		Również bardzo lekkie środowisko graficzne z prostym i 
+		minimalistycznym interfejsem.
+		Jest stosunkowo nowe przez co może posiadać więcej bugów.
+	-web server
+		opcja zainstalowania serwera web 
+	-ssh server
+		opcja zainstalowania serwera ssh
+		
+	-standar system utilites 
+	W skład system utilities wchodzą między innymi:
+		-coreutils - zestaw podstawowych narzędzi systemowych, 
+		takich jak cat, cp, mv, rm, ls, itp.
+		-procps - narzędzia do zarządzania procesami systemowymi
+		, takie jak ps, top, pgrep, kill, itp.
+		-util-linux - zestaw narzędzi systemowych
+		, w tym m.in. mount, umount, fdisk, mkfs, swapon, itp.
+		-sysvinit-utils - narzędzia systemowe do obsługi procesów 
+		inicjalizacji systemu, takie jak init, telinit, itp.
+		-debianutils - zestaw narzędzi ułatwiających administrację 
+		systemem Debian, takie jak run-parts, tempfile, itp.
+		-dmidecode - narzędzie do odczytywania informacji o sprzęcie 
+		i firmware'ach z pamięci EEPROM i BIOS.
+		-bsdutils - zestaw narzędzi systemowych, takich jak 
+		logger, script, scriptreplay, itp.
+		-psmisc - zestaw narzędzi do zarządzania procesami
+		, takich jak killall, fuser, pstree, itp.
+		-e2fsprogs - zestaw narzędzi do zarządzania systemem 
+		plików Ext2/3/4, takich jak tune2fs, e2label, dumpe2fs, itp.
+	Krótko mówiąc są to podstawowe paczki potrzbne do korzystania 
+	z systemu i administrowania nim.
+	
+Ja zdecydowałem się wybrać 
+		
+		-web server
+		-ssh server
+		-standard system utilities 
+		
+		
+	Instalacja GRUB
+	
+	GRUB (Grand Unified Bootloader) to program rozruchowy (bootloader),
+	który jest używany w wielu dystrybucjach.
+	Jego głównym zadaniem jest uruchamianie systemu operacyjnego. 
+	
+	GRUB umożliwia wybór systemu operacyjnego w przypadku
+	 gdy na dysku twardym zainstalowano więcej niż jeden system 
+	operacyjny. 
+	
+	GRUB posiada także zaawansowane funkcje, takie jak możliwość 
+	uruchamiania systemów z konsoli przy użyciu komend lub edycji 
+	opcji uruchamiania systemu.
+	GRUB jest zazwyczaj instalowany na 
+	pierwszej partycji dysku twardego.
+	
+	Podczas mojej instalacji instalator zauważył 
+	że jest jedynym systemem
+	na tym dysku i zaproponował aby zainstalować GRUB na partycji 
+	podstawowej (UEFI partition/boot).
+	
+	Należy pamiętać że jeśli tak zrobimy ,a na dysku jednak jest jeszcze
+	inny system operacyjny lub jego partycja startowa to prawdopodobnie 
+	uniemożliwi to jego uruchomienie i będziemy musieli to ręcznie 
+	naprawić.
+	
+	Ja jestem pewny że nie ma tu innego systemu więc zgadzam się na taką
+	operację.
+	W przeciwnym wypadku należy zainstalować grub w innym miejscu.
+	Tak aby w UEFI mieć wybór z czego chcemy bootować.
+	W przypadku bios CHYBA najlepszą opcją byłoby zainstalowanie GRUBa 
+	na innym dysku co umożliwiłoby prostą konfigurację boot order 
+	w bios.
+		
+		
+		
+		Instalacja zakończona
+		
+		Uruchamiamy ponownie maszynę i możemy korzystać z systemu.
+Zdarzyłem się trochę pobawić na tak postawionym systemie w jakieś usługi
+typu serwer web,samba,spotifyd,pihole 
+(w sumie pihole postawione w ten sposób 
+to całkiem ciekawa opcja jeśli nie dysponujemy fizyczną maszyną) i 
+działało to całkiem zgrabnie i bez problemowo.
+Obniżyłem końcowo zasoby do jednego rdzenia i 3GB ramu.
+
+
+Podsumowywując proces wykonania całego zadania wraz z stworzniem tego 
+pliku pierwszy raz miałem okazję głębiej zaznajomić się z intalatorem 
+jakiegoś linuksa ponieważ wcześniej korzystałem głównie z instalatorów 
+graficznych i wszystko co się dało wybierałem w trybie automatycznym.
+
+Przy okazji pisania tego odświeżyłem sobie nieco więdze na temat 
+systemu plików linuksa.
+
+Dowiedziałem się również nieco na temat różnych systemów plików i w 
+końcu nauczyłem się ręcznie partycjonować dyski.Co udało mi się już w 
+praktyce wykorzystać podczas instalacji innych systemów linuks na 
+prywatnych maszynach i na pewno skorzystam z tego również podczas 
+budowy własnego mini serwera.
+
+Dowidziałem się również w końcu co to jest
+- iSCSI
+-notacja CHS 
+-LVM
+
+
+Nie wykluczam rozbudowy tego pliku o inne instalacje oraz opis innych
+opcji które zostały tu tylko wspomniane takich jak LVM,iSCI,raid czy 
+też instalacji na fizycznej maszynie ponieważ uważam że to co zrobiłem
+to zaledwie wierzchołek góry lodowej, szczególnie czuję niedosyt jeśli 
+chodzi o konfigurację maszyny wirtualnej.
+Jednak wszystko zależy od tego czy będę miał na to czas.
+Mimo to uważam że jak na potrzby takiego zadania opis jest 
+wystarczająco obszerny i wyciągnałem z całego procesu więcej wiedzy na 
+temat linuksa niż zdobyłem jej poczas około 5 letniego używania linuksa
+jako system daily.
+
+
+Z uwag 
+Osobiście myśle że wspomnienie o odpowiednim zarządzaniu zasobami dla 
+maszyn wirtualnych jest bardzo ważne,ale uważam że instalację na 
+zajęciach warto było by przeprowadzić na bardzo dużych zasobach 
+ponieważ znacznie przyspiesza to proces.
+Na mojej konfiguracji w zasadzie klikałem enter i miałem wszystko 
+zrobione ,a mój pc nie jest jakiś wybitnie mocny.
+Na pewno oszczędziło by to dużo czasu z zajęć i pozwoliłoby wspomnieć o 
+większej ilości ciekawych rzeczy.
