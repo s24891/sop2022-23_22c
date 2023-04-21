@@ -1,0 +1,254 @@
+zadanie 1 
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". 
+Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+tworzymy skrypt
+
+jan@debian:~/Documents$ touch zad1.sh
+jan@debian:~/Documents$ ls
+zad1.sh
+jan@debian:~/Documents$ vim zad1.sh
+
+tresc skryptu
+
+#!/bin/bash
+
+echo "Witamy w terminalu"
+
+wykonanie skryptu
+
+an@debian:~/Documents$ ls -l
+total 4
+-rw-r--r-- 1 jan jan 42 Mar 25 07:34 zad1.sh
+jan@debian:~/Documents$ vim zad1.sh
+jan@debian:~/Documents$ sh zad1.sh
+Witamy w terminalu
+
+
+
+Zadanie 2
+
+jan@debian:~/Documents$ X=tekst
+jan@debian:~/Documents$ echo $X
+tekst
+jan@debian:~/Documents$ bash
+jan@debian:~/Documents$ echo $X
+
+jan@debian:~/Documents$ 
+
+po wykonaniu seri polecen na poczatku wyswietlila sie wartosc zmienej 
+a po zmianie powloki nie wyswietlila sie wartosc zminej. Stalo sie tak gdyz
+zmiena X jest lokalna a nie srodowiskowa
+
+jan@debian:~/Documents$ X=Teskst dluzszy
+bash: dluzszy: command not found
+jan@debian:~/Documents$ X="Teskst dluzszy"
+jan@debian:~/Documents$ echo $X
+Teskst dluzszy
+jan@debian:~/Documents$ 
+
+przez brak apostrow wyswietla sie blad
+
+jan@debian:~/Documents$ X="Tekst 1"
+jan@debian:~/Documents$ Y="tekst:$X"
+jan@debian:~/Documents$ echo "$Y"
+tekst:Tekst 1
+jan@debian:~/Documents$ Y='tekst:$X'
+jan@debian:~/Documents$ echo "$Y"
+tekst:$X
+jan@debian:~/Documents$ Y=tekst:$X
+jan@debian:~/Documents$ echo "$Y"
+tekst:Tekst 1
+jan@debian:~/Documents$ 
+
+roznica miedzy "a" a 'a' jest taka ze ' wyswietla znaki spycjalne a " interpretuje te znaki jak zmiene
+
+jan@debian:~/Documents$ A=Ala
+jan@debian:~/Documents$ echo $A ma kota, a kot ma ${A}e
+Ala ma kota, a kot ma Alae
+jan@debian:~/Documents$ 
+
+
+zadanie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy może się wg Ciebie przydać:
+
+jan@debian:~$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+
+przechowuje liste katalogow w katalogow w ktorych system bedzie szukac wykonywalnych plikow. podczas wpisywania komend w terminalu. przydatne gdyz nie musimy wpisywac calej sciezki.
+
+jan@debian:~$ echo $RANDOM
+21672
+
+Zmina generujelosowe liczby. Moze byc przydatna do tworzenia identyfikatorow lub kluczy szyfrujacych
+
+jan@debian:~$ echo $PWD
+/home/jan
+
+Przechowuje biezacy katalog roboczy. Ta zmienna jest przydatna kiedy chcemy okreslic w jakim katalogu znajduje sie uzytkownik.
+
+jan@debian:~$ echo $PS1
+\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+
+Przechowuje ciag znakow ktory ktory jest wyswietlany jako wiersz polecen. Jest przydatna kiedy chcemy dostosowac wyglad wiersza polecen.
+
+jan@debian:~$ echo $USER
+jan
+
+Zawiera ta zmiena nazwe uzytkownika. Jest to przydatne w skryptach lub programch ktore potrzebuja identyfikacji uzytkownika.
+
+jan@debian:~$ echo $HOSTNAME
+debian
+
+Zawiera ta zmienna nazwe Hosta. Przydatne w skryptach lub programch ktore tego potzebuja identyfikacji biezacego hosta.
+
+jan@debian:~$ echo $OSTYPE
+linux-gnu
+
+Przechowuje nazwe systemu operacyjnego a ktoeym jest uruchomiony system. Przydatne wskryptach lub programach na ktore wymagaja identyfikacji systemu operacujengo.
+
+
+
+Zadanie 4
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+
+jan@debian:~$ X=$(ls -l)
+an@debian:~$ echo $X
+total 36 drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Desktop drwxr-xr-x 2 jan jan 4096 Mar 25 07:47 Documents drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Downloads drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Music drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Pictures drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Public drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Templates -rw-r--r-- 1 jan jan 736 Mar 25 07:54 Untitled Document 1 drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Videos
+
+
+Niedziala gdyz nie ma cudzyslowow dzieli na wiele lini. utrudnia to odczytanie wynikow.
+
+jan@debian:~$ echo  "$X"
+total 36
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Desktop
+drwxr-xr-x 2 jan jan 4096 Mar 25 07:47 Documents
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Downloads
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Music
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Pictures
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Public
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Templates
+-rw-r--r-- 1 jan jan  736 Mar 25 07:54 Untitled Document 1
+drwxr-xr-x 2 jan jan 4096 Mar 25 06:57 Videos
+jan@debian:~$ 
+
+Wynik po dodaniu cudzyslowow.
+
+
+
+Zadanie 5a
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich. Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład Marek). Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe wywołanie:
+
+tresc skryptu:
+#!/bin/bash
+
+imie="$1"
+
+ostatnia="${imie: -1}"
+
+if [[ "$ostatnia" == "a" ]]; then
+	imie="${imie::-1}"
+	echo "${imie}a ma kota, a kot ma ${imie}e"
+else
+	echo "$imie ma kota, a kot ma ${imie}a"
+fi
+
+rezultat skryptu:
+jan@debian:~/Documents$ ./zad5a.sh "Jan"
+Jan ma kota, a kot ma Jana
+jan@debian:~/Documents$ ./zad5a.sh "Ela"
+Ela ma kota, a kot ma Ele
+jan@debian:~/Documents$ 
+
+
+
+zadanie 5b
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+
+Pierwszy znak z argumentu
+
+Ostatni znak z argumentu
+
+Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z przełącznikiem -e):
+
+\e[32mSOP\e[0m
+
+
+
+tresc skryptu:
+!/bin/bash
+
+tekst="$1"
+
+echo "pierwszy znak ${tekst:0:1}"
+
+echo "ostatni znak ${tekst: -1}"
+
+echo -e "${tekst//SOP/\\e[32mSOP\\e[0m}"
+
+
+rezultat dzialania skryptu:
+jan@debian:~/Documents$ ./zad5bb.sh "SOP SOP w imieniu prawa"
+pierwszy znak S
+ostatni znak a
+SOP SOP(jest w zielonym kolorze) w imieniu prawa
+jan@debian:~/Documents$ 
+
+
+zadanie 6
+Teraz postaraj się zrobić to zadanie z haczykiem i podmianą fragmentu zmiennej (Ala ma ...)
+
+tresc skryptu:
+#!/bin/bash
+
+zmiena="$1"
+
+echo $zmiena | sed s/a$/e/g | sed 's/\([^e]\)$/\la/g'
+
+
+Rezultat dzialania skryptu:
+jan@debian:~/Documents$ ./zad6.sh "ALA ma kota"
+ALA ma kote
+jan@debian:~/Documents$ 
+
+
+
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i wypisze go na terminalu tak, aby wszystkie wystąpienia Twojego imienia były podświetlone na czerwono. 
+
+Tresc skryptu:
+#!/bin/bash
+
+plik="$1"
+
+wyswietl=$(cat $plik)
+
+echo -e "${wyswietl//Jan/\\e[31mJan\\e[0m}"
+
+
+tresc pliku domowe.txt:
+Czes nazywam sie Jan. Jan studiuje informatyke. Jan lubi informatyke.
+
+
+Rezultat dzialania:
+jan@debian:~/Documents$ ./zaddom.sh domowe.txt
+Czes nazywam sie Jan(czerwony kolor). Jan(czerwony kolor) studiuje informatyke. Jan(czerwony kolor) lubi informatyke.
+jan@debian:~/Documents$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
