@@ -1,0 +1,44 @@
+1 -
+#!/bin/bash
+
+function print_colored_text() {
+    local text="$1"
+    local color="$2"
+    local color_code=""
+    case "$color" in
+        "black") color_code="0;30" ;;
+        "red") color_code="0;31" ;;
+        "green") color_code="0;32" ;;
+        "yellow") color_code="0;33" ;;
+        "blue") color_code="0;34" ;;
+        "purple") color_code="0;35" ;;
+        "cyan") color_code="0;36" ;;
+        "white") color_code="0;37" ;;
+        *) echo "Unknown color: $color"; return 1 ;;
+    esac
+    echo -e "\033[${color_code}m${text}\033[0m"
+    return 0
+}
+
+print_colored_text "Hello, world!" "red"
+print_colored_text "Hello, world!" "green"
+print_colored_text "Hello, world!" "blue"
+print_colored_text "Hello, world!" "yellow"
+print_colored_text "Hello, world!" "purple"
+print_colored_text "Hello, world!" "cyan"
+print_colored_text "Hello, world!" "white"
+print_colored_text "Hello, world!" "black"
+print_colored_text "Hello, world!" "invalid_color"
+
+2 - 
+function fibonacci {
+    if [ $1 -le 1 ]; then
+        return $1
+    else
+        local a=$(( $1 - 1 ))
+        local b=$(( $1 - 2 ))
+        local fib_a=$(fibonacci $a)
+        local fib_b=$(fibonacci $b)
+        return $(( fib_a + fib_b ))
+    fi
+}
