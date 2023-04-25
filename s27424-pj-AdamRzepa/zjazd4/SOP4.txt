@@ -1,0 +1,239 @@
+
+zad 1
+#include <stdio.h>
+
+int main() {
+    int number, sum = 0;
+    printf("Podaj liczby, które chcesz zsumować, zakończ wpisując 0:\n");
+
+    while (1) {
+        scanf("%d", &number);
+
+        if (number == 0) {
+            break;
+        }
+
+        sum += number;
+    }
+
+    printf("Suma wprowadzonych liczb to: %d\n", sum);
+
+    return 0;
+}
+zad2
+#include <stdio.h>
+
+int main() {
+    int number, sum = 0;
+    printf("Podaj liczby, które chcesz zsumować, zakończ wpisując 0:\n");
+
+    while (1) {
+        scanf("%d", &number);
+
+        if (number == 0) {
+            break;
+        }
+
+        sum += number;
+    }
+
+    
+
+    return sum;
+}
+Sprawdzamy wartość za pomocą $?
+
+zad 3
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Nie wpisano wysokości\n", argv[0]);
+        return 1;
+    }
+
+    int wysokosc = atoi(argv[1]);
+
+    for (int i = 0; i < wysokosc; i++) {
+        for (int j = 0; j < wysokosc - i - 1; j++) {
+            printf(" ");
+        }
+
+        for (int j = 0; j < i * 2 + 1; j++) {
+            printf("*");
+        }
+
+        printf("\n");
+    }
+
+    for (int i = 0; i < wysokosc - 1; i++) {
+        printf(" ");
+    }
+
+    printf("*\n");
+
+    return 0;
+}
+
+
+Zadanie z IO 1
+Napisz program wczytujący z pliku tekstowego ciąg liczb.
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]){
+        if(argc !=2){
+                printf("brak pliku");
+                return 1;
+        }
+
+        FILE *plik = fopen(argv[1], "r");
+        int n;
+        fscanf(plik, "%d", &n);
+
+        for(int i = 0; i < n; i++) {
+                int liczba;
+                fscanf(plik, "%d", &liczba);
+                printf("%d\n",liczba);
+        }
+
+        fclose(plik);
+        return 0;
+}
+Niech program wypisze je w odwrotnej kolejności. Program powinien przyjmować zero albo jeden argument:
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 1000
+int main(int argc, char *argv[]){
+        FILE *plik;
+        if(argc > 2){
+                printf("podano zbyt wiele argumentów");
+                return 1;
+        }
+        if(argc == 2){
+        plik = fopen(argv[1], "r");
+        }
+        else{
+                plik = stdin;
+        }
+
+        int n;
+        fscanf(plik, "%d", &n);
+        int *liczba;
+        liczba = calloc(MAX_SIZE, sizeof(int));
+        for(int i = 0; i < n; i++) {
+                fscanf(plik, "%d", &liczba[i]);
+        }
+        for(int i = n-1; i>=0; i--){
+        printf("%d",liczba[i]);
+        }
+		fclose(plik);
+        return 0;
+		free(liczba);
+        }
+
+Zadanie z IO 2
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]){
+    FILE *file;
+    unsigned char buffer[16]; //służy do przechowywania kolejnych bajtów z pliku. 
+    int i, j, bytes_read;
+
+    file = fopen(argv[1], "rb");
+    if (file == NULL) {
+        printf("Nie można otworzyć pliku %s", filename);
+        return 1;
+    }
+
+    i = 0;
+    while ((bytes_read = fread(buffer, 1, 16, file)) > 0) {
+        printf("%08x  ", i); //prezentujemy bufor w postaci szesnastkowej
+
+        
+        for (j = 0; j < bytes_read; j++) {
+            printf("%02x ", buffer[j]);  //ormatowanie wartości bajtu jako 2-cyfrowej wartości heksadecymalnej
+            if ((j+1) % 4 == 0) printf(" "); 
+            if ((j+1) % 8 == 0) printf(" "); 
+        }
+
+      
+        for (j = bytes_read; j < 16; j++) {
+            printf("   ");
+            if ((j+1) % 4 == 0) printf(" ");
+            if ((j+1) % 8 == 0) printf(" ");
+        }
+
+      
+        printf("  ");
+        for (j = 0; j < bytes_read; j++) {
+            if (buffer[j] >= 32 && buffer[j] <= 126) { 
+                printf("%c", buffer[j]);  // wypisanie znaku odpowiadającego wartości bajtu
+            } else {
+                printf(".");
+            }
+        }
+
+        printf("\n"); 
+        i += 16; 
+    }
+
+    fclose(file);
+    return 0;
+}
+
+Zadanie z wskaźnikami
+Napisz program z 3 funkcjami, każda funkcja niech będzie miała taką sygnaturkę:
+#include <stdio.h>
+
+int max(int a, int b) {
+    if(a>b){
+	return a;
+	}
+	else{
+	return b;
+	}
+}
+
+int min(int a, int b) {
+    if(a<b){
+	return a;
+	}
+	else{
+	return b;
+	}
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+
+
+            int (*f[3])(int, int) = { max, min, sum };
+            int functionId, elementCount;
+            printf("Podaj co ma sie uczynic 0==max 1 ==min 2==sum");
+
+            scanf("%d", &functionId);
+
+            printf("Podaj liczbę elementów ciągu: ");
+            scanf("%d", &elementCount);
+            int elements[elementCount];
+			for (int i = 0; i < elementCount; i++) {
+                    printf("Podaj element %d: ", i + 1);
+                    scanf("%d", &elements[i]);
+            }
+			int v = elements[0];
+			for (int i = 1; i < elementCount; i++) {
+					result = f[functionId](v, elements[i]); //porównujemy poprzedni element i teraźniejszy z i
+            }
+
+			printf("Wynik: %d\n", v);
+
+
+            return 0;
+}
+
