@@ -1,0 +1,19 @@
+Zadanie3.1
+
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+
+
+function color_print {
+  local text="$1"
+  local color="$2"
+  
+  case "$color" in
+    "black") echo -e "\033[0;30m$text\033[0m";;
+    "red") echo -e "\033[0;31m$text\033[0m";;
+    "green") echo -e "\033[0;32m$text\033[0
+    "white") echo -e "\033[0;37m$text\033[0m";;
+    *) echo "Nieznany kolor: $color";;
+  esac
+}
+
+

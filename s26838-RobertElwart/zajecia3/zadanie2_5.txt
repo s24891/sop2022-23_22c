@@ -1,0 +1,27 @@
+Zadanie2.5
+
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. 
+
+files=( "$@" )
+
+
+
+for file in "${files[@]}"; do
+
+    length=$(wc -c < "$file")
+    for (( i=0; i<$length; i++ )); do
+
+        echo -n "$(dd if="$file" bs=1 count=1 skip=$i 2> /dev/null)"
+    done
+done
+
+for file in "${files[@]}"; do
+
+    length=$(wc -c < "$file")
+    for (( i=$length-1; i>=0; i-- )); do
+
+        echo -n "$(dd if="$file" bs=1 count=1 skip=$i 2> /dev/null)"
+    done
+done
+
+

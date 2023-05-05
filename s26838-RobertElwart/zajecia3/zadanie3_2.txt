@@ -1,0 +1,21 @@
+Zadanie3.2
+
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+
+function fibonaci {
+  local n="$1"
+  
+  if [ "$n" -eq 0 ]; then
+    return 0
+  elif [ "$n" -eq 1 ]; then
+    return 1
+  fi
+  
+  	local a=$((n-1))
+  	local b=$((n-2))
+  	local result_a=$(fibonaci "$a")
+  	local result_b=$(fibonaci "$b")
+  	return $((result_a+result_b))
+}
+
+

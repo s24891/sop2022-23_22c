@@ -1,0 +1,10 @@
+Zadanie2.2
+
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, 
+że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+for arg in "$@"; do
+    echo "$1"
+done
+
+

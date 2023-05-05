@@ -1,0 +1,15 @@
+2023.03.09
+
++ Sforkowane i sclonowane nowe repo,
+
+2023.04.05
+
++ Nadgoniłem trochę zaległości,
++ Nauczyłem się dobrze wyławiać pliki, listy plików, słowa klucz za 
+pomocą skryptów,
++ wszystkie sortowanie, zmianę koloru tekstum i tym podobne,
++ Muszę jeszcze nadgonić jeden zjazd, będę musiał znaleźć wolny czas na C/C++,
+
+
+
+

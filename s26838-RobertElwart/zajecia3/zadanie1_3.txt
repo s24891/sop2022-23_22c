@@ -1,0 +1,18 @@
+Zadanie 3.
+
+Napisz skrypt, który:
+
+    sprawdzi, czy jego nazwa kończy się .sh .
+
+    Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). 
+
+
+if [[ "$1" == *.sh ]]; then
+        echo "Ten plik ma rozszerzenie .sh"
+else
+        arg="${1}.sh"
+        mv "$1" "$arg"   
+fi
+
+
+

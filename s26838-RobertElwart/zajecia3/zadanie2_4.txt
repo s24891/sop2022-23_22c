@@ -1,0 +1,12 @@
+Zadanie2.4
+
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+
+
+for file in *.c; do
+    filename="${file%.*}"
+    cc "$file" -o "$filename"
+done
+
+

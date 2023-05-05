@@ -1,0 +1,12 @@
+Zadanie 1.
+
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr.
+Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+if [[ $# -ge 1 ]]; then
+        echo "Pierwszy parametr to $1"
+elif [[ $# -lt 1 ]]; then
+        echo "Brak parametrow"
+fi
+
+
