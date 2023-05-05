@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function isEmail {
+	if [[ "$1" =~ ^[a-zA-Z0-9.]+"@"[a-zA-Z0-9.]+\.[a-zA-Z].* ]]; then
+		echo Email
+		return 0
+	else
+		echo Tekst nie spełnia wymagań dot. emaila
+		return 1
+	fi
+}

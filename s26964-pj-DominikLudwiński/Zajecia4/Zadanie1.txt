@@ -1,0 +1,54 @@
+1.
+#include <stdio.h>
+
+int main(){
+	int a=0;
+	int wynik=0;
+	printf("By zakonczyc dzialanie programu podaj 0\n");
+	do{
+		printf("Podaj liczbe:\n");
+		scanf("%d",&a);
+		wynik = wynik + a;
+	}while(a != 0);
+
+	printf("Wynik: %d\n",wynik);
+	return 0;
+}
+
+2.
+#include <stdio.h>
+
+int main(){
+	int a=0;
+	int wynik=0;
+	do {
+		a=0;
+		scanf("%d",&a);
+		if(a==0) break;
+		wynik+=a;
+	} while(a!=0);
+
+	return wynik;
+}
+
+3.
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char*argv[]){
+
+	int wysokosc = atoi(argv[1]);
+	int i;
+	int j;
+	for(i=0; i < wysokosc; i++){
+		for(j=0; j < wysokosc - i; j++){
+			printf(" ");
+		}
+		for(j=0; j < 2 * i - 1; j++){
+			printf("*");
+		}
+
+		printf("\n");
+	}
+	return 0;	
+}

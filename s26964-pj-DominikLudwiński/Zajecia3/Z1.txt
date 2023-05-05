@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function isPolishName {
+	if [[ "$1" =~ ^[A-Z] ]]; then
+		if echo "$1" | grep -P '[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]'; then
+			echo Imie zamwiera polskie znaki
+			return 0
+		else
+			echo Imie nie zawiera polskich znaków
+		fi
+	else
+		echo Tekst nie spełnia wymagań dot. imion
+		return 1
+	fi
+}
