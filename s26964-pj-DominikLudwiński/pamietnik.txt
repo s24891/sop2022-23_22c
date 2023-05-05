@@ -20,3 +20,11 @@ Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem/lam sie:
 - Pętli i if'ów
 - Zadania były skoplikowane przez co potrzebowałem trochę czasu aby je rozgryźć
 - Nie zdążyłem zrobić Zadan domowych ze strony ponieważ w ten weekend mam dwa kolokwia z matematyki i zabrakło mi czasu
+
+2023-22-01
+
+- Zaczęliśmy się uczyć języka C, szczerze mówiąc jest to dla mnie straszny przeskok. Wcześniej programowałem w java i c++.
+	Tutaj wygląda to trochę inaczej przez co wszystkiego uczę się od nowa.
+- Poziom zadań jest wysoki przez co nie wykonałem wszystkich zadań, uważam że wzięcie odpowiedzi z internetu będzie pójściem
+	na łatwizę i wszystko wyjdzie na kolokwium. Każde z tych zdań chcę wykonać samodzielnie bo tak nauczę się najwięcej, dlatego
+	też przesłana przeze mnie ilość zadań nie jest zbyt duża.
