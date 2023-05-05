@@ -1,0 +1,222 @@
+Cwiczenie 1
+
+1.
+
+
+#!/bin/bash
+
+if (( $# > 1 )); then
+    echo "Podano wiecej niz jeden parametr."
+    echo "Pierwszy parametr to: $1"
+elif (( $# == 1 )); then
+    echo "Podano jeden parametr."
+    echo "Parametr to: $1"
+else
+    echo "Nie podano wystarczajaco parametrow."
+fi
+
+2.
+
+#!/bin/bash
+
+# Sprawdzenie, czy istnieje plik config.cfg
+if [ -e config.cfg ]; then
+    echo "Uruchomienie pliku config.cfg."
+    ./config.cfg
+# Sprawdzenie, czy podano argument
+elif [ $# -eq 1 ]; then
+    echo "Nie znaleziono pliku config.cfg"
+    if [ -e "$1" ]; then
+        echo "Uruchomienie pliku $1."
+        ./"$1"
+    else
+        echo "Nie znaleziono pliku o nazwie $1."
+    fi
+else
+    echo "Blad: nie znaleziono pliku config.cfg, ani nie podano nazwy pliku jako argument."
+fi
+
+3.
+
+
+#!/bin/bash
+
+
+script_name=$(basename "$0")
+
+
+if [[ $script_name =~ \.sh$ ]]; then
+    echo "Nazwa skryptu jest poprawna."
+else
+    echo "Nazwa skryptu nie konczy sie na .sh, zmieniam nazwe."
+    new_script_name="${script_name}.sh"    
+    mv "$script_name" "$new_script_name"    
+    echo "Zmieniono nazwe skryptu na: $new_script_name"
+fi
+
+
+4. 
+
+
+
+#!/bin/bash
+
+files=$(ls | wc -l)
+
+
+if (( files > 5 )); then
+    echo "W biezacym katalogu jest wiecej niż 5 plikow."
+fi
+
+Cwiczenie 2.
+
+1.
+#!/bin/bash
+
+for (( i=10; i>=1; i-=2 )); do
+    echo "$i"
+done
+
+2.
+#!/bin/bash
+
+for arg in "$@"; do
+    echo "\"$arg\""
+done
+
+3.
+#!/bin/bash
+
+for file in *; do
+  
+  if [[ -f "$file" || -d "$file" ]]; then
+    
+    echo "Patrzcie Panstwo, oto plik: $file"
+  fi
+done
+
+
+4.
+#!/bin/bash
+
+for file in *.c
+do
+  if [[ "${file##*.}" == "c" ]]; then
+    filename=$(basename "$file")
+    filename="${filename%.*}"
+    cc "$file" -o "$filename"
+  fi
+done
+
+5.
+#!/bin/bash
+
+
+files=("$@")
+
+
+for ((i=0; i<${#files[@]}; i++)); do
+    echo "Plik ${files[i]}:"
+    while read -n 1 c; do
+        echo -n "$c"
+    done < "${files[i]}"
+    echo ""
+done
+
+
+for ((i=${#files[@]}-1; i>=0; i--)); do
+    echo "Plik ${files[i]} (odwrocona kolejnosc):"
+    while read -n 1 c; do
+        arr[$j]="$c"
+        ((j++))
+    done < "${files[i]}"
+    for ((k=j-1; k>=0; k--)); do
+        echo -n "${arr[$k]}"
+    done
+    echo ""
+    unset arr j
+done
+
+Cwiczenie 3
+
+1.
+#!/bin/bash
+
+function print_colored_text() {
+    local text="$1"
+    local color="$2"
+    local color_code=""
+    case "$color" in
+        "black") color_code="0;30" ;;
+        "red") color_code="0;31" ;;
+        "green") color_code="0;32" ;;
+        "yellow") color_code="0;33" ;;
+        "blue") color_code="0;34" ;;
+        "purple") color_code="0;35" ;;
+        "cyan") color_code="0;36" ;;
+        "white") color_code="0;37" ;;
+        *) echo "Unknown color: $color"; return 1 ;;
+    esac
+    echo -e "\033[${color_code}m${text}\033[0m"
+    return 0
+}
+
+2.
+
+#!/bin/bash
+
+
+
+function fibonacci() {
+  local n=$1
+  if [ $n -eq 0 ]; then
+    return 0
+  elif [ $n -eq 1 ]; then
+    return 1
+  else
+    local a=$(( $(fibonacci $((n-1))) + $(fibonacci $((n-2))) ))
+    return $a
+  fi
+}
+
+fibonacci 10
+result=$?
+echo "Wynik: $result"
+
+Zad dom.
+1.
+
+#!/bin/bash
+
+
+imie="Błażej"
+if [[ $imie =~ ^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*$ ]]; then
+    echo "Imie jest poprawne"
+else
+    echo "Imie jest niepoprawne"
+fi
+
+2.
+
+#!/bin/bash
+
+wyrazenie="^[0-9]{2}-[0-9]{3}$"
+
+if [[ "$1" =~ $wyrazenie ]]; then
+    echo "Podany tekst to kod pocztowy"
+else
+    echo "Podany tekst to nie kod pocztowy"
+fi
+
+
+3.
+
+#!/bin/bash
+
+email="jan.kowalski@example.com"
+
+if [[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+    echo "Adres email jest poprawny."
+else
+    echo "Adres email jest niepoprawny."
+fi
