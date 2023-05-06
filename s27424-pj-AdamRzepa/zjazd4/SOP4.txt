@@ -83,6 +83,10 @@ Napisz program wczytujący z pliku tekstowego ciąg liczb.
 #include <stdlib.h>
 
 int main(int argc, char *argv[]){
+	if (plik == NULL) {
+		printf("Nie można otworzyć pliku %s", filename);
+        	return 1;
+    	}
         if(argc !=2){
                 printf("brak pliku");
                 return 1;
@@ -107,6 +111,10 @@ Niech program wypisze je w odwrotnej kolejności. Program powinien przyjmować z
 #define MAX_SIZE 1000
 int main(int argc, char *argv[]){
         FILE *plik;
+	if (plik == NULL) {
+		printf("Nie można otworzyć pliku %s", filename);
+        	return 1;
+    	}
         if(argc > 2){
                 printf("podano zbyt wiele argumentów");
                 return 1;
@@ -129,8 +137,9 @@ int main(int argc, char *argv[]){
         printf("%d",liczba[i]);
         }
 		fclose(plik);
-        return 0;
 		free(liczba);
+        return 0;
+		
         }
 
 Zadanie z IO 2
@@ -191,44 +200,43 @@ Napisz program z 3 funkcjami, każda funkcja niech będzie miała taką sygnatur
 int max(int a, int b) {
     if(a>b){
 	return a;
-	}
-	else{
+    }
+    else{
 	return b;
-	}
+    }
 }
 
 int min(int a, int b) {
     if(a<b){
 	return a;
-	}
+    }
 	else{
 	return b;
-	}
+    }
 }
 
 int sum(int a, int b) {
     return a + b;
 }
 
+
 int main() {
 
 
             int (*f[3])(int, int) = { max, min, sum };
-            int functionId, elementCount;
+            int functionId, elementCount,result;
             printf("Podaj co ma sie uczynic 0==max 1 ==min 2==sum");
-
             scanf("%d", &functionId);
-
-            printf("Podaj liczbę elementów ciągu: ");
+	    printf("Podaj liczbę elementów ciągu: ");
             scanf("%d", &elementCount);
             int elements[elementCount];
-			for (int i = 0; i < elementCount; i++) {
-                    printf("Podaj element %d: ", i + 1);
-                    scanf("%d", &elements[i]);
+	    for (int i = 0; i < elementCount; i++) {
+                  	printf("Podaj element %d: ", i + 1);
+                    	scanf("%d", &elements[i]);
             }
 			int v = elements[0];
-			for (int i = 1; i < elementCount; i++) {
-					result = f[functionId](v, elements[i]); //porównujemy poprzedni element i teraźniejszy z i
+	    for (int i = 1; i < elementCount; i++) {
+			result = f[functionId](v, elements[i]); //porównujemy poprzedni element i teraźniejszy z i
             }
 
 			printf("Wynik: %d\n", v);
