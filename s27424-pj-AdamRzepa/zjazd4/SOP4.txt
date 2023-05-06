@@ -154,7 +154,7 @@ int main(int argc, char *argv[]){
 
         
         for (j = 0; j < bytes_read; j++) {
-            printf("%02x ", buffer[j]);  //ormatowanie wartości bajtu jako 2-cyfrowej wartości heksadecymalnej
+            printf("%02x ", buffer[j]);  //formatowanie wartości bajtu jako 2-cyfrowej wartości heksadecymalnej
             if ((j+1) % 4 == 0) printf(" "); 
             if ((j+1) % 8 == 0) printf(" "); 
         }

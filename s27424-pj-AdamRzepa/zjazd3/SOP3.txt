@@ -12,7 +12,7 @@ fi
 2*
 #!/bin/bash
 
-if [ -f "config.cfg" ]; then
+if [ -e "config.cfg" ]; then
           echo "Plik config.cfg istnieje."
             source config.cfg
     elif  [[ "$#"=="1" ]]; then
@@ -34,13 +34,12 @@ fi
 
 4*
 #!/bin/bash
+licznik=$(ls | wc -l)
 
-if  [[ $(ls | grep -c "^") > 5 ]]; then  //zlicza linie zaczynajace sie od znaku symbola początku linii
-          echo "W bieżącym katalogu znajduje się więcej niż 5 plików."
-  else
-            echo "W bieżącym katalogu znajduje się 5 lub mniej plików."
+if [ $licznik -gt 5 ]
+then
+  echo "W bieżącym katalogu znajduje się więcej niż 5 plików."
 fi
-
 
 TABLICA=(element1 "element 2" element\ 3)
 
@@ -172,16 +171,14 @@ function wypisz_kolorowy {
 wypisz_kolorowy "To jest tekst w kolorze niebieskim" niebieski
 
 zad2
-// dla więkych liczb słabo działa :P
-#!/bin/bash
-
-function fibonacci {
-  local n=$1
-
-  if ((n <= 1)); then
-    echo $n
+fibonacci() {
+  if [ "$1" -eq 0 ]; then
+    return 0
+  elif [ "$1" -eq 1 ]; then
+    return 1
   else
-    echo $(( $(fibonacci $((n-1))) + $(fibonacci $((n-2))) ))
+    local a=$(( $(fib $(( $1 - 1 ))) + $(fib $(( $1 - 2 ))) ))
+    return "$a"
   fi
 }
 
