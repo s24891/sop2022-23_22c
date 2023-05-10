@@ -1,0 +1,27 @@
+PATH
+Zmienna środowiskowa zaiwerająca liste ścieżek do plików wykonywalnych komend
+Może przydać się jeśli chcemy aby nasz skrypt intealacyjny napisany w bashu
+dodał nową komendę do systemu.
+RANDOM
+Generuje pseudo losową liczbę całkowitą z przedziału od 0 do 32767
+można użyć tego do jakiejś prostej losowości np. jeśli program wymagał by
+jakiegoś nickname i użytkownik wprowadziłby już istniejący to można wtedy 
+zaproponować losowy dopisek na końcu.
+PWD
+Ścieżka do katalogu w którym jest skrypt 
+
+PS1
+Zwraca monit wyswietlany przed każdą z komend w terminalu 
+
+USER
+Nazwa bieżącego użytkownika 
+Można użyć jako domyślnej nazwy użytkownika instalowanego przez skrypt 
+oprogramowania 
+HOSTNAME
+nazwa Hosta/komputera
+Można użyć jako domyślnej nazwy użytkownika instalowanego przez skrypt       
+oprogramowania lub np usługi sieciowej
+OSTYPE
+typ systemu operacyjnego
+Możemy sprawdzić czy system jest kompatybilny z naszym skrytpem lub np.
+wykorzystać do napisania skryptu kompatybilnego z różnymi systemami.
