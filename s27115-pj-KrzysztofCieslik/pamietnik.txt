@@ -25,3 +25,5 @@ Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
 		
 -Operacje na ciągach znaków
 -Podstawy wyrażeń regularnych
+
+2023-04-01
