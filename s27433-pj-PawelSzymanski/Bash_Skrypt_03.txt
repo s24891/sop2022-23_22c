@@ -1,0 +1,227 @@
+zadanie 1
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr.
+Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+#!/bin/bash
+
+if [[ $# -gt 1 ]]; then
+	echo "Pierwszy : $1"
+else
+	echo "Nie podano parametrow"
+fi
+
+pawel@debian:~$ ./zad1.sh "pierwszy" "ab"
+Pierwszy : pierwszy
+
+zadanie 2
+Napisz skrypt, który:
+
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+
+Jeśli taki plik istnieje, to niech go wykona.
+
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+#!/bin/bash
+
+if [ -f "config.cfg" ]; then
+	source "config.cfg"
+elif [ $# -gt 0 ]; then
+	source "$1"
+else
+	echo "blad nie ma pliku config.cfg ani argumentu skryptu"
+fi
+
+pawel@debian:~$ ./zad2.sh
+blad nie ma pliku config.cfg ani argumentu skryptu
+
+zadanie 3
+Napisz skrypt, który:
+
+sprawdzi, czy jego nazwa kończy się .sh .
+
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+
+porównanie ostatnich 3 liter nazwy skryptu
+
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##}
+
+#!/bin/bash
+
+if [[  "$1" == *.sh ]]; then
+	echo "koncowka jest .sh"
+else
+	plik=$1
+	pliksh="${plik%.*}.sh"
+
+	mv "$plik" "$pliksh"
+	echo "plik z rozszerzeniem sh: $pliksh"
+fi
+
+pawel@debian:~$ ./zad3.sh pliktest.c
+plik z rozszerzeniem sh: pliktest.sh
+
+zadanie 4
+Napisz skrypt, który
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików.
+
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+Podpowiem:
+
+ls - wyświetla listę plików
+
+wc - word count - zlicza znaki, słowa i linie
+
+grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
+
+może warto użyć także innego polecenia by znaleźć pliki?
+
+#!/bin/bash
+
+linie=$(ls -1 | wc -l)
+
+if [ "$linie" -gt 5 ]; then
+	echo "W katalogu jest wiecej niz 5 plikow"
+else
+	echo "W katalogu jest mniej niz 5 plikow"
+fi
+
+pawel@debian:~$ ./zad4.sh
+W katalogu jest wiecej niz 5 plikow
+
+Cwiczenie 2
+
+zadanie 1
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+
+#!/bin/bash
+
+for ((i = 10; i >=1; i-=2))
+do
+	echo $i
+done
+
+zadanie 2
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym,
+że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+#!/bin/bash
+
+for i in "$@"
+do
+	echo "\"$i\""
+done
+
+zadanie 3
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+
+#!/bin/bash
+
+IFS=$'\n'
+
+for i in $(ls -1);
+do
+	echo "Patrzcie panstow, oto plik: $i"
+done
+
+zadanie 4
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+   cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+
+#!/bin/bash
+
+IFS=$'\n'
+
+
+for i in *.c;
+do
+	echo "cc $i -o ${i%.c}"
+done
+
+zadanie 5
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+indeksy ujemne tablicy mogą się przydać
+
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+
+przyda się for
+
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+
+#!/bin/bash
+
+plik=("$@")
+
+for ((i=0; i<${#plik[@]}; i++));
+do
+	echo "zawartosc pliku ${plik[i]}"
+	cat "${plik[i]}"
+	echo ""
+done
+
+for ((i=${#plik[@]}-1; i>=0; i--));
+do
+	echo "zawartosc pliku ${plik[i]}"
+	cat "${plik[i]}"
+	echo ""
+done
+
+Cwiczenie 3
+
+
+zadanie 1
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor.
+ Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+#!/bin/bash
+
+function kolor(){
+	kolor="$1"
+	tekst="$2"
+	case "$kolor" in
+		czerwony)
+			kod="31m" ;;
+		zielony)
+			kod="32m" ;;
+		zolty)
+			kod="33m" ;;
+		niebieski)
+			kod="34m" ;;
+		magneta)
+			kod="35m" ;;
+		cyjan)
+			kod="36m" ;;
+		*)
+			echo "$tekst"
+			echo "nie wybrales kolor" ;;
+	esac
+
+	echo -e "\033[$kod$tekst\033[0m"
+}
+
+
+zadanie domowe
+Napisz skrypt który będzie pobierał jeden argument z linii komend i wypisywał informację o tym, czy jest to imie, kod pocztowy, czy też email. Na przykład
+
+
+
+
+!/bin/bash
+
+arg="$1"
+
+if [[ "$arg" =~ ^[A-ZŁŚŻ][a-ząćęłńóśżź]*$ ]]; then
+        echo "imie"
+elif [[ "$arg" =~ ^[0-9]{2}-[0-9]{3}$ ]]; then
+        echo "kod pocztowy"
+elif [[ "$arg" =~ ^[a-zA-Z0-9._%=-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+        echo "email"
+else
+        echo "nie jest to imie lub email lub kod pocztowy"
+fi
