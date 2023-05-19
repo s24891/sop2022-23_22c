@@ -1,0 +1,3 @@
+Przykladowy plik tekstowy.
+Ala ma kota.
+Kot ma ale.
