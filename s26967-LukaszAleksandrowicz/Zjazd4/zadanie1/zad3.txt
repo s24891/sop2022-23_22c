@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstdlib>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        std::cerr << "Użycie: " << argv[0] << " <wysokość>" << std::endl;
+        return 1;
+    }
+    int wysokosc = std::atoi(argv[1]);
+    if (wysokosc < 1) {
+        std::cerr << "Wysokość musi być dodatnia" << std::endl;
+        return 1;
+    }
+    for (int i = 0; i < wysokosc; i++) {
+        for (int j = 0; j < wysokosc-i-1; j++) {
+            std::cout << ' ';
+        }
+        for (int j = 0; j < 2*i+1; j++) {
+            std::cout << '*';
+        }
+        std::cout << std::endl;
+    }
+    return 0;
+}
+
+
+
+
+

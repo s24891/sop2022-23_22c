@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+// definicje funkcji
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // tablica wskaźników do funkcji
+    int (*f[3])(int, int) = {max, min, sum};
+
+    int functionId, elementCount;
+    cin >> functionId >> elementCount;
+
+    int v;
+    cin >> v;
+    for (int i = 1; i < elementCount; i++) {
+        int element;
+        cin >> element;
+        v = f[functionId](v, element);
+    }
+
+    cout << v << endl;
+
+    return 0;
+}
+
+
+
+

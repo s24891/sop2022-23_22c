@@ -1,0 +1,32 @@
+#include <iostream>
+
+int maksimum(int a, int b) {
+    return a > b ? a : b;
+}
+
+int minimum(int a, int b) {
+    return a < b ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // deklaracja tablicy wskaźników do funkcji o sygnaturze int(int, int)
+    int (*functions[3])(int, int) = {maksimum, minimum, suma};
+
+    // testowanie każdej z funkcji z tablicy
+    int a = 5, b = 7;
+    for (int i = 0; i < 3; i++) {
+        int result = functions[i](a, b);
+        std::cout << "Wynik funkcji " << i+1 << ": " << result << std::endl;
+    }
+
+    return 0;
+}
+
+
+
+
+

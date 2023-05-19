@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+int main() {
+    std::ifstream plik("nazwa_pliku.txt");
+    if (!plik) {
+        std::cerr << "Nie udało się otworzyć pliku" << std::endl;
+        return 1;
+    }
+    int n;
+    plik >> n;
+    std::vector<int> ciag(n);
+    for (int i = 0; i < n; i++) {
+        if (!(plik >> ciag[i])) {
+            std::cerr << "Błąd podczas czytania danych" << std::endl;
+            return 1;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        std::cout << ciag[i] << ' ';
+    }
+    std::cout << std::endl;
+    return 0;
+}
+
+
+
+

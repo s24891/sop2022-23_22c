@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstring>
+
+using namespace std;
+
+int main(int argc, char *argv[]) {
+    ifstream file;
+    if (argc == 1) {
+        cout << "Enter filename: ";
+        string filename;
+        cin >> filename;
+        file.open(filename.c_str(), ios::binary);
+    } else if (argc == 2) {
+        file.open(argv[1], ios::binary);
+    } else {
+        cerr << "Usage: hexdump [filename]" << endl;
+        return 1;
+    }
+
+    if (!file.is_open()) {
+        cerr << "Error opening file" << endl;
+        return 1;
+    }
+
+    char buffer[16];
+    int address = 0;
+    while (!file.eof()) {
+        int read_count = file.read(buffer, sizeof(buffer)).gcount();
+        if (read_count == 0) {
+            break;
+        }
+
+        cout << setw(8) << setfill('0') << hex << address << " ";
+        address += 16;
+
+        for (int i = 0; i < read_count; i++) {
+            cout << setw(2) << setfill('0') << hex << (int)buffer[i] << " ";
+        }
+
+        for (int i = read_count; i < sizeof(buffer); i++) {
+            cout << "   ";
+        }
+
+        cout << " ";
+
+        for (int i = 0; i < read_count; i++) {
+            if (isprint(buffer[i])) {
+                cout << buffer[i];
+            } else {
+                cout << ".";
+            }
+        }
+
+        cout << endl;
+    }
+
+    file.close();
+
+    return 0;
+}
+
+
+
+

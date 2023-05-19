@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int num1, num2, choice, result;
+    int (*f)(int, int); // wskaźnik na funkcję o sygnaturze int (*)(int, int)
+
+    cout << "Podaj dwie liczby: ";
+    cin >> num1 >> num2;
+
+    cout << "Wybierz operację:\n";
+    cout << "1. Maksimum\n";
+    cout << "2. Minimum\n";
+    cout << "3. Suma\n";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            f = max; // przypisz wskaźnik do funkcji max
+            break;
+        case 2:
+            f = min; // przypisz wskaźnik do funkcji min
+            break;
+        case 3:
+            f = sum; // przypisz wskaźnik do funkcji sum
+            break;
+        default:
+            cout << "Nieprawidłowy wybór.\n";
+            return 1;
+    }
+
+    result = f(num1, num2); // wywołaj funkcję wskazywaną przez wskaźnik f
+    cout << "Wynik: " << result << endl;
+
+    return 0;
+}
+
+
+

@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+int maximum(int a, int b) {
+    return a > b ? a : b;
+}
+
+int minimum(int a, int b) {
+    return a < b ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*functions[3])(int,int) = {maximum, minimum, suma};
+    int functionId, elementCount;
+    cout << "Podaj numer funkcji (0 - maksimum, 1 - minimum, 2 - suma): ";
+    cin >> functionId;
+    cout << "Podaj ilość elementów do pobrania: ";
+    cin >> elementCount;
+    int* elements = new int[elementCount];
+    cout << "Podaj " << elementCount << " elementów:" << endl;
+    for (int i = 0; i < elementCount; i++) {
+        cin >> elements[i];
+    }
+    int result = elements[0];
+    for (int i = 1; i < elementCount; i++) {
+        result = functions[functionId](result, elements[i]);
+    }
+    cout << "Wynik: " << result << endl;
+    delete[] elements;
+    return 0;
+}
+
+
+
+
+

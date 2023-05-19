@@ -1,0 +1,64 @@
+#include <iostream>
+
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* prev;
+};
+
+class LinkedList {
+private:
+    Node* head;
+    Node* tail;
+public:
+    LinkedList() {
+        head = tail = NULL;
+    }
+
+    ~LinkedList() {
+        Node* current = head;
+        while (current != NULL) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+        tail = NULL;
+    }
+
+    void add(int val) {
+        Node* newNode = new Node;
+        newNode->val = val;
+        newNode->next = NULL;
+        newNode->prev = tail;
+
+        if (head == NULL) {
+            head = newNode;
+        } else {
+            tail->next = newNode;
+        }
+        tail = newNode;
+    }
+
+    void print() {
+        Node* current = head;
+        while (current != NULL) {
+            std::cout << current->val << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.print();
+    return 0;
+}
+
+
+
+
