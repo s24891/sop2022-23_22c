@@ -1,0 +1,15 @@
+#!/bin/bash
+value="$1"
+name='^[A-ZŁŚĆŻŹÓĄĘ][a-złśćżźóąę]+$'
+postal='^[0-9]{2}-[0-9]{3}$'
+email='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+if [[ $value =~ $name ]]; then
+  echo "Imię"
+elif [[ $value =~ $postal ]]; then
+  echo "Kod pocztowy"
+elif [[ $value =~ $email ]]; then
+  echo "Adres email"
+else
+  echo "Nieznany typ"
+fi

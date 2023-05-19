@@ -1,0 +1,36 @@
+[xeon@xeon-ms7817 bashPodstawy]$ X=teks
+[xeon@xeon-ms7817 bashPodstawy]$ echo &X
+[xeon@xeon-ms7817 bashPodstawy]$ echo $X
+teks
+[xeon@xeon-ms7817 bashPodstawy]$ bash
+[xeon@xeon-ms7817 bashPodstawy]$ echo $X
+Zmienna nie została eksportowana dlatego po wywołaniu kolejnej powłoki
+nie jest już dostępna.
+
+[xeon@xeon-ms7817 bashPodstawy]$ X=Tekst dłuższy
+echo $X
+bash: dłuższy: command not found
+
+[xeon@xeon-ms7817 bashPodstawy]$ X=Tekst dłuższy
+bash: dłuższy: command not found
+[xeon@xeon-ms7817 bashPodstawy]$ echo $X
+
+brak "" powoduje że drugi fragment zmiennej po spacji interpretowana jest jak
+kolejne polecenie które jest błędne przez co nic z tej komendy się nie 
+wykona. 
+
+
+[xeon@xeon-ms7817 bashPodstawy]$ X="Tekst 1"
+[xeon@xeon-ms7817 bashPodstawy]$ Y="tekst:$X"
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$Y"
+tekst:Tekst 1
+[xeon@xeon-ms7817 bashPodstawy]$ Y='tekst:$X'
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$Y"
+tekst:$X
+[xeon@xeon-ms7817 bashPodstawy]$ Y=tekst:$X
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$Y"
+tekst:Tekst 1
+
+"" cudzysłów służy do umieszczenia w nim tekstu lub wartości zmiennych.
+'' apostrofy służą do umieszczenia między nimi wyrażenia którę będzie 
+traktowane jako ciąg znaków.

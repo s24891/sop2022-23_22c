@@ -1,0 +1,39 @@
+[xeon@xeon-ms7817 bashPodstawy]$ X=$(ls -lG)
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$X"
+total 12
+-rwxr-xr-x 1 xeon   42 05-10 20:45 cw1.sh
+-rw-r--r-- 1 xeon 1230 05-10 21:06 cw2.txt
+-rw-r--r-- 1 xeon 1061 05-10 21:32 cw3.txt
+[xeon@xeon-ms7817 bashPodstawy]$ echo -e "$X"
+total 12
+-rwxr-xr-x 1 xeon   42 05-10 20:45 cw1.sh
+-rw-r--r-- 1 xeon 1230 05-10 21:06 cw2.txt
+-rw-r--r-- 1 xeon 1061 05-10 21:32 cw3.txt
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$X"
+total 12
+-rwxr-xr-x 1 xeon   42 05-10 20:45 cw1.sh
+-rw-r--r-- 1 xeon 1230 05-10 21:06 cw2.txt
+-rw-r--r-- 1 xeon 1061 05-10 21:32 cw3.txt
+[xeon@xeon-ms7817 bashPodstawy]$ X=$(ls -l)
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$X"
+total 12
+-rwxr-xr-x 1 xeon xeon   42 05-10 20:45 cw1.sh
+-rw-r--r-- 1 xeon xeon 1230 05-10 21:06 cw2.txt
+-rw-r--r-- 1 xeon xeon 1061 05-10 21:32 cw3.txt
+[xeon@xeon-ms7817 bashPodstawy]$ echo $X
+total 12 -rwxr-xr-x 1 xeon xeon 42 05-10 20:45 cw1.sh -rw-r--r-- 1 xeon xeon 1230 05-10 21:06 cw2.txt -rw-r--r-- 1 xeon xeon 1061 05-10 21:32 cw3.txt
+[xeon@xeon-ms7817 bashPodstawy]$ echo "$X"
+total 12
+-rwxr-xr-x 1 xeon xeon   42 05-10 20:45 cw1.sh
+-rw-r--r-- 1 xeon xeon 1230 05-10 21:06 cw2.txt
+-rw-r--r-- 1 xeon xeon 1061 05-10 21:32 cw3.txt
+
+Jeśli chcemy, aby wypisanie zmiennej X  wyglądało tak samo
+ jak wynik wykonania komendy ls - dodajemy  -e co  włączy interpretację
+ sekwencji ucieczki tj. w tym przypadku znaków końca linii.
+	" -e     enable interpretation of backslash escapes"~z man echo
+
+W moim przypadku też działa po prostu echo "$X" ale nie potrafię zrozumieć 
+dlaczego.
+
+

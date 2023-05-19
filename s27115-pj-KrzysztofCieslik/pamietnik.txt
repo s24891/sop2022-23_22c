@@ -25,3 +25,12 @@ Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
 		
 -Operacje na ciągach znaków
 -Podstawy wyrażeń regularnych
+
+2023-04-01
+Mój drogi pamiętniczku na trzecich cwieczeniach dowiedzialem sie 
+nastepujacych ciekawych rzeczy:
+-Składania i działanie Wyrażeń warunkowych i pętli w bash.
+-Powoli zaczynam przekonywać się że w końcu muszę nauczyć się vi albo vima.
+-Dowiedziełem się że są tablice w bash 
+-Poznałem składnie i działanie Funkcji w bash.
+
