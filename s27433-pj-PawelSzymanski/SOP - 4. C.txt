@@ -1,0 +1,310 @@
+Zadania 1
+Napisz program obliczający sumę liczb wprowadzonych przez użytkownika
+(ze standardowego wejścia) i wypisujący wynik na standardowe wyjście.
+
+#include <stdio.h>
+
+int main() {
+    int a = 0;
+    int b = 0;
+    printf("Wprowadz liczby ");
+    for(int i = 0; i < 10; i++) {
+        scanf("%d", &b);
+        a += b;
+    }
+    printf("Suma liczb = %d", a);
+
+    return 0;
+}
+
+Zadanie 2
+Przerób ten program tak, aby wartość była zwracana jako kod zakończenia programu.
+#include <stdio.h>
+
+int main() {
+    int a = 0;
+    int b = 0;
+    printf("Wprowadz liczby ");
+    for(int i = 0; i < 10; i++) {
+        scanf("%d", &b);
+        a += b;
+    }
+
+
+    return printf("Suma liczb = %d", a);
+}
+Zadanie 3
+Napisz program wyświetlający tradycyjną choinkę o zadanej wysokości. Wysokość
+niech będzie podana jako parametr wywołania programu.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char* argv[]){
+    int b = atoi(argv[1]);
+    int i,j;
+    for(i = 0; i < b; i++){
+        for(j = 1; j <= b - i; j++){
+            printf(" ");
+        }
+        for(j = 1; j <= i; j++){
+            printf("* ");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+Zadanie z IO 1
+Napisz program wczytujący z pliku tekstowego ciąg liczb.
+Format pliku jest taki:
+
+liczba elementów ciągu (jako liczba naturalna)
+
+Kolejne liczby - każda w nowej linii
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+    FILE *fp;
+    int n, i, x;
+
+    fp = fopen("z.txt", "r");
+
+    if (fp == NULL){
+        printf("Blad");
+        exit(1);
+    }
+
+    fscanf(fp, "%d", &n);
+
+    printf("Liczby do wczytywania: %d\n", n);
+
+    for(i = 0; i < n; i++){
+        fscanf(fp, "%d", &x);
+        printf("%d\n", x);
+    }
+
+    fclose(fp);
+
+    return 0;
+}
+
+
+Zadanie: wskaźniki do funkcji
+
+
+Napisz program z 3 funkcjami, każda funkcja niech będzie miała taką sygnaturkę:
+ int (*f)(int,int)
+
+Niech będą to funkcje: maksimum, minimum oraz suma.
+
+
+#include <stdio.h>
+
+int maksimum(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int minimum(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*f)(int, int);
+    int maxResult;
+    int minResult;
+    int sumResult;
+
+
+    f = maksimum;
+    maxResult = f(10, 20);
+    printf("Maksimum: %d\n", maxResult);
+
+
+    f = minimum;
+    minResult = f(10, 20);
+    printf("Minimum: %d\n", minResult);
+
+
+    f = suma;
+    sumResult = f(10, 20);
+    printf("Suma: %d\n", sumResult);
+
+    return 0;
+}
+
+2.Zapamiętaj wskaźniki do tych funkcji w tablicy trójelementowej
+
+#include <stdio.h>
+
+int maksimum(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int minimum(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*f[3])(int, int);
+        int maxResult;
+        int minResult;
+        int sumResult;
+
+
+    f[0] = maksimum;
+    f[1] = minimum;
+    f[2] = suma;
+
+
+    maxResult = f[0](10, 20);
+    printf("Maksimum: %d\n", maxResult);
+
+
+    minResult = f[1](10, 20);
+    printf("Minimum: %d\n", minResult);
+
+
+    sumResult = f[2](10, 20);
+    printf("Suma: %d\n", sumResult);
+
+    return 0;
+}
+
+3.Niech program pobiera kolejno wartości:
+
+  functionId - liczba od 0 do 2 oznaczająca indeks funkcji w tablicy
+
+  elementCount - liczba elementów ciągu do pobrania
+
+  kolejno liczby w ilości elementCount
+
+
+
+#include <stdio.h>
+
+int maksimum(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int minimum(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*f[3])(int, int);
+
+
+    f[0] = maksimum;
+    f[1] = minimum;
+    f[2] = suma;
+
+    int functionId;
+    printf("Wybierz funkcję:\n");
+    printf("0 - Maksimum\n");
+    printf("1 - Minimum\n");
+    printf("2 - Suma\n");
+    scanf("%d", &functionId);
+
+    if (functionId < 0 || functionId > 2) {
+        printf("Błędny wybór funkcji.\n");
+        return 1;
+    }
+
+    int elementCount;
+    printf("Podaj liczbę elementów do pobrania: ");
+    scanf("%d", &elementCount);
+
+    int i;
+    int numbers[elementCount];
+    printf("Podaj kolejne liczby:\n");
+    for (i = 0; i < elementCount; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    int result = f[functionId](numbers[0], numbers[0]);
+    for (i = 1; i < elementCount; i++) {
+        result = f[functionId](result, numbers[i]);
+    }
+
+    printf("Wynik: %d\n", result);
+
+    return 0;
+}
+4.Niech program przetwarza wczytaną tablicę w taki sposób, że:
+
+  Niech v przyjmie wartość pierwszego elementu
+
+  w pętli po wszystkich elementach od drugiego (indeks 1 w tablicy)
+
+  wykona funkcję o numerze functionId przekazując jako argumenty v oraz element o aktualnym indeksie. Niech wynik zostanie zapisany do v
+
+  Wypisze wartość v na koniec
+
+  #include <stdio.h>
+
+  int maksimum(int a, int b) {
+      return (a > b) ? a : b;
+  }
+
+  int minimum(int a, int b) {
+      return (a < b) ? a : b;
+  }
+
+  int suma(int a, int b) {
+      return a + b;
+  }
+
+  int main() {
+      int (*f[3])(int, int);
+      f[0] = maksimum;
+      f[1] = minimum;
+      f[2] = suma;
+
+      int functionId;
+      printf("Wybierz funkcję:\n");
+      printf("0 - Maksimum\n");
+      printf("1 - Minimum\n");
+      printf("2 - Suma\n");
+      scanf("%d", &functionId);
+
+      if (functionId < 0 || functionId > 2) {
+          printf("Błędny wybór funkcji.\n");
+          return 1;
+      }
+
+      int elementCount;
+      printf("Podaj liczbę elementów do pobrania: ");
+      scanf("%d", &elementCount);
+
+      int i;
+      int numbers[elementCount];
+      printf("Podaj kolejne liczby:\n");
+      for (i = 0; i < elementCount; i++) {
+          scanf("%d", &numbers[i]);
+      }
+
+      int v = numbers[0];
+
+      for (i = 1; i < elementCount; i++) {
+          v = f[functionId](v, numbers[i]);
+      }
+
+      printf("Wynik: %d\n", v);
+
+      return 0;
+  }
