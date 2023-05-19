@@ -1,0 +1,205 @@
+Temat: Pętle,tablice,funkcje
+Cwiczenie 1
+1*
+if (( $# > 1 )); then
+  echo "Pierwszy parametr: $1"
+elif (( $# == 1 )); then
+  echo "Nie podano więcej niż jednego parametru."
+  echo "Pierwszy parametr: $1"
+else
+  echo "Nie podano żadnych parametrów."
+fi
+2*
+#!/bin/bash
+
+if [ -e "config.cfg" ]; then
+          echo "Plik config.cfg istnieje."
+            source config.cfg
+    elif  [[ "$#"=="1" ]]; then
+              echo "Plik config.cfg nie istnieje, wykonuję plik $1."
+                source "$1"
+        else
+    echo "Błąd: nie znaleziono pliku konfiguracyjnego ani nie podano nazwy pliku jako argument."
+fi
+3*
+
+#!/bin/bash
+
+if [[ "$0" == *.sh ]]; then
+          echo "Nazwa pliku kończy się na '.sh'"
+  else
+         mv "$0" "$0.sh"
+fi
+
+
+4*
+#!/bin/bash
+licznik=$(ls | wc -l)
+
+if [ $licznik -gt 5 ]
+then
+  echo "W bieżącym katalogu znajduje się więcej niż 5 plików."
+fi
+
+TABLICA=(element1 "element 2" element\ 3)
+
+echo ${TABLICA[1]}  //wyswietla element2
+
+echo ${TABLICA[*]} //wyswietla wszystkie elementy
+
+echo ${TABLICA[@]} //wyswietla wszystkie elementy
+
+echo ${TABLICA[*]} //wyswietla wszystkie elementy
+
+echo "${!TABLICA[@]}  ${!TABLICA[*]}" //wyswietla jakie są argumenty numeracja
+echo ${#TABLICA[@]} //wyswietla ilosc argumentów
+
+
+Ćwiczenie 2
+1*
+#!/bin/bash
+
+for (( i=10; i>=1; i-=2 ))
+do
+  echo $i
+done
+
+2*
+#!/bin/bash
+
+for arg in "$@"
+do
+  echo "$arg"
+done
+3*
+
+#!/bin/bash
+
+IFS=$'\n' // Ustawienie separatora na znak nowej linii
+for file in $(ls -1) // Przejście po każdym pliku i katalogu zwróconym przez ls
+do
+    echo "Patrzcie Państwo, oto plik: $file" // Wyświetlenie nazwy pliku
+done
+4*
+!/bin/bash
+
+for file in *.c # Przejście po każdym pliku z rozszerzeniem .c
+do
+    filename="${file%.*}" # Uzyskanie nazwy pliku bez rozszerzenia
+    cc "$file" -o "$filename"
+done
+
+5*
+
+#!/bin/bash
+
+
+# dla każdego podanego pliku
+for file in "$@"; do
+  
+  if [[ -f "$file" ]]; then
+    # wypisuje zawartość pliku od początku do końca
+    echo "Zawartość pliku $file:"
+    cat "$file"
+
+    # wypisuje zawartość pliku od końca do początku
+    echo "Zawartość pliku $file (od końca do początku):"
+    content=$(cat "$file") 
+    for (( i=${#content[@]}-1; i>=0; i-- )); do # przetwarzamy zawartość pliku od tyłu
+        echo "${content[i]}"
+    done
+  else
+    echo "Plik $file nie istnieje."
+  fi
+done
+
+
+//Utworzenie funkcji i wywołanie
+#!/bin/bash
+
+function witaj {
+
+  echo "Funkcja ta jest nieuprzejma i nie wita $1"
+
+}
+
+witaj Jan
+
+
+
+Ćwiczenie 3
+#!/bin/bash
+
+function wypisz_kolorowy {
+  local tekst=$1
+  local kolor=$2
+  local kolor_kodu
+
+  case $kolor in
+    czarny)
+      kolor_kodu=0
+      ;;
+    czerwony)
+      kolor_kodu=1
+      ;;
+    zielony)
+      kolor_kodu=2
+      ;;
+    zolty)
+      kolor_kodu=3
+      ;;
+    niebieski)
+      kolor_kodu=4
+      ;;
+    purpurowy)
+      kolor_kodu=5
+      ;;
+    cyjanowy)
+      kolor_kodu=6
+      ;;
+    bialy)
+      kolor_kodu=7
+      ;;
+    *)
+      echo "Nieznany kolor: $kolor"
+      return 1
+      ;;
+  esac
+
+  echo -e "\033[3${kolor_kodu}m${tekst}\033[0m"
+}
+wypisz_kolorowy "To jest tekst w kolorze niebieskim" niebieski
+
+zad2
+fibonacci() {
+  if [ "$1" -eq 0 ]; then
+    return 0
+  elif [ "$1" -eq 1 ]; then
+    return 1
+  else
+    local a=$(( $(fib $(( $1 - 1 ))) + $(fib $(( $1 - 2 ))) ))
+    return "$a"
+  fi
+}
+
+
+fibonacci 10
+
+
+ZAD DOM
+#!/bin/bash
+
+arg="$1"
+
+if [[ "$arg" =~ ^[A-ZŁŚŻ][a-ząćęłńóśżź]*$ ]]; then
+        echo "Wpisany argument to polskie imie"
+elif [[ "$arg" =~ ^[0-9]{2}-[0-9]{3}$ ]]; then
+        echo "Wpisany argument to kod pocztowy"
+elif [[ "$arg" =~ ^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$ ]]; then
+        echo "Wpisany argument to email"
+else
+        echo "Wpisany argument nie zgadza sie z mailem,kodem,oraz imieniem"
+fi
+
+
+
