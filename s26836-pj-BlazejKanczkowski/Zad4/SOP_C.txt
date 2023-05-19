@@ -1,0 +1,350 @@
+Zad1:
+#include<stdio.h>
+
+int main(){
+
+   int a;
+   int b;
+
+   printf("podaj dwie cyfry ");
+   scanf("%d %d", &a,&b);
+   printf("Suma: %d\n", a + b);
+   return 0;
+}
+
+Zad2:
+#include<stdio.h>
+
+int main(){
+
+   int a;
+   int b;
+   int suma;
+
+   printf("podaj dwie cyfry ");
+   scanf("%d %d", &a,&b);
+   suma = a+b;
+   return suma;
+}
+
+Zad3:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Podaj wysokość choinki jako parametr wywołania programu!\n");
+        return 1;
+    }
+
+    int wysokosc = atoi(argv[1]);
+
+    for (int i = 0; i < wysokosc; i++) {
+        for (int j = 0; j < wysokosc - i - 1; j++) {
+            printf(" ");
+        }
+
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+
+        printf("\n");
+    }
+
+    // Wyświetlenie pnia choinki
+    for (int i = 0; i < wysokosc - 1; i++) {
+        printf(" ");
+    }
+    printf("*\n");
+
+    return 0;
+}
+
+Zad1:
+
+#include <stdio.h>
+
+int main() {
+    FILE *plik;
+    int liczbaElementow;
+    int liczba;
+    char nazwaPliku[100];
+
+    printf("Podaj nazwę pliku: ");
+    scanf("%s", nazwaPliku);
+
+    // Otwieranie pliku do odczytu
+    plik = fopen(nazwaPliku, "r");
+    if (plik == NULL) {
+        printf("Nie można otworzyć pliku.\n");
+        return 1;
+    }
+
+    // Wczytywanie liczby elementów ciągu
+    fscanf(plik, "%d", &liczbaElementow);
+
+    // Wczytywanie kolejnych liczb
+    printf("Ciąg liczb:\n");
+    for (int i = 0; i < liczbaElementow; i++) {
+        fscanf(plik, "%d", &liczba);
+        printf("%d\n", liczba);
+    }
+
+    // Zamykanie pliku
+    fclose(plik);
+
+    return 0;
+}
+
+Zad2:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    FILE *plik;
+    int liczbaElementow;
+    int *ciagLiczb;
+    char nazwaPliku[100];
+
+    // Sprawdzanie liczby argumentów
+    if (argc > 2) {
+        printf("Podaj maksymalnie jeden argument - nazwę pliku.\n");
+        return 1;
+    }
+
+    // Wczytywanie z pliku
+    if (argc == 2) {
+        // Otwieranie pliku do odczytu
+        plik = fopen(argv[1], "r");
+        if (plik == NULL) {
+            printf("Nie można otworzyć pliku.\n");
+            return 1;
+        }
+    }
+    // Wczytywanie ze standardowego wejścia
+    else {
+        printf("Podaj ciąg liczb:\n");
+        plik = stdin;
+    }
+
+    // Wczytywanie liczby elementów ciągu
+    fscanf(plik, "%d", &liczbaElementow);
+
+    // Alokacja pamięci dla ciągu liczb
+    ciagLiczb = (int *)malloc(liczbaElementow * sizeof(int));
+    if (ciagLiczb == NULL) {
+        printf("Błąd alokacji pamięci.\n");
+        fclose(plik);
+        return 1;
+    }
+
+    // Wczytywanie kolejnych liczb w odwrotnej kolejności
+    for (int i = liczbaElementow - 1; i >= 0; i--) {
+        fscanf(plik, "%d", &ciagLiczb[i]);
+    }
+
+    // Wyświetlanie ciągu liczb
+    printf("Ciąg liczb (odwrotna kolejność):\n");
+    for (int i = 0; i < liczbaElementow; i++) {
+        printf("%d\n", ciagLiczb[i]);
+    }
+
+    // Zwolnienie pamięci i zamknięcie pliku
+    free(ciagLiczb);
+    if (plik != stdin) {
+        fclose(plik);
+    }
+
+    return 0;
+}
+
+
+Zad1
+#include <stdio.h>
+
+void printHexDump(FILE *file) {
+    unsigned char buffer[16];
+    int bytesRead;
+    int offset = 0;
+
+    while ((bytesRead = fread(buffer, sizeof(unsigned char), 16, file)) > 0) {
+        printf("%08x  ", offset);
+
+        // Wyświetlanie wartości w postaci szesnastkowej
+        for (int i = 0; i < bytesRead; i++) {
+            printf("%02x ", buffer[i]);
+            
+            // Dodatkowe spacje w celu pogrupowania wartości
+            if ((i + 1) % 4 == 0) {
+                printf(" ");
+            }
+            
+            if ((i + 1) % 8 == 0) {
+                printf(" ");
+            }
+        }
+
+        // Uzupełnienie spacji na końcu wiersza, jeśli potrzeba
+        int remainingBytes = 16 - bytesRead;
+        for (int i = 0; i < remainingBytes; i++) {
+            printf("   ");
+
+            if ((bytesRead + i + 1) % 4 == 0) {
+                printf(" ");
+            }
+
+            if ((bytesRead + i + 1) % 8 == 0) {
+                printf(" ");
+            }
+        }
+
+        printf(" ");
+
+        // Wyświetlanie znaków ASCII
+        for (int i = 0; i < bytesRead; i++) {
+            if (buffer[i] >= 32 && buffer[i] <= 126) {
+                printf("%c", buffer[i]);
+            } else {
+                printf(".");
+            }
+        }
+
+        printf("\n");
+        offset += bytesRead;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Podaj nazwę pliku jako argument.\n");
+        return 1;
+    }
+
+    FILE *file = fopen(argv[1], "rb");
+    if (file == NULL) {
+        printf("Nie można otworzyć pliku.\n");
+        return 1;
+    }
+
+    printHexDump(file);
+
+    fclose(file);
+    return 0;
+}
+
+
+Zad1:
+#include <stdio.h>
+
+int maksimum(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int minimum(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*f[3])(int, int) = {maksimum, minimum, suma};
+
+    int functionId, elementCount;
+
+    printf("Podaj numer funkcji (0 - maksimum, 1 - minimum, 2 - suma): ");
+    scanf("%d", &functionId);
+
+    printf("Podaj ilość elementów: ");
+    scanf("%d", &elementCount);
+
+    int array[elementCount];
+
+    printf("Podaj elementy ciągu:\n");
+    for (int i = 0; i < elementCount; i++) {
+        scanf("%d", &array[i]);
+    }
+
+    int v = array[0];
+
+    for (int i = 1; i < elementCount; i++) {
+        v = (*f[functionId])(v, array[i]);
+    }
+
+    printf("Wynik: %d\n", v);
+
+    return 0;
+}
+
+Zad.dom
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Struktura węzła listy
+typedef struct Node {
+    int data;           // Dane przechowywane w węźle
+    struct Node* next;  // Wskaźnik do następnego węzła
+} Node;
+
+// Funkcja do tworzenia nowego węzła listy
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Błąd: Nie można zaalokować pamięci dla nowego węzła.\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Funkcja do dodawania nowego węzła na początek listy
+Node* insertAtBeginning(Node* head, int data) {
+    Node* newNode = createNode(data);
+    newNode->next = head;
+    return newNode;
+}
+
+// Funkcja do wyświetlania zawartości listy
+void displayList(Node* head) {
+    Node* current = head;
+    printf("Lista: ");
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+// Funkcja do usuwania listy i zwalniania pamięci
+void deleteList(Node* head) {
+    Node* current = head;
+    Node* nextNode;
+    while (current != NULL) {
+        nextNode = current->next;
+        free(current);
+        current = nextNode;
+    }
+}
+
+int main() {
+    Node* head = NULL;  // Inicjalizacja głowy listy
+
+    // Dodawanie węzłów do listy
+    head = insertAtBeginning(head, 10);
+    head = insertAtBeginning(head, 20);
+    head = insertAtBeginning(head, 30);
+
+    // Wyświetlanie zawartości listy
+    displayList(head);
+
+    // Usuwanie listy i zwalnianie pamięci
+    deleteList(head);
+
+    return 0;
+}
+
+
