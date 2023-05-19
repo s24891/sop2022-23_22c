@@ -2,7 +2,7 @@
 
 - Na zajeciach nauczylem sie calego procesu instalacji, oraz jakie sa dostene opcje w VirtualBox
 - Z ktorych opcji warto korzystac, ktore opcje sa zbedne
-- Na odpowiednim zarzadzaniu zasobami, tak aby jak najoptymalniej zainstalowac system
+- Na odpowiednim zarzadzaniu zasobami, tak aby z optymalnymi zasobami zainstalowac system
 
 18.03.2023
 
@@ -14,3 +14,17 @@
 
 - Poznalem jak uzywac petl w Bash'u
 - Jak robic warunki w Bash'u
+
+22.04.2023
+
+- Poznalem wprowadzenie do programowania w jezyku C
+- Kompilowanie restrykcyjne zgodnie ze standardem ISO C90
+- Operacje na wskaznikach
+- Instrukcje warunkowe w jezyku C
+- Petle w jezyku C
+
+06.05.2023
+
+- Poznalem operacje na PID'ach
+- Jak nimi zarzadzac, tworzyc drzewka z procesow
+- Jak dziala funkcja fork()
