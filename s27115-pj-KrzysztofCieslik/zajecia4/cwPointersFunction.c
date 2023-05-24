@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int maximum(int a, int b) {
     return (a > b) ? a : b;
@@ -12,37 +13,38 @@ int sum(int a, int b) {
     return a + b;
 }
 
-/*przyjmuje 
-1.wskaźnik na tablicę liczb całkowitych 
-2.liczbę elementów w tablicy 
-3.wskaźnik do funkcji, która przyjmuje dwie liczby całkowite i zwraca liczbę całkowitą. 
-Funkcja iteruje po tablicy, wywołując przekazaną funkcję na kolejnych elementach .*/
-
 int forAll(int* array, int elementCount, int (*f)(int, int)) {
     int v = array[0];
-    for (int i = 1; i < elementCount; i++) {
+    int i;
+    for (i = 1; i < elementCount; i++) {
         v = f(v, array[i]);
     }
     return v;
 }
 
 int main() {
-    int (*functions[3])(int, int) = {maximum, minimum, sum};
-    /* Deklaracja i inicjalizacja tablicy functions. 
-    Tablica ma rozmiar 3 i przechowuje wskaźniki do funkcji "maximum", "minimum" i "sum".*/
-
     int functionId;
     int elementCount;
+    int result;
+    int* array;
+    int i;
     scanf("%d", &functionId);
     scanf("%d", &elementCount);
 
-    int array[elementCount];
-    for (int i = 0; i < elementCount; i++) {
+    array = malloc(elementCount * sizeof(int));
+    if (array == NULL) {
+        printf("Error: Failed to allocate memory\n");
+        return 1;
+    }
+
+    
+    for (i = 0; i < elementCount; i++) {
         scanf("%d", &array[i]);
     }
 
-    int result = forAll(array, elementCount, functions[functionId]);
+    result = forAll(array, elementCount, (functionId == 0) ? maximum : (functionId == 1) ? minimum : sum);
     printf("Result: %d\n", result);
 
+    free(array);
     return 0;
 }

@@ -18,11 +18,11 @@ int main() {
         fscanf(file, "%d", &number);
        tab[i] = number;
     }
-    for (int i = n; i >= 0; i--)
+    for (i = n; i >= 0; i--)
     {
          printf("%d\n",tab[i-1]);
     }
-       void free(void *tab);
+       free(tab);
     fclose(file);
 
 return 0;
