@@ -1,0 +1,20 @@
+Program cw1_1.c 
+W przypadku gdy po wypisani przez program numerów pid i ppid wcisniemy enter lub wpiszem cokolwiek i wcisniemy enter
+program przejdzie dalej i zakończy swoje działanie z kodem wyjścia 0.
+Zrelizowane jest to przy pomocy getchar();.
+Dodałem do programu wypisywanie znaku który został przechwycony ponieważ chciałem przy okazji zbadać działanie getchar w różnych przypadkach.
+Z tego co zaobserowałem i co było dla mnie ciekawe to w momencie nie wpisania niczego przechwytywane jest 10 czyli znak nowej linii i z tego 
+co zrozumiałem to wciśniecie entera powoduje dodanie znaku końca linii do bufora z którego zostaje on odczytany przez getchar();
+
+W przypadku gdy nie klikniemy enter program czeka w nieskończoność i gdy wtedy użyjemi w innym terminalu kill "pid zwórcony przez nasz program"
+program zostanie zakończony
+
+[xeon@xeon-ms7817 ~]$ kill 23845
+
+[xeon@xeon-ms7817 zajecia5]$ ./cw1_1
+pid : 23845
+ppid: 20888
+Terminated
+
+
+
