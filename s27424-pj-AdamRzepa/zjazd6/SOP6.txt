@@ -1,0 +1,550 @@
+Zad 1 sygnały
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
+void handle_signal(int signal) {
+    if (signal == SIGUSR1) {
+        printf("Otzymano sygnał SIGUSR1 , zamykam program..\n");
+        exit(0);
+    }
+}
+
+int main() {
+    pid_t pid = getpid();
+    printf("My PID is %d\n", pid);
+
+
+    signal(SIGUSR1, handle_signal);
+
+
+    while (1) {
+      
+    }
+
+    return 0;
+}
+Zad 2 sygnały
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#define LOCK_FILE "/tmp/lock"
+
+void handle_signal(int signal) {
+    if (signal == SIGUSR1) {
+        printf("Wykryto próbę uruchomienia drugiej instancji programu.\n");
+    }
+}
+
+int main() {
+    // Sprawdzenie istnienia pliku blokady
+    int lock_fd = open(LOCK_FILE, O_CREAT | O_EXCL | O_WRONLY, 0644);
+    if (lock_fd == -1) {
+        // Plik blokady istnieje - odczytanie PID procesu uruchomionego
+        lock_fd = open(LOCK_FILE, O_RDONLY);
+        if (lock_fd == -1) {
+            perror("Error opening lock file");
+            exit(1);
+        }
+        
+        pid_t running_pid;
+        read(lock_fd, &running_pid, sizeof(pid_t));
+        close(lock_fd);
+        
+        // Wysłanie sygnału SIGUSR1 do procesu uruchomionego
+        kill(running_pid, SIGUSR1);
+        
+        exit(0);
+    }
+    
+    // Plik blokady nie istnieje - tworzenie i zapisanie PID bieżącego procesu
+    pid_t pid = getpid();
+    write(lock_fd, &pid, sizeof(pid_t));
+    close(lock_fd);
+    
+    // Instalacja obsługi sygnału SIGUSR1
+    signal(SIGUSR1, handle_signal);
+    
+    // Instalacja obsługi sygnału SIGINT
+    signal(SIGINT, handle_signal);
+    
+
+    while (1) {
+        sleep(1);
+    }
+    
+    // Usunięcie pliku blokady przy wyjściu z pętli
+    remove(LOCK_FILE);
+    
+    return 0;
+}
+
+
+Zadanie 1 Sockety
+
+Serwer:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+#define BUFFER_SIZE 1024
+
+void handle_client(int client_socket) {
+    char file_name[BUFFER_SIZE];
+    ssize_t bytes_received, bytes_sent;
+    FILE *file;
+
+    // Odbieranie długości nazwy pliku
+    int file_name_length;
+    bytes_received = recv(client_socket, &file_name_length, sizeof(file_name_length), 0);
+    if (bytes_received <= 0) {
+        perror("Error receiving file name length");
+        close(client_socket);
+        return;
+    }
+
+    // Odbieranie nazwy pliku
+    bytes_received = recv(client_socket, file_name, file_name_length, 0);
+    if (bytes_received <= 0) {
+        perror("Error receiving file name");
+        close(client_socket);
+        return;
+    }
+
+    file_name[file_name_length] = '\0';  // Dodanie końca łańcucha
+
+    // Otwieranie pliku
+    file = fopen(file_name, "rb");
+    if (file == NULL) {
+        // Wysyłanie informacji o błędzie
+        int error = -1;
+        bytes_sent = send(client_socket, &error, sizeof(error), 0);
+        if (bytes_sent <= 0) {
+            perror("Error sending file size");
+        }
+        close(client_socket);
+        return;
+    }
+
+    // Pobieranie wielkości pliku
+    fseek(file, 0L, SEEK_END);
+    int file_size = ftell(file);
+    rewind(file);
+
+    // Wysyłanie wielkości pliku
+    bytes_sent = send(client_socket, &file_size, sizeof(file_size), 0);
+    if (bytes_sent <= 0) {
+        perror("Error sending file size");
+        close(client_socket);
+        fclose(file);
+        return;
+    }
+
+    if (file_size == 0) {
+        // Plik pusty, nie ma potrzeby wysyłania danych
+        close(client_socket);
+        fclose(file);
+        return;
+    }
+
+    // Wysyłanie danych pliku paczkami
+    char buffer[BUFFER_SIZE];
+    int bytes_read;
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+        bytes_sent = send(client_socket, buffer, bytes_read, 0);
+        if (bytes_sent <= 0) {
+            perror("Error sending file data");
+            break;
+        }
+    }
+
+    close(client_socket);
+    fclose(file);
+}
+
+int main() {
+    int server_socket, client_socket;
+    struct sockaddr_in server_address, client_address;
+    socklen_t client_address_length;
+    char log_message[BUFFER_SIZE];
+
+    // Tworzenie gniazda serwera
+    server_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_socket == -1) {
+        perror("Error creating server socket");
+        exit(1);
+    }
+
+    // Konfigurowanie adresu serwera
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(1234);  // Wybierz odpowiedni port
+    server_address.sin_addr.s_addr = INADDR_ANY;
+
+    // Bindowanie gniazda serwera
+    if (bind(server_socket, (struct sockaddr *)&server_address, sizeof(server_address)) == -1) {
+        perror("Error binding server socket");
+        exit(1);
+    }
+
+    // Nasłuchiwanie na gnieździe serwera
+    if (listen(server_socket, 5) == -1) {
+        perror("Error listening on server socket");
+        exit(1);
+    }
+
+    printf("Server is running. Waiting for connections...\n");
+
+    // Obsługa połączeń klientów
+    while (1) {
+        client_address_length = sizeof(client_address);
+        client_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_address_length);
+        if (client_socket == -1) {
+            perror("Error accepting client connection");
+            continue;
+        }
+
+        // Zapisywanie informacji o połączeniu do logu
+        snprintf(log_message, sizeof(log_message), "Client connected: %s:%d\n",
+                 inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
+        printf("%s", log_message);
+
+        // Odbieranie i obsługa żądania klienta
+        handle_client(client_socket);
+
+        printf("Client disconnected: %s:%d\n", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
+    }
+
+    // Zamykanie gniazda serwera
+    close(server_socket);
+
+    return 0;
+}
+
+
+Klient:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+#define BUFFER_SIZE 1024
+
+int main() {
+    int client_socket;
+    struct sockaddr_in server_address;
+    char file_name[BUFFER_SIZE];
+    ssize_t bytes_received, bytes_sent;
+    int file_size;
+
+    // Tworzenie gniazda klienta
+    client_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (client_socket == -1) {
+        perror("Error creating client socket");
+        exit(1);
+    }
+
+    // Konfigurowanie adresu serwera
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(1234);  // Wybierz odpowiedni port
+    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");  // Adres IP serwera
+
+    // Nawiązywanie połączenia z serwerem
+    if (connect(client_socket, (struct sockaddr *)&server_address, sizeof(server_address)) == -1) {
+        perror("Error connecting to server");
+        exit(1);
+    }
+
+    // Wprowadzanie nazwy pliku
+    printf("Enter file name: ");
+    fgets(file_name, sizeof(file_name), stdin);
+    file_name[strcspn(file_name, "\n")] = '\0';  // Usunięcie znaku nowej linii
+
+    // Wysyłanie długości nazwy pliku
+    int file_name_length = strlen(file_name);
+    bytes_sent = send(client_socket, &file_name_length, sizeof(file_name_length), 0);
+    if (bytes_sent <= 0) {
+        perror("Error sending file name length");
+        close(client_socket);
+        exit(1);
+    }
+
+    // Wysyłanie nazwy pliku
+    bytes_sent = send(client_socket, file_name, file_name_length, 0);
+    if (bytes_sent <= 0) {
+        perror("Error sending file name");
+        close(client_socket);
+        exit(1);
+    }
+
+    // Odbieranie wielkości pliku
+    bytes_received = recv(client_socket, &file_size, sizeof(file_size), 0);
+    if (bytes_received <= 0) {
+        perror("Error receiving file size");
+        close(client_socket);
+        exit(1);
+    }
+
+    if (file_size == -1) {
+        printf("File not found on the server.\n");
+        close(client_socket);
+        exit(1);
+    } else if (file_size == 0) {
+        printf("File is empty.\n");
+        close(client_socket);
+        exit(0);
+    }
+
+    // Odbieranie danych pliku paczkami
+    FILE *file = fopen(file_name, "wb");
+    if (file == NULL) {
+        perror("Error opening file for writing");
+        close(client_socket);
+        exit(1);
+    }
+
+    char buffer[BUFFER_SIZE];
+    int bytes_received_total = 0;
+    while (bytes_received_total < file_size) {
+        bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
+        if (bytes_received <= 0) {
+            perror("Error receiving file data");
+            fclose(file);
+            close(client_socket);
+            exit(1);
+        }
+        fwrite(buffer, 1, bytes_received, file);
+        bytes_received_total += bytes_received;
+    }
+
+    printf("File received successfully.\n");
+
+    fclose(file);
+    close(client_socket);
+
+    return 0;
+}
+
+Zad domowe
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <fcntl.h>
+#include <time.h>
+
+#define MAX_BUFFER_SIZE 1024
+#define FORBIDDEN_FILE "forbidden.txt"
+#define LOG_FILE "server.log"
+
+typedef struct {
+    char *address;
+    char *document_root;
+} VirtualHost;
+
+typedef struct {
+    VirtualHost *hosts;
+    int num_hosts;
+} ServerConfig;
+
+void handle_connection(int client_socket, ServerConfig *config) {
+    char buffer[MAX_BUFFER_SIZE];
+    memset(buffer, 0, sizeof(buffer));
+
+    int bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+    if (bytes_received <= 0) {
+        perror("Error receiving data from client");
+        close(client_socket);
+        exit(1);
+    }
+
+    // Parsowanie żądania HTTP
+    char method[16], path[MAX_BUFFER_SIZE], protocol[16];
+    sscanf(buffer, "%s %s %s", method, path, protocol);
+
+    // Sprawdzenie, czy żądany adres jest na liście zabronionych
+    FILE *forbidden_file = fopen(FORBIDDEN_FILE, "r");
+    if (forbidden_file != NULL) {
+        char forbidden_address[MAX_BUFFER_SIZE];
+        while (fgets(forbidden_address, sizeof(forbidden_address), forbidden_file) != NULL) {
+            forbidden_address[strcspn(forbidden_address, "\r\n")] = '\0';  // Usunięcie znaku nowej linii
+            if (strcmp(forbidden_address, inet_ntoa(client_address.sin_addr)) == 0) {
+                printf("Access denied for %s\n", forbidden_address);
+                fclose(forbidden_file);
+                close(client_socket);
+                exit(1);
+            }
+        }
+        fclose(forbidden_file);
+    }
+
+    // Znalezienie pasującego wirtualnego hosta na podstawie adresu
+    VirtualHost *host = NULL;
+    char *hostname = strtok(path, "/");
+    for (int i = 0; i < config->num_hosts; i++) {
+        if (strcmp(config->hosts[i].address, hostname) == 0) {
+            host = &config->hosts[i];
+            break;
+        }
+    }
+
+    if (host == NULL) {
+        printf("Virtual host not found: %s\n", hostname);
+        close(client_socket);
+        exit(1);
+    }
+
+    // Ścieżka do żądanego pliku
+    char file_path[MAX_BUFFER_SIZE];
+    snprintf(file_path, sizeof(file_path), "%s/%s", host->document_root, path + strlen(hostname) + 1);
+
+    // Otwarcie żądanego pliku
+    FILE *file = fopen(file_path, "r");
+    if (file == NULL) {
+        printf("File not found: %s\n", file_path);
+        close(client_socket);
+        exit(1);
+    }
+
+    // Wysyłanie odpowiedzi HTTP
+    char response[MAX_BUFFER_SIZE];
+    sprintf(response, "HTTP/1.1 200 OK\r\n"
+                      "Content-Type: text/html\r\n\r\n");
+
+    send(client_socket, response, strlen(response), 0);
+
+    // Odczytanie zawartości pliku i wysłanie do klienta
+    int bytes_read;
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+        send(client_socket, buffer, bytes_read, 0);
+    }
+
+    fclose(file);
+    close(client_socket);
+    exit(0);
+}
+
+void handle_signal(int signal) {
+    if (signal == SIGCHLD) {
+        int status;
+        wait(&status);
+    }
+}
+
+void write_log(const char *message) {
+    time_t now = time(NULL);
+    char timestamp[MAX_BUFFER_SIZE];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localtime(&now));
+
+    FILE *log_file = fopen(LOG_FILE, "a");
+    if (log_file != NULL) {
+        fprintf(log_file, "[%s] %s\n", timestamp, message);
+        fclose(log_file);
+    }
+}
+
+int main() {
+    // Konfiguracja serwera
+    ServerConfig config;
+    config.hosts = malloc(sizeof(VirtualHost) * 2);
+    config.num_hosts = 2;
+
+    config.hosts[0].address = "example.com";
+    config.hosts[0].document_root = "/var/www/example";
+
+    config.hosts[1].address = "test.com";
+    config.hosts[1].document_root = "/var/www/test";
+
+    // Tworzenie gniazda serwera
+    int server_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_socket == -1) {
+        perror("Error creating server socket");
+        exit(1);
+    }
+
+    // Ustalenie opcji gniazda
+    int reuse_addr = 1;
+    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &reuse_addr, sizeof(reuse_addr)) == -1) {
+        perror("Error setting socket options");
+        exit(1);
+    }
+
+    // Konfiguracja adresu serwera
+    struct sockaddr_in server_address;
+    server_address.sin_family = AF_INET;
+    server_address.sin_addr.s_addr = INADDR_ANY;
+    server_address.sin_port = htons(8080);  // Przykładowy port 8080
+
+    // Przypisanie adresu serwera do gniazda
+    if (bind(server_socket, (struct sockaddr *)&server_address, sizeof(server_address)) == -1) {
+        perror("Error binding server socket");
+        exit(1);
+    }
+
+    // Nasłuchiwanie na gnieździe serwera
+    if (listen(server_socket, SOMAXCONN) == -1) {
+        perror("Error listening on server socket");
+        exit(1);
+    }
+
+    // Obsługa sygnału SIGCHLD
+    signal(SIGCHLD, handle_signal);
+
+    // Pętla serwera
+    while (1) {
+        // Akceptowanie połączenia od klienta
+        struct sockaddr_in client_address;
+        socklen_t client_address_length = sizeof(client_address);
+        int client_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_address_length);
+        if (client_socket == -1) {
+            perror("Error accepting client connection");
+            continue;
+        }
+
+        // Tworzenie nowego procesu dla obsługi połączenia
+        pid_t pid = fork();
+        if (pid == -1) {
+            perror("Error forking process");
+            close(client_socket);
+            continue;
+        } else if (pid == 0) {
+            // Proces potomny obsługuje połączenie
+            close(server_socket);
+            handle_connection(client_socket, &config);
+            exit(0);
+        } else {
+            // Proces macierzysty kontynuuje nasłuchiwanie na gnieździe serwera
+            close(client_socket);
+
+            // Zapisywanie logów zdarzeń
+            char log_message[MAX_BUFFER_SIZE];
+            snprintf(log_message, sizeof(log_message), "Connection from %s:%d", inet_ntoa(client_address.sin_addr),
+                     ntohs(client_address.sin_port));
+            write_log(log_message);
+        }
+    }
+
+    // Zwalnianie zasobów serwera
+    free(config.hosts);
+    close(server_socket);
+
+    return 0;
+}
+
+
