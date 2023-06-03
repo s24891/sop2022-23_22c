@@ -1,0 +1,30 @@
+#include <iostream>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        std::cerr << "Błąd podczas wywoływania fork." << std::endl;
+        return 1;
+    } else if (pid == 0) {
+        // Proces potomny
+        std::cout << "Proces potomny:" << std::endl;
+        std::cout << "PID: " << getpid() << std::endl;
+        std::cout << "PPID: " << getppid() << std::endl;
+    } else {
+        // Proces rodzica
+        std::cout << "Proces rodzica:" << std::endl;
+        std::cout << "PID: " << getpid() << std::endl;
+        std::cout << "PPID: " << getppid() << std::endl;
+
+        // Oczekiwanie na zakończenie procesu potomka
+        wait(NULL);
+    }
+
+    return 0;
+}
+
+

@@ -1,0 +1,36 @@
+#include <iostream>
+
+#include <unistd.h>
+
+
+
+int main() {
+
+    pid_t pid = getpid();
+
+    pid_t ppid = getppid();
+
+
+
+    std::cout << "PID: " << pid << std::endl;
+
+    std::cout << "PPID: " << ppid << std::endl;
+
+
+
+    
+
+    std::cout << "Oczekiwanie na dane od użytkownika..." << std::endl;
+
+    std::string input;
+
+    std::getline(std::cin, input);
+
+    std::cout << "Wprowadzono: " << input << std::endl;
+
+
+
+    return 0;
+
+}
+

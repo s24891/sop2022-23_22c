@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cstdlib>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Podaj wartość jako argument programu." << std::endl;
+        return 1;
+    }
+
+    int limit = std::atoi(argv[1]);
+
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        std::cerr << "Błąd podczas wywoływania fork." << std::endl;
+        return 1;
+    } else if (pid == 0) {
+        // Proces potomny
+        std::cout << "Proces potomny:" << std::endl;
+
+        for (int i = 1; i <= limit; i += 2) {
+            std::cout << i << " ";
+        }
+        std::cout << std::endl;
+    } else {
+        // Proces rodzica
+        int sum = 0;
+        for (int i = 0; i <= limit; i++) {
+            sum += i;
+        }
+
+        // Oczekiwanie na zakończenie procesu potomka
+        wait(NULL);
+
+        std::cout << "Proces rodzica:" << std::endl;
+        std::cout << "Suma: " << sum << std::endl;
+    }
+
+    return 0;
+}
+
+
+

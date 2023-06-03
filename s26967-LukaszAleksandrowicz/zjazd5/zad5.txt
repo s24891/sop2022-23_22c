@@ -1,0 +1,41 @@
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <cerrno>
+
+int main() {
+    const int numProcesses = 100;
+    pid_t parentPID = getpid();
+
+    for (int i = 0; i < numProcesses; i++) {
+        pid_t childPID = fork();
+
+        if (childPID < 0) {
+            std::cerr << "Błąd podczas tworzenia potomka." << std::endl;
+            return 1;
+        } else if (childPID == 0) {
+            // Kod potomka
+            std::cout << "Jestem potomkiem " << i+1 << ", mój PID: " << getpid() << ", PID rodzica: " << getppid() << std::endl;
+            return 0;
+        }
+    }
+
+    // Kod rodzica
+    while (true) {
+        int status;
+        pid_t terminatedPID = wait(&status);
+
+        if (terminatedPID == -1) {
+            if (errno == ECHILD) {
+                // Wszystkie procesy potomne zakończyły działanie
+                break;
+            } else {
+                std::cerr << "Błąd w funkcji wait." << std::endl;
+                return 1;
+            }
+        }
+    }
+
+    std::cout << "Proces główny (PID: " << parentPID << ") zakończył oczekiwanie na procesy potomne." << std::endl;
+    return 0;
+}

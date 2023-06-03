@@ -1,0 +1,14 @@
+#include <iostream>
+#include <unistd.h>
+
+int main() {
+    pid_t pid = getpid();
+    pid_t ppid = getppid();
+
+    std::cout << "PID: " << pid << std::endl;
+    std::cout << "PPID: " << ppid << std::endl;
+
+    return 0;
+}
+
+
