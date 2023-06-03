@@ -34,3 +34,29 @@ nastepujacych ciekawych rzeczy:
 -Dowiedziełem się że są tablice w bash 
 -Poznałem składnie i działanie Funkcji w bash.
 
+2023-04-22
+Mój drogi pamiętniczku na czwartym spotkaniu dowiedziałem się następujących 
+fascynujących zagadnień:
+-Ręczne kompilowanie C z użyciem paremetrów zgodnie z ANSI ISO 90
+-Kolejny raz odświeżyłem sobie wskaźniki w C/C++
+-Dowiedziałem się o restrekcyjnych wymaganiach w ISO 90 i braku podstawowych 
+funkcjonalność z standardów nowszych np.nie można deklarować zmiennych
+ w deklaracji pętli for czy też "mieszać" kodu z deklaracjami zmiennych
+ (trzeba na samym początku funkcji zadeklarować zmienne i potem pisać kod
+ funkcyjny) czy też to że nie można w jednej linijce deklarować i inicjaliować
+jakąś wartością zmiennych tylko trzeba to zrobić osobno.
+-Dowiedziałe się o przekazywaniu funkcji jako wskaźnik.
+
+2023-05-06
+-Pozałem zagadnienie istnienia powiązań między procesami 
+-co to jest PID i PPID i w jakich sytuacjach i z jakiego miejsca możemy mieć
+dostęp do nich.
+-Funkcje w C
+	-fork
+	-wait
+	-waitpid
+	-getpid
+	-getppid
+-Przypomniałem sobie działanie komendy PS 
+-Drzewka procesów 
+

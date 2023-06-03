@@ -1,0 +1,6 @@
+pid = fork();
+funkcja fork tworzy nowy proces.
+W procesie rodzica jesli wywołanie funkcji fork powidoło się zwraca pid procesu potomnego.
+W tym samym momencie w procesie potomnym zwraca ona zero stąd wiemy że jesteśmy w procesie potomka.
+Dzięki temu możemy łatwo zdeterminować w którym procesie się znajdujemy i kierować przepływem programu.
+
