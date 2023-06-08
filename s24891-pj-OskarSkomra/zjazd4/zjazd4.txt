@@ -1,0 +1,268 @@
+Zadania 1
+
+1.
+
+#include <stdio.h>
+
+int main()
+{
+    int liczba1;
+    int liczba2;
+    int wynik;
+    printf("Podaj 1 liczbe: ");
+    scanf("%d", &liczba1);
+    printf("Podaj 2 liczbe: ");
+    scanf("%d", &liczba2);  
+    wynik=liczba1 + liczba2;
+    printf("%d", wynik);
+    return 0;
+}
+
+2.
+
+#include <stdio.h>
+
+int main()
+{
+    int liczba1;
+    int liczba2;
+    int wynik;
+    printf("Podaj 1 liczbe: ");
+    scanf("%d", &liczba1);
+    printf("Podaj 2 liczbe: ");
+    scanf("%d", &liczba2);  
+    wynik=liczba1 + liczba2;
+    
+    return wynik;
+}
+
+3.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+void triangle(int );
+void pole(int);
+
+int main(int argc, char *argv[])
+{
+int n;
+char height[1];
+
+strcpy(height, argv[1]);
+    n = atoi(height);
+
+    triangle(n);
+   
+    return 0;
+}
+
+void triangle(int n)
+{
+    int i,j;
+    for(i=1; i<=n; i++)
+    {
+        for(j=1;j<=n-i; j++)
+        {
+            printf(" ");
+        }
+        for(j=1; j<=2*i-1; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+
+
+Zadania 2
+
+1.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+	char myString[100]
+	FILE *fptr;
+	fptr = fopen("liczby.txt", "r");
+	while(fgets(myString, 100, fptr)) {
+	printf("$s", myString);
+	}
+	fclose(fptr);
+	return 0;
+}
+
+
+
+2.
+
+#include <stdio.h>
+#include <stdlib.h>
+	int main(int argc, char *argv[]){
+
+	char str1[10], str2[10], str3[10], str4[10];
+	int *liczby;
+	FILE * fp;
+
+	if (argc == 2){
+		fp = fopen("argv[1]", "w+");
+		fputs("3 5 1 9", fp);
+	} else {
+		printf("Podaj ciag liczb: \n");
+		fp = stdin;
+	}
+
+	rewind(fp);
+	fscanf(fp, "%s %s %s %s", str1, str2, str3, str4);
+
+	liczby = (int *)malloc(4 * sizeof(int));
+	if (liczby == NULL) {
+		printf("Niepoprawna alokacja pamieci \n");
+		f close(fp);
+		return 1;
+	}
+
+
+	printf("Liczby do wczytania: %s \n", str1);
+	printf("Liczby: %s %s %s \n", str4, str3, str2);
+
+	free(liczby);
+	if (fp != stdin){
+		fclose(fp);
+	}
+
+	return 0;
+	}
+
+Wskazniki
+
+1.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+int suma (int a, int b){
+return a + b;
+}
+
+int minimum (int a, int b){
+int min = (a > b) * b + (b > a) * a;
+
+return min;
+}
+
+int maximum (int a, int b){
+int max = (a > b) * a + (b > a) * b;
+
+return max;
+}
+
+int main(){
+
+int (*f[3])(int, int) = {suma, minimum, maximum};
+
+int functionId;
+int elementCount;
+int *numbers;
+int i;
+int v;
+
+printf("Choose function ID: ");
+scanf("%d", &functionId);
+
+printf("Element count: ");
+scanf("%d", &elementCount);
+
+numbers = (int *)malloc(elementCount * sizeof(int));
+
+printf("Numbers: ");
+for(i = 0; i < elementCount; i++){
+scanf("%d", &numbers[i]);
+}
+
+v = numbers[0];
+for (i = 1; i < elementCount; i++) {
+v = f[functionId](v, numbers[i]);
+}
+
+printf("Result: %d\n", v);
+return 0;
+}
+
+2.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+int suma (int a, int b){
+return a + b;
+}
+
+int minimum (int a, int b){
+int min = (a > b) * b + (b > a) * a;
+
+return min;
+}
+
+int maximum (int a, int b){
+int max = (a > b) * a + (b > a) * b;
+
+return max;
+}
+
+int forAll(int *numbers, int elementCount, int (*f)(int, int)){
+int i;
+int v = numbers[0];
+for(i = 1; i < elementCount; i++){
+v = f(v, numbers[i]);
+}
+return v;
+}
+
+int main(){
+
+int (*f[3])(int, int) = {suma, minimum, maximum};
+
+int functionId;
+int elementCount;
+int i;
+int v;
+int *numbers;
+int wynik;
+
+
+printf("Element count: ");
+scanf("%d", &elementCount);
+
+numbers = (int *)malloc(elementCount * sizeof(int));
+
+printf("Numbers: ");
+for(i = 0; i < elementCount; i++){
+scanf("%d", &numbers[i]);
+}
+
+
+wynik = forAll(numbers, elementCount, suma);
+printf("Suma: %d\n", wynik);
+
+wynik = forAll(numbers, elementCount, minimum);
+printf("Minimum: %d\n", wynik);
+
+wynik = forAll(numbers, elementCount, maximum);
+printf("Maximum: %d\n", wynik);
+return 0;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,102 @@
+Cwiczenie 1
+
+#!/bin/bash
+echo "Witamy w terminalu"
+
+
+Cwiczenie 2
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Po wywolaniu "bash" wchodzimy do innej instancji powloki i wczesniej zadeklarowana zmienna lokalna nie jest tam juz widoczna.
+Aby zmienna byla widoczna w innej powloce wystarczy dodac komende "export" np. export X=tekst
+
+
+X=Tekst dłuższy
+echo $X
+
+Jezeli deklarujemy wartosc bez cudzyslowiow lub apostrofow to moze ona sie skladac tylko z jednego slowa.
+W tym przypadku sa to 2 slowa, a wiec musi to zostac ujete w cudzyslow lub apostrofe
+
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Wszystko pomiedzy '' jest traktowane jako ciag znakow, wiec jak damy $X to bedzie to rowniez traktowane jako ciag a nie jako zmienna ktora przechowuje jakas wartosc.
+Pomiedzy "" znaki specjalne są interpretowane, a zmienne tłumaczone na wartości, dlatego tez dostajemy wynik: tekst:Tekst 1
+
+
+$a to zmienna, która przechowuje wszystkie argumenty jako oddzielne ciągi znaków
+$* to zmienna, która zawiera wszystkie argumenty jako pojedynczy ciąg znaków, oddzielonych pierwszym znakiem separatora
+
+Cwiczenie 3
+
+PATH -  zmienna środowiskowa używana w systemach operacyjnych do określania zestawu katalogów
+	Mozna ja wyswietlic przy pomocy $ echo $PATH
+	
+RANDOM - zwraca losowa liczbe z przedzialu 0 - 32767 (16 bitow)
+	 Moze sie przydac do wygenerowania losowej liczby podczas pisania skryptu
+
+PWD - wyswietla sciezke dostepu do biezacego katalogu
+      Moze sie przydac do szybkiego sprawdzenia sciezki katologu w ktorym sie aktualnie znajdujemy
+
+PS1 - pozwala na zmiane znaku zachety
+      Moze sie przydac do zmiany wygladu znaku zachety
+
+USER - przechowuje nazwe użytkownika aktualnie zalogowanego do systemu
+
+HOSTNAME - nazwa nadawana komputerowi
+
+OSTYPE - przechowuje nazwę systemu operacyjnego
+
+Cwiczenie 4
+
+Po przypisaniu do zmiennej x=$(ls - l) i wypisaniu jej przy pomocy echo $x wszystko zostaje wypisane w jednej linijce i jest nie czytelne
+Aby uzyskac podobny wynik(inne kolorki) jak przy zwyklym wypisaniu ls - l nalezy to zrobic w sposob: echo -e "$x"
+
+
+Cwiczenie 5a
+
+#!/bin/bash
+name="$1"
+temp="${name: -1}"
+if [[ $temp == "a" ]]; then
+	echo "$name ma kota a kot ma ${name%?}e"
+	else
+	echo "$name ma kota a kot ma $name""e"
+
+Mozna to zrobic w czystym bashu
+
+
+Cwiczenie 5b
+
+#!/bin/bash
+string="$1"
+echo "${string:0:1}"
+echo "${string: -1}"
+echo -e "${string//SOP/\\e[32mSOP\\e[0m}"
+
+Cwiczenie 6
+
+#!/bin/bash
+
+plik="$1"
+tekst=$(cat "$plik")
+
+imie=Oskar
+echo -e "${tekst//$imie/\\e[31m$imie\\e[0m}"
+
+
+
+
+
+
+
