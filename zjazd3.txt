@@ -1,0 +1,161 @@
+Cwiczenia 1
+
+1.
+#!/bin/bash
+
+if (( $# < 2 ))
+	then
+	echo "Nie podano parametrow"
+	else
+	echo "$1"
+	fi
+
+2. 
+
+#!/bin/bash
+
+if test -f config.cfg;
+	then
+	sh ./config.cfg
+	elif (($# > 0 ))
+	then
+	sh $1
+	else
+	echo "ERROR"
+	fi
+
+3.
+
+#!/bin/bash
+
+myName=${0##*/}
+string=".sh"
+
+if [ $myName: -3} != ".sh" ]; then
+	mv $myName $myName".sh"
+	fi
+
+4.
+
+#!/bin/bash
+
+fileCount=$(ls /home/user | wc -l)
+
+if (( $fileCount > 5 )); then
+	echo "Jest wiecej niz 5 plikow w danym katalogu"
+	else
+	echo "Jest mniej niz 5 plikow w danym katalogu"
+	fi
+
+
+
+Cwiczenia 2
+
+1.
+#!/bin/bash 
+for i in {10..1..2}; do echo $i; done
+
+2.
+#!/bin/bash
+echo "$@"
+
+3.
+#!/bin/bash
+
+target="/home/user"
+for f in "$target"/*; do
+    echo "Patrzcie Panstwo, oto plik:"
+    basename "$f"
+done | awk 'END { printf("File count: %d", NR); } NF=NF'
+
+
+4.
+
+#!/bin/bash
+
+IFS=$'\n'
+
+
+for i in *.c;
+do
+	echo "cc $i -o ${i%.c}"
+done
+
+5.
+
+#!/bin/bash
+
+plik=("$@")
+
+for ((i=0; i<${#plik[@]}; i++));
+do
+	echo "zawartosc pliku ${plik[i]}"
+	cat "${plik[i]}"
+	echo ""
+done
+
+for ((i=${#plik[@]}-1; i>=0; i--));
+do
+	echo "zawartosc pliku ${plik[i]}"
+	cat "${plik[i]}"
+	echo ""
+done
+
+Cwiczenia 3
+
+1. 
+
+#!/bin/bash
+
+changeColor (){
+string=$1
+color=$2
+
+if [ $2 == 'zielony' ]
+	then
+	temp=32m
+elif [$2 == 'czerwony' ]
+	then
+	temp=31m
+elif [$2 == 'zolty' ]
+	then
+	temp=33m
+elif [$2 == 'niebieski' ]
+	then
+	temp=34m
+elif [$2 == 'magneta' ]
+	then
+	temp=35m
+elif [$2 == 'cyjanowy' ]
+	then
+	temp=36m
+	fi
+
+echo -e "\e[1;$temp $string \e[0m"
+}
+
+changeColor tekst zielony
+
+
+2.
+
+#!/bin/bash
+
+function fibonacci() {
+  local n=$1
+  if [ $n -eq 0 ]; then
+    return 0
+  elif [ $n -eq 1 ]; then
+    return 1
+  else
+    local a=$(( $(fibonacci $((n-1))) + $(fibonacci $((n-2))) ))
+    return $a
+  fi
+}
+
+fibonacci 10
+result=$?
+echo "Wynik: $result"
+
+
+
